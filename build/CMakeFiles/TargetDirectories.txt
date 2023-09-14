@@ -1,0 +1,11 @@
+D:/linux_kernel/dmos/build/CMakeFiles/edit_cache.dir
+D:/linux_kernel/dmos/build/CMakeFiles/rebuild_cache.dir
+D:/linux_kernel/dmos/build/src/boot/CMakeFiles/boot.dir
+D:/linux_kernel/dmos/build/src/boot/CMakeFiles/edit_cache.dir
+D:/linux_kernel/dmos/build/src/boot/CMakeFiles/rebuild_cache.dir
+D:/linux_kernel/dmos/build/src/loader/CMakeFiles/loader.dir
+D:/linux_kernel/dmos/build/src/loader/CMakeFiles/edit_cache.dir
+D:/linux_kernel/dmos/build/src/loader/CMakeFiles/rebuild_cache.dir
+D:/linux_kernel/dmos/build/src/kernel/CMakeFiles/kernel.dir
+D:/linux_kernel/dmos/build/src/kernel/CMakeFiles/edit_cache.dir
+D:/linux_kernel/dmos/build/src/kernel/CMakeFiles/rebuild_cache.dir

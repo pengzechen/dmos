@@ -1,0 +1,45 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0", 
+    "tasks": [
+        {
+            "label": "写映像文件",
+            "type": "shell",
+            "command": "",
+            "windows": {
+                // windows下特殊一些
+                "command": "${workspaceRoot}/script/write_img.bat",
+            },
+            "linux":{
+                "command": "bash ${workspaceRoot}/script//write_img.sh"
+            },
+            "options": {
+                "cwd": "${workspaceRoot}/image/"
+            }
+        },
+        {
+            "label": "启动qemu",
+            "type": "shell",
+            "command": "",
+            "windows": {
+                // windows下特殊一些
+                "command": "${workspaceRoot}/script/start_qemu.bat",
+            },
+            "linux":{
+                "command": "bash ${workspaceRoot}/script/start_qemu.sh",
+            },
+            "options": {
+                "cwd": "${workspaceRoot}/image/"
+            }
+        },
+        {
+            "label": "调试准备",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "写映像文件",
+                "启动qemu"
+            ],
+        }
+    ]
+}

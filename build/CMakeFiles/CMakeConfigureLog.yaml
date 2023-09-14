@@ -1,0 +1,135 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/MinGW/mingw32-9.2/MinGW/MinGW/CMake/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:204 (message)"
+      - "CMakeLists.txt:25 (project)"
+    message: |
+      The system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/MinGW/mingw32-9.2/MinGW/MinGW/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "D:/MinGW/mingw32-9.2/MinGW/MinGW/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "D:/MinGW/mingw32-9.2/MinGW/MinGW/CMake/share/cmake-3.26/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:25 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: D:/linux_kernel/tool/x86_64-elf-tools-windows/bin/x86_64-elf-gcc.exe 
+      Build flags: -g;-c;-O0;-m32;-fno-pie;-fno-stack-protector;-fno-asynchronous-unwind-tables
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is GNU, found in:
+        D:/linux_kernel/dmos/build/CMakeFiles/3.26.0-rc1/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/MinGW/mingw32-9.2/MinGW/MinGW/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "D:/MinGW/mingw32-9.2/MinGW/MinGW/CMake/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:25 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "D:/linux_kernel/dmos/build/CMakeFiles/CMakeScratch/TryCompile-znqlbu"
+      binary: "D:/linux_kernel/dmos/build/CMakeFiles/CMakeScratch/TryCompile-znqlbu"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: D:/linux_kernel/dmos/build/CMakeFiles/CMakeScratch/TryCompile-znqlbu
+        
+        Run Build Command(s):D:/MinGW/mingw32-9.2/MinGW/MinGW/ninja/ninja.exe -v cmTC_51c66 && [1/2] D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe   -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables    -v -o CMakeFiles/cmTC_51c66.dir/CMakeCCompilerABI.c.obj -c D:/MinGW/mingw32-9.2/MinGW/MinGW/CMake/share/cmake-3.26/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe
+        Target: x86_64-elf
+        Configured with: ../gcc-7.1.0/configure --host=i686-w64-mingw32.static --target=x86_64-elf --disable-nls --enable-languages=c,c++ --without-headers --prefix=/root/build-x86_64-elf/windows/output
+        Thread model: single
+        gcc version 7.1.0 (GCC) 
+        COLLECT_GCC_OPTIONS='-g' '-c' '-O0' '-m32' '-fno-pie' '-fno-stack-protector' '-fno-asynchronous-unwind-tables' '-v' '-o' 'CMakeFiles/cmTC_51c66.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64'
+         d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../libexec/gcc/x86_64-elf/7.1.0/cc1.exe -quiet -v -iprefix d:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\../lib/gcc/x86_64-elf/7.1.0/ D:/MinGW/mingw32-9.2/MinGW/MinGW/CMake/share/cmake-3.26/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -m32 -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_51c66.dir/CMakeCCompilerABI.c.obj -g -O0 -version -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -o C:\\Users\\92706\\AppData\\Local\\Temp\\ccIpc4no.s
+        GNU C11 (GCC) version 7.1.0 (x86_64-elf)
+        	compiled by GNU C version 5.5.0, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.16.1-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "d:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\../lib/gcc/x86_64-elf/7.1.0/../../../../x86_64-elf/sys-include"
+        ignoring nonexistent directory "d:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\../lib/gcc/x86_64-elf/7.1.0/../../../../x86_64-elf/include"
+        ignoring duplicate directory "d:/linux_kernel/tool/x86_64-elf-tools-windows/lib/gcc/../../lib/gcc/x86_64-elf/7.1.0/include"
+        ignoring duplicate directory "d:/linux_kernel/tool/x86_64-elf-tools-windows/lib/gcc/../../lib/gcc/x86_64-elf/7.1.0/include-fixed"
+        ignoring nonexistent directory "d:/linux_kernel/tool/x86_64-elf-tools-windows/lib/gcc/../../lib/gcc/x86_64-elf/7.1.0/../../../../x86_64-elf/sys-include"
+        ignoring nonexistent directory "d:/linux_kernel/tool/x86_64-elf-tools-windows/lib/gcc/../../lib/gcc/x86_64-elf/7.1.0/../../../../x86_64-elf/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         d:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\../lib/gcc/x86_64-elf/7.1.0/include
+         d:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\../lib/gcc/x86_64-elf/7.1.0/include-fixed
+        End of search list.
+        GNU C11 (GCC) version 7.1.0 (x86_64-elf)
+        	compiled by GNU C version 5.5.0, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.16.1-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        Compiler executable checksum: b00064cd55ffce4efe95d0fcd6948296
+        COLLECT_GCC_OPTIONS='-g' '-c' '-O0' '-m32' '-fno-pie' '-fno-stack-protector' '-fno-asynchronous-unwind-tables' '-v' '-o' 'CMakeFiles/cmTC_51c66.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64'
+         d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../lib/gcc/x86_64-elf/7.1.0/../../../../x86_64-elf/bin/as.exe --32 -o CMakeFiles/cmTC_51c66.dir/CMakeCCompilerABI.c.obj C:\\Users\\92706\\AppData\\Local\\Temp\\ccIpc4no.s
+        COMPILER_PATH=d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../libexec/gcc/x86_64-elf/7.1.0/;d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../libexec/gcc/;d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../lib/gcc/x86_64-elf/7.1.0/../../../../x86_64-elf/bin/
+        LIBRARY_PATH=d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../lib/gcc/x86_64-elf/7.1.0/;d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../lib/gcc/;d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../lib/gcc/x86_64-elf/7.1.0/../../../../x86_64-elf/lib/
+        COLLECT_GCC_OPTIONS='-g' '-c' '-O0' '-m32' '-fno-pie' '-fno-stack-protector' '-fno-asynchronous-unwind-tables' '-v' '-o' 'CMakeFiles/cmTC_51c66.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64'
+        [2/2] cmd.exe /C "cd . && D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -v CMakeFiles/cmTC_51c66.dir/CMakeCCompilerABI.c.obj -o cmTC_51c66.exe -Wl,--out-implib,libcmTC_51c66.dll.a -Wl,--major-image-version,0,--minor-image-version,0   && cd ."
+        Using built-in specs.
+        COLLECT_GCC=D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe
+        Target: x86_64-elf
+        Configured with: ../gcc-7.1.0/configure --host=i686-w64-mingw32.static --target=x86_64-elf --disable-nls --enable-languages=c,c++ --without-headers --prefix=/root/build-x86_64-elf/windows/output
+        Thread model: single
+        gcc version 7.1.0 (GCC) 
+        COMPILER_PATH=d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../libexec/gcc/x86_64-elf/7.1.0/;d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../libexec/gcc/;d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../lib/gcc/x86_64-elf/7.1.0/../../../../x86_64-elf/bin/
+        LIBRARY_PATH=d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../lib/gcc/x86_64-elf/7.1.0/;d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../lib/gcc/;d:/linux_kernel/tool/x86_64-elf-tools-windows/bin/../lib/gcc/x86_64-elf/7.1.0/../../../../x86_64-elf/lib/
+        COLLECT_GCC_OPTIONS='-g' '-c' '-O0' '-m32' '-fno-pie' '-fno-stack-protector' '-fno-asynchronous-unwind-tables' '-v' '-o' 'cmTC_51c66.exe' '-mtune=generic' '-march=x86-64'\x0d
+        x86_64-elf-gcc.exe: warning: CMakeFiles/cmTC_51c66.dir/CMakeCCompilerABI.c.obj: linker input file unused because linking not done\x0d
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/MinGW/mingw32-9.2/MinGW/MinGW/CMake/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:56 (try_compile)"
+      - "CMakeLists.txt:25 (project)"
+    checks:
+      - "Check for working C compiler: D:/linux_kernel/tool/x86_64-elf-tools-windows/bin/x86_64-elf-gcc.exe"
+    directories:
+      source: "D:/linux_kernel/dmos/build/CMakeFiles/CMakeScratch/TryCompile-nogilu"
+      binary: "D:/linux_kernel/dmos/build/CMakeFiles/CMakeScratch/TryCompile-nogilu"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables"
+    buildResult:
+      variable: "CMAKE_C_COMPILER_WORKS"
+      cached: true
+      stdout: |
+        Change Dir: D:/linux_kernel/dmos/build/CMakeFiles/CMakeScratch/TryCompile-nogilu
+        
+        Run Build Command(s):D:/MinGW/mingw32-9.2/MinGW/MinGW/ninja/ninja.exe -v cmTC_bb7ef && [1/2] D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe   -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -o CMakeFiles/cmTC_bb7ef.dir/testCCompiler.c.obj -c D:/linux_kernel/dmos/build/CMakeFiles/CMakeScratch/TryCompile-nogilu/testCCompiler.c
+        [2/2] cmd.exe /C "cd . && D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables  CMakeFiles/cmTC_bb7ef.dir/testCCompiler.c.obj -o cmTC_bb7ef.exe -Wl,--out-implib,libcmTC_bb7ef.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+        x86_64-elf-gcc.exe: warning: CMakeFiles/cmTC_bb7ef.dir/testCCompiler.c.obj: linker input file unused because linking not done\x0d
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/MinGW/mingw32-9.2/MinGW/MinGW/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:1102 (message)"
+      - "D:/MinGW/mingw32-9.2/MinGW/MinGW/CMake/share/cmake-3.26/Modules/CMakeDetermineASMCompiler.cmake:127 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:26 (enable_language)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      x86_64-elf-gcc.exe (GCC) 7.1.0
+      Copyright (C) 2017 Free Software Foundation, Inc.
+      This is free software; see the source for copying conditions.  There is NO
+      warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+      
+...

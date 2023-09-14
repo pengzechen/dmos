@@ -1,0 +1,1 @@
+fsutil file createnew disk.img 52428800

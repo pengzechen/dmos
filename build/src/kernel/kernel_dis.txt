@@ -1,0 +1,923 @@
+
+D:/linux_kernel/dmos/build/src/kernel/kernel.elf:     file format elf32-i386
+D:/linux_kernel/dmos/build/src/kernel/kernel.elf
+architecture: i386, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x00010000
+
+Program Header:
+    LOAD off    0x00001000 vaddr 0x00010000 paddr 0x00010000 align 2**12
+         filesz 0x0000057d memsz 0x0000057d flags r-x
+    LOAD off    0x00002000 vaddr 0x00011000 paddr 0x00011000 align 2**12
+         filesz 0x00000000 memsz 0x00000c04 flags rw-
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000057d  00010000  00010000  00001000  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000c04  00011000  00011000  00002000  2**5
+                  ALLOC
+  2 .comment      00000011  00000000  00000000  0000157d  2**0
+                  CONTENTS, READONLY
+  3 .debug_aranges 00000080  00000000  00000000  00001590  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   00000983  00000000  00000000  00001610  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 0000038f  00000000  00000000  00001f93  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   00000369  00000000  00000000  00002322  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  0000033c  00000000  00000000  0000268c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    0000039c  00000000  00000000  000029c8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+SYMBOL TABLE:
+00010000 l    d  .text	00000000 .text
+00011000 l    d  .bss	00000000 .bss
+00000000 l    d  .comment	00000000 .comment
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    df *ABS*	00000000 src/kernel/CMakeFiles/kernel.dir/init/start.S.obj
+00010010 l       .text	00000000 gdt_reload
+00000000 l    df *ABS*	00000000 cpu.c
+00010080 l     F .text	00000007 cli
+00010087 l     F .text	00000007 sti
+0001008e l     F .text	00000028 lgdt
+000100b6 l     F .text	00000028 lidt
+000100de l     F .text	0000001d inb
+000100fb l     F .text	0000001f outb
+00011000 l     O .bss	00000800 gdt_table
+00011800 l     O .bss	00000400 idt_table
+00010225 l     F .text	00000093 init_pic
+00000000 l    df *ABS*	00000000 time.c
+000104b1 l     F .text	0000001f outb
+00011c00 l     O .bss	00000004 sys_tick
+000104e3 l     F .text	00000060 init_pit
+00000000 l    df *ABS*	00000000 init.c
+000103d5 g     F .text	0000000b irq_enable_global
+00010578 g     F .text	00000005 init_main
+000102b8 g     F .text	0000008b irq_enable
+00010023 g       .text	00000000 exception_handler_unknown
+00010061 g       .text	00000000 exception_handler_time
+00010042 g       .text	00000000 exception_handler_divider
+000103ca g     F .text	0000000b irq_disable_global
+0001011a g     F .text	00000006 handle_unknown
+0001055b g     F .text	0000001d kernel_init
+00010000 g       .text	00000000 _start
+000101f3 g     F .text	00000032 irq_install
+000103e0 g     F .text	0000006d init_gdt
+00010343 g     F .text	00000087 irq_disable
+00011000 g       .bss	00000000 __bss_start
+0001044d g     F .text	00000064 irq_init
+000104d0 g     F .text	00000013 handle_time
+00010126 g     F .text	00000086 segment_desc_set
+00011000 g       .bss	00000000 _edata
+00011c04 g       .bss	00000000 _end
+00010120 g     F .text	00000006 handle_divider
+000101ac g     F .text	00000047 gate_desc_set
+00010543 g     F .text	00000018 time_init
+
+
+
+Disassembly of section .text:
+
+00010000 <_start>:
+    # 第二种方法
+    # mov 4(%esp), %eax
+    # push %eax
+
+    # 第三种方法
+    push 4(%esp)
+   10000:	ff 74 24 04          	pushl  0x4(%esp)
+
+    # kernel_init(boot_info)
+    call kernel_init
+   10004:	e8 52 05 00 00       	call   1055b <kernel_init>
+
+	jmp $KERNEL_SELECTOR_CS, $gdt_reload
+   10009:	ea 10 00 01 00 08 00 	ljmp   $0x8,$0x10010
+
+00010010 <gdt_reload>:
+
+gdt_reload:
+	mov $KERNEL_SELECTOR_DS, %ax		// 16为数据段选择子
+   10010:	66 b8 10 00          	mov    $0x10,%ax
+	mov %ax, %ds
+   10014:	8e d8                	mov    %eax,%ds
+    mov %ax, %ss
+   10016:	8e d0                	mov    %eax,%ss
+    mov %ax, %es
+   10018:	8e c0                	mov    %eax,%es
+    mov %ax, %fs
+   1001a:	8e e0                	mov    %eax,%fs
+    mov %ax, %gs
+   1001c:	8e e8                	mov    %eax,%gs
+    jmp init_main
+   1001e:	e9 55 05 00 00       	jmp    10578 <init_main>
+
+00010023 <exception_handler_unknown>:
+    add $(2*4), %esp    # 跳过 with_error_code num
+    iret                # 中断返回
+
+.endm
+
+exception_handler unknown, -1, 0 
+   10023:	6a 00                	push   $0x0
+   10025:	6a ff                	push   $0xffffffff
+   10027:	60                   	pusha  
+   10028:	1e                   	push   %ds
+   10029:	06                   	push   %es
+   1002a:	0f a0                	push   %fs
+   1002c:	0f a8                	push   %gs
+   1002e:	54                   	push   %esp
+   1002f:	e8 e6 00 00 00       	call   1011a <handle_unknown>
+   10034:	83 c4 04             	add    $0x4,%esp
+   10037:	0f a9                	pop    %gs
+   10039:	0f a1                	pop    %fs
+   1003b:	07                   	pop    %es
+   1003c:	1f                   	pop    %ds
+   1003d:	61                   	popa   
+   1003e:	83 c4 08             	add    $0x8,%esp
+   10041:	cf                   	iret   
+
+00010042 <exception_handler_divider>:
+exception_handler divider,  0, 0 
+   10042:	6a 00                	push   $0x0
+   10044:	6a 00                	push   $0x0
+   10046:	60                   	pusha  
+   10047:	1e                   	push   %ds
+   10048:	06                   	push   %es
+   10049:	0f a0                	push   %fs
+   1004b:	0f a8                	push   %gs
+   1004d:	54                   	push   %esp
+   1004e:	e8 cd 00 00 00       	call   10120 <handle_divider>
+   10053:	83 c4 04             	add    $0x4,%esp
+   10056:	0f a9                	pop    %gs
+   10058:	0f a1                	pop    %fs
+   1005a:	07                   	pop    %es
+   1005b:	1f                   	pop    %ds
+   1005c:	61                   	popa   
+   1005d:	83 c4 08             	add    $0x8,%esp
+   10060:	cf                   	iret   
+
+00010061 <exception_handler_time>:
+
+   10061:	6a 00                	push   $0x0
+   10063:	6a 20                	push   $0x20
+   10065:	60                   	pusha  
+   10066:	1e                   	push   %ds
+   10067:	06                   	push   %es
+   10068:	0f a0                	push   %fs
+   1006a:	0f a8                	push   %gs
+   1006c:	54                   	push   %esp
+   1006d:	e8 5e 04 00 00       	call   104d0 <handle_time>
+   10072:	83 c4 04             	add    $0x4,%esp
+   10075:	0f a9                	pop    %gs
+   10077:	0f a1                	pop    %fs
+   10079:	07                   	pop    %es
+   1007a:	1f                   	pop    %ds
+   1007b:	61                   	popa   
+   1007c:	83 c4 08             	add    $0x8,%esp
+   1007f:	cf                   	iret   
+
+00010080 <cli>:
+
+static inline void hlt() {
+	__asm__ __volatile__("hlt");
+}
+
+static inline void cli() {
+   10080:	55                   	push   %ebp
+   10081:	89 e5                	mov    %esp,%ebp
+	__asm__ __volatile__("cli");
+   10083:	fa                   	cli    
+}
+   10084:	90                   	nop
+   10085:	5d                   	pop    %ebp
+   10086:	c3                   	ret    
+
+00010087 <sti>:
+
+static inline void sti() {
+   10087:	55                   	push   %ebp
+   10088:	89 e5                	mov    %esp,%ebp
+	__asm__ __volatile__("sti");
+   1008a:	fb                   	sti    
+}
+   1008b:	90                   	nop
+   1008c:	5d                   	pop    %ebp
+   1008d:	c3                   	ret    
+
+0001008e <lgdt>:
+
+static inline void lgdt(uint32_t start, uint32_t size) {
+   1008e:	55                   	push   %ebp
+   1008f:	89 e5                	mov    %esp,%ebp
+   10091:	83 ec 10             	sub    $0x10,%esp
+		uint16_t limit;
+		uint16_t start15_0;
+		uint16_t start31_16;
+	} gdt;
+
+	gdt.start31_16 = start >> 16;
+   10094:	8b 45 08             	mov    0x8(%ebp),%eax
+   10097:	c1 e8 10             	shr    $0x10,%eax
+   1009a:	66 89 45 fe          	mov    %ax,-0x2(%ebp)
+	gdt.start15_0 = start & 0xFFFF;
+   1009e:	8b 45 08             	mov    0x8(%ebp),%eax
+   100a1:	66 89 45 fc          	mov    %ax,-0x4(%ebp)
+	gdt.limit = size - 1;
+   100a5:	8b 45 0c             	mov    0xc(%ebp),%eax
+   100a8:	83 e8 01             	sub    $0x1,%eax
+   100ab:	66 89 45 fa          	mov    %ax,-0x6(%ebp)
+
+	__asm__ __volatile__("lgdt %[g]"::[g]"m"(gdt));
+   100af:	0f 01 55 fa          	lgdtl  -0x6(%ebp)
+}
+   100b3:	90                   	nop
+   100b4:	c9                   	leave  
+   100b5:	c3                   	ret    
+
+000100b6 <lidt>:
+
+static inline void lidt(uint32_t start, uint32_t size) {
+   100b6:	55                   	push   %ebp
+   100b7:	89 e5                	mov    %esp,%ebp
+   100b9:	83 ec 10             	sub    $0x10,%esp
+		uint16_t limit;
+		uint16_t start15_0;
+		uint16_t start31_16;
+	} idt;
+
+	idt.start31_16 = start >> 16;
+   100bc:	8b 45 08             	mov    0x8(%ebp),%eax
+   100bf:	c1 e8 10             	shr    $0x10,%eax
+   100c2:	66 89 45 fe          	mov    %ax,-0x2(%ebp)
+	idt.start15_0 = start & 0xFFFF;
+   100c6:	8b 45 08             	mov    0x8(%ebp),%eax
+   100c9:	66 89 45 fc          	mov    %ax,-0x4(%ebp)
+	idt.limit = size - 1;
+   100cd:	8b 45 0c             	mov    0xc(%ebp),%eax
+   100d0:	83 e8 01             	sub    $0x1,%eax
+   100d3:	66 89 45 fa          	mov    %ax,-0x6(%ebp)
+
+	__asm__ __volatile__("lidt %0"::"m"(idt));
+   100d7:	0f 01 5d fa          	lidtl  -0x6(%ebp)
+}
+   100db:	90                   	nop
+   100dc:	c9                   	leave  
+   100dd:	c3                   	ret    
+
+000100de <inb>:
+
+static inline uint8_t inb(uint16_t  port) {
+   100de:	55                   	push   %ebp
+   100df:	89 e5                	mov    %esp,%ebp
+   100e1:	83 ec 14             	sub    $0x14,%esp
+   100e4:	8b 45 08             	mov    0x8(%ebp),%eax
+   100e7:	66 89 45 ec          	mov    %ax,-0x14(%ebp)
+	uint8_t rv;
+	__asm__ __volatile__("inb %[p], %[v]" : [v]"=a" (rv) : [p]"d"(port));
+   100eb:	0f b7 45 ec          	movzwl -0x14(%ebp),%eax
+   100ef:	89 c2                	mov    %eax,%edx
+   100f1:	ec                   	in     (%dx),%al
+   100f2:	88 45 ff             	mov    %al,-0x1(%ebp)
+	return rv;
+   100f5:	0f b6 45 ff          	movzbl -0x1(%ebp),%eax
+}
+   100f9:	c9                   	leave  
+   100fa:	c3                   	ret    
+
+000100fb <outb>:
+	uint16_t rv;
+	__asm__ __volatile__("in %1, %0" : "=a" (rv) : "dN" (port));
+	return rv;
+}
+
+static inline void outb(uint16_t port, uint8_t data) {
+   100fb:	55                   	push   %ebp
+   100fc:	89 e5                	mov    %esp,%ebp
+   100fe:	83 ec 08             	sub    $0x8,%esp
+   10101:	8b 55 08             	mov    0x8(%ebp),%edx
+   10104:	8b 45 0c             	mov    0xc(%ebp),%eax
+   10107:	66 89 55 fc          	mov    %dx,-0x4(%ebp)
+   1010b:	88 45 f8             	mov    %al,-0x8(%ebp)
+	__asm__ __volatile__("outb %[v], %[p]" : : [p]"d" (port), [v]"a" (data));
+   1010e:	0f b7 55 fc          	movzwl -0x4(%ebp),%edx
+   10112:	0f b6 45 f8          	movzbl -0x8(%ebp),%eax
+   10116:	ee                   	out    %al,(%dx)
+}
+   10117:	90                   	nop
+   10118:	c9                   	leave  
+   10119:	c3                   	ret    
+
+0001011a <handle_unknown>:
+static segment_desc_t gdt_table[GDT_TABLE_SIZE];
+static gate_desc_t idt_table[IDT_TABLE_NR];
+
+
+void exception_handler_unknown();
+void handle_unknown(exception_frame_t * frame) {}
+   1011a:	55                   	push   %ebp
+   1011b:	89 e5                	mov    %esp,%ebp
+   1011d:	90                   	nop
+   1011e:	5d                   	pop    %ebp
+   1011f:	c3                   	ret    
+
+00010120 <handle_divider>:
+
+void exception_handler_divider();
+void handle_divider(exception_frame_t * frame) {}
+   10120:	55                   	push   %ebp
+   10121:	89 e5                	mov    %esp,%ebp
+   10123:	90                   	nop
+   10124:	5d                   	pop    %ebp
+   10125:	c3                   	ret    
+
+00010126 <segment_desc_set>:
+
+
+void segment_desc_set(int selector, uint32_t base, uint32_t limit, uint16_t attr) {
+   10126:	55                   	push   %ebp
+   10127:	89 e5                	mov    %esp,%ebp
+   10129:	83 ec 14             	sub    $0x14,%esp
+   1012c:	8b 45 14             	mov    0x14(%ebp),%eax
+   1012f:	66 89 45 ec          	mov    %ax,-0x14(%ebp)
+    segment_desc_t * desc = gdt_table + (selector >> 3);
+   10133:	8b 45 08             	mov    0x8(%ebp),%eax
+   10136:	c1 f8 03             	sar    $0x3,%eax
+   10139:	c1 e0 03             	shl    $0x3,%eax
+   1013c:	05 00 10 01 00       	add    $0x11000,%eax
+   10141:	89 45 fc             	mov    %eax,-0x4(%ebp)
+
+	if (limit > 0xfffff) {
+   10144:	81 7d 10 ff ff 0f 00 	cmpl   $0xfffff,0x10(%ebp)
+   1014b:	76 0f                	jbe    1015c <segment_desc_set+0x36>
+		attr |= 0x8000;
+   1014d:	66 81 4d ec 00 80    	orw    $0x8000,-0x14(%ebp)
+		limit /= 0x1000;
+   10153:	8b 45 10             	mov    0x10(%ebp),%eax
+   10156:	c1 e8 0c             	shr    $0xc,%eax
+   10159:	89 45 10             	mov    %eax,0x10(%ebp)
+	}
+	desc->limit15_0 = limit & 0xffff;
+   1015c:	8b 45 10             	mov    0x10(%ebp),%eax
+   1015f:	89 c2                	mov    %eax,%edx
+   10161:	8b 45 fc             	mov    -0x4(%ebp),%eax
+   10164:	66 89 10             	mov    %dx,(%eax)
+	desc->base15_0 = base & 0xffff;
+   10167:	8b 45 0c             	mov    0xc(%ebp),%eax
+   1016a:	89 c2                	mov    %eax,%edx
+   1016c:	8b 45 fc             	mov    -0x4(%ebp),%eax
+   1016f:	66 89 50 02          	mov    %dx,0x2(%eax)
+	desc->base23_16 = (base >> 16) & 0xff;
+   10173:	8b 45 0c             	mov    0xc(%ebp),%eax
+   10176:	c1 e8 10             	shr    $0x10,%eax
+   10179:	89 c2                	mov    %eax,%edx
+   1017b:	8b 45 fc             	mov    -0x4(%ebp),%eax
+   1017e:	88 50 04             	mov    %dl,0x4(%eax)
+	desc->attr = attr | (((limit >> 16) & 0xf) << 8);
+   10181:	8b 45 10             	mov    0x10(%ebp),%eax
+   10184:	c1 e8 10             	shr    $0x10,%eax
+   10187:	c1 e0 08             	shl    $0x8,%eax
+   1018a:	66 25 00 0f          	and    $0xf00,%ax
+   1018e:	66 0b 45 ec          	or     -0x14(%ebp),%ax
+   10192:	89 c2                	mov    %eax,%edx
+   10194:	8b 45 fc             	mov    -0x4(%ebp),%eax
+   10197:	66 89 50 05          	mov    %dx,0x5(%eax)
+	desc->base31_24 = (base >> 24) & 0xff;
+   1019b:	8b 45 0c             	mov    0xc(%ebp),%eax
+   1019e:	c1 e8 18             	shr    $0x18,%eax
+   101a1:	89 c2                	mov    %eax,%edx
+   101a3:	8b 45 fc             	mov    -0x4(%ebp),%eax
+   101a6:	88 50 07             	mov    %dl,0x7(%eax)
+}
+   101a9:	90                   	nop
+   101aa:	c9                   	leave  
+   101ab:	c3                   	ret    
+
+000101ac <gate_desc_set>:
+
+void gate_desc_set(gate_desc_t * desc, uint16_t selector, uint32_t offset, uint16_t attr) {
+   101ac:	55                   	push   %ebp
+   101ad:	89 e5                	mov    %esp,%ebp
+   101af:	83 ec 08             	sub    $0x8,%esp
+   101b2:	8b 55 0c             	mov    0xc(%ebp),%edx
+   101b5:	8b 45 14             	mov    0x14(%ebp),%eax
+   101b8:	66 89 55 fc          	mov    %dx,-0x4(%ebp)
+   101bc:	66 89 45 f8          	mov    %ax,-0x8(%ebp)
+	desc->offset15_0 = offset & 0xffff;
+   101c0:	8b 45 10             	mov    0x10(%ebp),%eax
+   101c3:	89 c2                	mov    %eax,%edx
+   101c5:	8b 45 08             	mov    0x8(%ebp),%eax
+   101c8:	66 89 10             	mov    %dx,(%eax)
+	desc->selector = selector;
+   101cb:	8b 45 08             	mov    0x8(%ebp),%eax
+   101ce:	0f b7 55 fc          	movzwl -0x4(%ebp),%edx
+   101d2:	66 89 50 02          	mov    %dx,0x2(%eax)
+	desc->attr = attr;
+   101d6:	8b 45 08             	mov    0x8(%ebp),%eax
+   101d9:	0f b7 55 f8          	movzwl -0x8(%ebp),%edx
+   101dd:	66 89 50 04          	mov    %dx,0x4(%eax)
+	desc->offset31_16 = (offset >> 16) & 0xffff;
+   101e1:	8b 45 10             	mov    0x10(%ebp),%eax
+   101e4:	c1 e8 10             	shr    $0x10,%eax
+   101e7:	89 c2                	mov    %eax,%edx
+   101e9:	8b 45 08             	mov    0x8(%ebp),%eax
+   101ec:	66 89 50 06          	mov    %dx,0x6(%eax)
+}
+   101f0:	90                   	nop
+   101f1:	c9                   	leave  
+   101f2:	c3                   	ret    
+
+000101f3 <irq_install>:
+
+
+
+int irq_install(int irq_num, irq_handler_t handler) {
+   101f3:	55                   	push   %ebp
+   101f4:	89 e5                	mov    %esp,%ebp
+    if(irq_num >= IDT_TABLE_NR) {
+   101f6:	83 7d 08 7f          	cmpl   $0x7f,0x8(%ebp)
+   101fa:	7e 07                	jle    10203 <irq_install+0x10>
+        return -1;
+   101fc:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+   10201:	eb 20                	jmp    10223 <irq_install+0x30>
+    }
+
+    gate_desc_set(idt_table + irq_num, KERNEL_SELECTOR_CS, (uint32_t)handler, 
+   10203:	8b 45 0c             	mov    0xc(%ebp),%eax
+   10206:	8b 55 08             	mov    0x8(%ebp),%edx
+   10209:	c1 e2 03             	shl    $0x3,%edx
+   1020c:	81 c2 00 18 01 00    	add    $0x11800,%edx
+   10212:	68 00 8e 00 00       	push   $0x8e00
+   10217:	50                   	push   %eax
+   10218:	6a 08                	push   $0x8
+   1021a:	52                   	push   %edx
+   1021b:	e8 8c ff ff ff       	call   101ac <gate_desc_set>
+   10220:	83 c4 10             	add    $0x10,%esp
+        GATE_P_PRESENT | GATE_DPL0 | GATE_TYPE_IDT);
+}
+   10223:	c9                   	leave  
+   10224:	c3                   	ret    
+
+00010225 <init_pic>:
+
+static void init_pic(void) {
+   10225:	55                   	push   %ebp
+   10226:	89 e5                	mov    %esp,%ebp
+    outb(PIC0_ICW1, PIC_ICW1_ALWAYS_1 | PIC_ICW1_ICW4);
+   10228:	6a 11                	push   $0x11
+   1022a:	6a 20                	push   $0x20
+   1022c:	e8 ca fe ff ff       	call   100fb <outb>
+   10231:	83 c4 08             	add    $0x8,%esp
+    outb(PIC0_ICW2, IRQ_PIC_START);
+   10234:	6a 20                	push   $0x20
+   10236:	6a 21                	push   $0x21
+   10238:	e8 be fe ff ff       	call   100fb <outb>
+   1023d:	83 c4 08             	add    $0x8,%esp
+    outb(PIC0_ICW3, 1 << 2);
+   10240:	6a 04                	push   $0x4
+   10242:	6a 21                	push   $0x21
+   10244:	e8 b2 fe ff ff       	call   100fb <outb>
+   10249:	83 c4 08             	add    $0x8,%esp
+    outb(PIC0_ICW4, PIC_ICW4_8086);
+   1024c:	6a 01                	push   $0x1
+   1024e:	6a 21                	push   $0x21
+   10250:	e8 a6 fe ff ff       	call   100fb <outb>
+   10255:	83 c4 08             	add    $0x8,%esp
+
+    outb(PIC1_ICW1, PIC_ICW1_ICW4 | PIC_ICW1_ALWAYS_1);
+   10258:	6a 11                	push   $0x11
+   1025a:	68 a0 00 00 00       	push   $0xa0
+   1025f:	e8 97 fe ff ff       	call   100fb <outb>
+   10264:	83 c4 08             	add    $0x8,%esp
+    outb(PIC1_ICW2, IRQ_PIC_START + 8);
+   10267:	6a 28                	push   $0x28
+   10269:	68 a1 00 00 00       	push   $0xa1
+   1026e:	e8 88 fe ff ff       	call   100fb <outb>
+   10273:	83 c4 08             	add    $0x8,%esp
+    outb(PIC1_ICW3, 2);
+   10276:	6a 02                	push   $0x2
+   10278:	68 a1 00 00 00       	push   $0xa1
+   1027d:	e8 79 fe ff ff       	call   100fb <outb>
+   10282:	83 c4 08             	add    $0x8,%esp
+    outb(PIC1_ICW4, PIC_ICW4_8086);
+   10285:	6a 01                	push   $0x1
+   10287:	68 a1 00 00 00       	push   $0xa1
+   1028c:	e8 6a fe ff ff       	call   100fb <outb>
+   10291:	83 c4 08             	add    $0x8,%esp
+    
+    outb(PIC0_IMR, 0xFF & ~(1 << 2));
+   10294:	68 fb 00 00 00       	push   $0xfb
+   10299:	6a 21                	push   $0x21
+   1029b:	e8 5b fe ff ff       	call   100fb <outb>
+   102a0:	83 c4 08             	add    $0x8,%esp
+    outb(PIC1_IMR, 0xFF);
+   102a3:	68 ff 00 00 00       	push   $0xff
+   102a8:	68 a1 00 00 00       	push   $0xa1
+   102ad:	e8 49 fe ff ff       	call   100fb <outb>
+   102b2:	83 c4 08             	add    $0x8,%esp
+}
+   102b5:	90                   	nop
+   102b6:	c9                   	leave  
+   102b7:	c3                   	ret    
+
+000102b8 <irq_enable>:
+
+// 中断的打开与关闭
+void irq_enable(int irq_num) {
+   102b8:	55                   	push   %ebp
+   102b9:	89 e5                	mov    %esp,%ebp
+   102bb:	53                   	push   %ebx
+   102bc:	83 ec 10             	sub    $0x10,%esp
+    if (irq_num < IRQ_PIC_START) {
+   102bf:	83 7d 08 1f          	cmpl   $0x1f,0x8(%ebp)
+   102c3:	7e 78                	jle    1033d <irq_enable+0x85>
+        return;
+    }
+
+    irq_num -= IRQ_PIC_START;
+   102c5:	83 6d 08 20          	subl   $0x20,0x8(%ebp)
+    if (irq_num < 8) {
+   102c9:	83 7d 08 07          	cmpl   $0x7,0x8(%ebp)
+   102cd:	7f 32                	jg     10301 <irq_enable+0x49>
+        uint8_t mask = inb(PIC0_IMR) & ~(1 << irq_num);
+   102cf:	6a 21                	push   $0x21
+   102d1:	e8 08 fe ff ff       	call   100de <inb>
+   102d6:	83 c4 04             	add    $0x4,%esp
+   102d9:	89 c2                	mov    %eax,%edx
+   102db:	8b 45 08             	mov    0x8(%ebp),%eax
+   102de:	bb 01 00 00 00       	mov    $0x1,%ebx
+   102e3:	89 c1                	mov    %eax,%ecx
+   102e5:	d3 e3                	shl    %cl,%ebx
+   102e7:	89 d8                	mov    %ebx,%eax
+   102e9:	f7 d0                	not    %eax
+   102eb:	21 d0                	and    %edx,%eax
+   102ed:	88 45 fa             	mov    %al,-0x6(%ebp)
+        outb(PIC0_IMR, mask);
+   102f0:	0f b6 45 fa          	movzbl -0x6(%ebp),%eax
+   102f4:	50                   	push   %eax
+   102f5:	6a 21                	push   $0x21
+   102f7:	e8 ff fd ff ff       	call   100fb <outb>
+   102fc:	83 c4 08             	add    $0x8,%esp
+   102ff:	eb 3d                	jmp    1033e <irq_enable+0x86>
+    } else {
+        irq_num -= 8;
+   10301:	83 6d 08 08          	subl   $0x8,0x8(%ebp)
+        uint8_t mask = inb(PIC1_IMR) & ~(1 << irq_num);
+   10305:	68 a1 00 00 00       	push   $0xa1
+   1030a:	e8 cf fd ff ff       	call   100de <inb>
+   1030f:	83 c4 04             	add    $0x4,%esp
+   10312:	89 c2                	mov    %eax,%edx
+   10314:	8b 45 08             	mov    0x8(%ebp),%eax
+   10317:	bb 01 00 00 00       	mov    $0x1,%ebx
+   1031c:	89 c1                	mov    %eax,%ecx
+   1031e:	d3 e3                	shl    %cl,%ebx
+   10320:	89 d8                	mov    %ebx,%eax
+   10322:	f7 d0                	not    %eax
+   10324:	21 d0                	and    %edx,%eax
+   10326:	88 45 fb             	mov    %al,-0x5(%ebp)
+        outb(PIC1_IMR, mask);
+   10329:	0f b6 45 fb          	movzbl -0x5(%ebp),%eax
+   1032d:	50                   	push   %eax
+   1032e:	68 a1 00 00 00       	push   $0xa1
+   10333:	e8 c3 fd ff ff       	call   100fb <outb>
+   10338:	83 c4 08             	add    $0x8,%esp
+   1033b:	eb 01                	jmp    1033e <irq_enable+0x86>
+        return;
+   1033d:	90                   	nop
+    }
+}
+   1033e:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+   10341:	c9                   	leave  
+   10342:	c3                   	ret    
+
+00010343 <irq_disable>:
+
+void irq_disable(int irq_num) {
+   10343:	55                   	push   %ebp
+   10344:	89 e5                	mov    %esp,%ebp
+   10346:	53                   	push   %ebx
+   10347:	83 ec 10             	sub    $0x10,%esp
+    if (irq_num < IRQ_PIC_START) {
+   1034a:	83 7d 08 1f          	cmpl   $0x1f,0x8(%ebp)
+   1034e:	7e 74                	jle    103c4 <irq_disable+0x81>
+        return;
+    }
+
+    irq_num -= IRQ_PIC_START;
+   10350:	83 6d 08 20          	subl   $0x20,0x8(%ebp)
+    if (irq_num < 8) {
+   10354:	83 7d 08 07          	cmpl   $0x7,0x8(%ebp)
+   10358:	7f 30                	jg     1038a <irq_disable+0x47>
+        uint8_t mask = inb(PIC0_IMR) | (1 << irq_num);
+   1035a:	6a 21                	push   $0x21
+   1035c:	e8 7d fd ff ff       	call   100de <inb>
+   10361:	83 c4 04             	add    $0x4,%esp
+   10364:	89 c3                	mov    %eax,%ebx
+   10366:	8b 45 08             	mov    0x8(%ebp),%eax
+   10369:	ba 01 00 00 00       	mov    $0x1,%edx
+   1036e:	89 c1                	mov    %eax,%ecx
+   10370:	d3 e2                	shl    %cl,%edx
+   10372:	89 d0                	mov    %edx,%eax
+   10374:	09 d8                	or     %ebx,%eax
+   10376:	88 45 fa             	mov    %al,-0x6(%ebp)
+        outb(PIC0_IMR, mask);
+   10379:	0f b6 45 fa          	movzbl -0x6(%ebp),%eax
+   1037d:	50                   	push   %eax
+   1037e:	6a 21                	push   $0x21
+   10380:	e8 76 fd ff ff       	call   100fb <outb>
+   10385:	83 c4 08             	add    $0x8,%esp
+   10388:	eb 3b                	jmp    103c5 <irq_disable+0x82>
+    } else {
+        irq_num -= 8;
+   1038a:	83 6d 08 08          	subl   $0x8,0x8(%ebp)
+        uint8_t mask = inb(PIC1_IMR) | (1 << irq_num);
+   1038e:	68 a1 00 00 00       	push   $0xa1
+   10393:	e8 46 fd ff ff       	call   100de <inb>
+   10398:	83 c4 04             	add    $0x4,%esp
+   1039b:	89 c3                	mov    %eax,%ebx
+   1039d:	8b 45 08             	mov    0x8(%ebp),%eax
+   103a0:	ba 01 00 00 00       	mov    $0x1,%edx
+   103a5:	89 c1                	mov    %eax,%ecx
+   103a7:	d3 e2                	shl    %cl,%edx
+   103a9:	89 d0                	mov    %edx,%eax
+   103ab:	09 d8                	or     %ebx,%eax
+   103ad:	88 45 fb             	mov    %al,-0x5(%ebp)
+        outb(PIC1_IMR, mask);
+   103b0:	0f b6 45 fb          	movzbl -0x5(%ebp),%eax
+   103b4:	50                   	push   %eax
+   103b5:	68 a1 00 00 00       	push   $0xa1
+   103ba:	e8 3c fd ff ff       	call   100fb <outb>
+   103bf:	83 c4 08             	add    $0x8,%esp
+   103c2:	eb 01                	jmp    103c5 <irq_disable+0x82>
+        return;
+   103c4:	90                   	nop
+    }
+}
+   103c5:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+   103c8:	c9                   	leave  
+   103c9:	c3                   	ret    
+
+000103ca <irq_disable_global>:
+
+void irq_disable_global(void) {
+   103ca:	55                   	push   %ebp
+   103cb:	89 e5                	mov    %esp,%ebp
+    cli();
+   103cd:	e8 ae fc ff ff       	call   10080 <cli>
+}
+   103d2:	90                   	nop
+   103d3:	5d                   	pop    %ebp
+   103d4:	c3                   	ret    
+
+000103d5 <irq_enable_global>:
+
+void irq_enable_global(void) {
+   103d5:	55                   	push   %ebp
+   103d6:	89 e5                	mov    %esp,%ebp
+    sti();
+   103d8:	e8 aa fc ff ff       	call   10087 <sti>
+}
+   103dd:	90                   	nop
+   103de:	5d                   	pop    %ebp
+   103df:	c3                   	ret    
+
+000103e0 <init_gdt>:
+
+ 
+void init_gdt() {
+   103e0:	55                   	push   %ebp
+   103e1:	89 e5                	mov    %esp,%ebp
+   103e3:	83 ec 10             	sub    $0x10,%esp
+    for(int i=1; i < GDT_TABLE_SIZE; i++) {
+   103e6:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%ebp)
+   103ed:	eb 19                	jmp    10408 <init_gdt+0x28>
+        segment_desc_set(i << 3, 0, 0, 0);
+   103ef:	8b 45 fc             	mov    -0x4(%ebp),%eax
+   103f2:	c1 e0 03             	shl    $0x3,%eax
+   103f5:	6a 00                	push   $0x0
+   103f7:	6a 00                	push   $0x0
+   103f9:	6a 00                	push   $0x0
+   103fb:	50                   	push   %eax
+   103fc:	e8 25 fd ff ff       	call   10126 <segment_desc_set>
+   10401:	83 c4 10             	add    $0x10,%esp
+    for(int i=1; i < GDT_TABLE_SIZE; i++) {
+   10404:	83 45 fc 01          	addl   $0x1,-0x4(%ebp)
+   10408:	81 7d fc ff 00 00 00 	cmpl   $0xff,-0x4(%ebp)
+   1040f:	7e de                	jle    103ef <init_gdt+0xf>
+    }
+
+    segment_desc_set(KERNEL_SELECTOR_DS, 0x00000000, 0xFFFFFFFF,
+   10411:	68 92 c0 00 00       	push   $0xc092
+   10416:	6a ff                	push   $0xffffffff
+   10418:	6a 00                	push   $0x0
+   1041a:	6a 10                	push   $0x10
+   1041c:	e8 05 fd ff ff       	call   10126 <segment_desc_set>
+   10421:	83 c4 10             	add    $0x10,%esp
+        SEG_P_PRESENT | SEG_DPL0 | SEG_S_NOMAL | SEG_TYPE_DATA
+        | SEG_TYPE_RW | SEG_D | SEG_G );
+    
+    segment_desc_set(KERNEL_SELECTOR_CS, 0x00000000, 0xFFFFFFFF,
+   10424:	68 9a c0 00 00       	push   $0xc09a
+   10429:	6a ff                	push   $0xffffffff
+   1042b:	6a 00                	push   $0x0
+   1042d:	6a 08                	push   $0x8
+   1042f:	e8 f2 fc ff ff       	call   10126 <segment_desc_set>
+   10434:	83 c4 10             	add    $0x10,%esp
+        SEG_P_PRESENT | SEG_DPL0 | SEG_S_NOMAL | SEG_TYPE_CODE
+        | SEG_TYPE_RW | SEG_D | SEG_G );
+
+    lgdt((uint32_t)gdt_table, sizeof(gdt_table));
+   10437:	b8 00 10 01 00       	mov    $0x11000,%eax
+   1043c:	68 00 08 00 00       	push   $0x800
+   10441:	50                   	push   %eax
+   10442:	e8 47 fc ff ff       	call   1008e <lgdt>
+   10447:	83 c4 08             	add    $0x8,%esp
+
+}
+   1044a:	90                   	nop
+   1044b:	c9                   	leave  
+   1044c:	c3                   	ret    
+
+0001044d <irq_init>:
+
+void irq_init () {
+   1044d:	55                   	push   %ebp
+   1044e:	89 e5                	mov    %esp,%ebp
+   10450:	83 ec 10             	sub    $0x10,%esp
+    for (uint32_t i = 0; i < IDT_TABLE_NR; i++) {
+   10453:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%ebp)
+   1045a:	eb 25                	jmp    10481 <irq_init+0x34>
+    	gate_desc_set(idt_table + i, KERNEL_SELECTOR_CS, (uint32_t) exception_handler_unknown,
+   1045c:	ba 23 00 01 00       	mov    $0x10023,%edx
+   10461:	8b 45 fc             	mov    -0x4(%ebp),%eax
+   10464:	c1 e0 03             	shl    $0x3,%eax
+   10467:	05 00 18 01 00       	add    $0x11800,%eax
+   1046c:	68 00 8e 00 00       	push   $0x8e00
+   10471:	52                   	push   %edx
+   10472:	6a 08                	push   $0x8
+   10474:	50                   	push   %eax
+   10475:	e8 32 fd ff ff       	call   101ac <gate_desc_set>
+   1047a:	83 c4 10             	add    $0x10,%esp
+    for (uint32_t i = 0; i < IDT_TABLE_NR; i++) {
+   1047d:	83 45 fc 01          	addl   $0x1,-0x4(%ebp)
+   10481:	83 7d fc 7f          	cmpl   $0x7f,-0x4(%ebp)
+   10485:	76 d5                	jbe    1045c <irq_init+0xf>
+            GATE_P_PRESENT | GATE_DPL0 | GATE_TYPE_IDT);
+	}
+
+    irq_install(0, exception_handler_divider);
+   10487:	68 42 00 01 00       	push   $0x10042
+   1048c:	6a 00                	push   $0x0
+   1048e:	e8 60 fd ff ff       	call   101f3 <irq_install>
+   10493:	83 c4 08             	add    $0x8,%esp
+
+    lidt((uint32_t)idt_table, sizeof(idt_table));
+   10496:	b8 00 18 01 00       	mov    $0x11800,%eax
+   1049b:	68 00 04 00 00       	push   $0x400
+   104a0:	50                   	push   %eax
+   104a1:	e8 10 fc ff ff       	call   100b6 <lidt>
+   104a6:	83 c4 08             	add    $0x8,%esp
+
+    init_pic();
+   104a9:	e8 77 fd ff ff       	call   10225 <init_pic>
+}
+   104ae:	90                   	nop
+   104af:	c9                   	leave  
+   104b0:	c3                   	ret    
+
+000104b1 <outb>:
+static inline void outb(uint16_t port, uint8_t data) {
+   104b1:	55                   	push   %ebp
+   104b2:	89 e5                	mov    %esp,%ebp
+   104b4:	83 ec 08             	sub    $0x8,%esp
+   104b7:	8b 55 08             	mov    0x8(%ebp),%edx
+   104ba:	8b 45 0c             	mov    0xc(%ebp),%eax
+   104bd:	66 89 55 fc          	mov    %dx,-0x4(%ebp)
+   104c1:	88 45 f8             	mov    %al,-0x8(%ebp)
+	__asm__ __volatile__("outb %[v], %[p]" : : [p]"d" (port), [v]"a" (data));
+   104c4:	0f b7 55 fc          	movzwl -0x4(%ebp),%edx
+   104c8:	0f b6 45 f8          	movzbl -0x8(%ebp),%eax
+   104cc:	ee                   	out    %al,(%dx)
+}
+   104cd:	90                   	nop
+   104ce:	c9                   	leave  
+   104cf:	c3                   	ret    
+
+000104d0 <handle_time>:
+#include "comm/cpu_ins.h"
+
+static uint32_t sys_tick;
+
+void exception_handler_time();
+void handle_time(exception_frame_t * frame) {
+   104d0:	55                   	push   %ebp
+   104d1:	89 e5                	mov    %esp,%ebp
+    sys_tick++;
+   104d3:	a1 00 1c 01 00       	mov    0x11c00,%eax
+   104d8:	83 c0 01             	add    $0x1,%eax
+   104db:	a3 00 1c 01 00       	mov    %eax,0x11c00
+}
+   104e0:	90                   	nop
+   104e1:	5d                   	pop    %ebp
+   104e2:	c3                   	ret    
+
+000104e3 <init_pit>:
+
+static void init_pit (void) {
+   104e3:	55                   	push   %ebp
+   104e4:	89 e5                	mov    %esp,%ebp
+   104e6:	83 ec 18             	sub    $0x18,%esp
+    uint32_t reload_count = PIT_OSC_FREQ / (1000.0 / OS_TICK_MS);
+   104e9:	c7 45 f4 9b 2e 00 00 	movl   $0x2e9b,-0xc(%ebp)
+
+    outb(PIT_COMMAND_MODE_PORT, PIT_CHANNLE0 | PIT_LOAD_LOHI | PIT_MODE3);
+   104f0:	6a 36                	push   $0x36
+   104f2:	6a 43                	push   $0x43
+   104f4:	e8 b8 ff ff ff       	call   104b1 <outb>
+   104f9:	83 c4 08             	add    $0x8,%esp
+    outb(PIT_CHANNEL0_DATA_PORT, reload_count & 0xFF);   // 加载低8位
+   104fc:	8b 45 f4             	mov    -0xc(%ebp),%eax
+   104ff:	0f b6 c0             	movzbl %al,%eax
+   10502:	50                   	push   %eax
+   10503:	6a 40                	push   $0x40
+   10505:	e8 a7 ff ff ff       	call   104b1 <outb>
+   1050a:	83 c4 08             	add    $0x8,%esp
+    outb(PIT_CHANNEL0_DATA_PORT, (reload_count >> 8) & 0xFF); // 再加载高8位
+   1050d:	8b 45 f4             	mov    -0xc(%ebp),%eax
+   10510:	c1 e8 08             	shr    $0x8,%eax
+   10513:	0f b6 c0             	movzbl %al,%eax
+   10516:	50                   	push   %eax
+   10517:	6a 40                	push   $0x40
+   10519:	e8 93 ff ff ff       	call   104b1 <outb>
+   1051e:	83 c4 08             	add    $0x8,%esp
+
+    irq_install(IRQ_TIMER, (irq_handler_t)exception_handler_time);
+   10521:	83 ec 08             	sub    $0x8,%esp
+   10524:	68 61 00 01 00       	push   $0x10061
+   10529:	6a 20                	push   $0x20
+   1052b:	e8 c3 fc ff ff       	call   101f3 <irq_install>
+   10530:	83 c4 10             	add    $0x10,%esp
+    irq_enable(IRQ_TIMER);
+   10533:	83 ec 0c             	sub    $0xc,%esp
+   10536:	6a 20                	push   $0x20
+   10538:	e8 7b fd ff ff       	call   102b8 <irq_enable>
+   1053d:	83 c4 10             	add    $0x10,%esp
+}
+   10540:	90                   	nop
+   10541:	c9                   	leave  
+   10542:	c3                   	ret    
+
+00010543 <time_init>:
+
+void time_init() {
+   10543:	55                   	push   %ebp
+   10544:	89 e5                	mov    %esp,%ebp
+   10546:	83 ec 08             	sub    $0x8,%esp
+    sys_tick = 0;
+   10549:	c7 05 00 1c 01 00 00 	movl   $0x0,0x11c00
+   10550:	00 00 00 
+
+    init_pit();
+   10553:	e8 8b ff ff ff       	call   104e3 <init_pit>
+   10558:	90                   	nop
+   10559:	c9                   	leave  
+   1055a:	c3                   	ret    
+
+0001055b <kernel_init>:
+#include <loader/loader.h>
+#include <cpu.h>
+#include "mtime.h"
+
+void kernel_init (boot_info_t * boot_info) {
+   1055b:	55                   	push   %ebp
+   1055c:	89 e5                	mov    %esp,%ebp
+   1055e:	83 ec 08             	sub    $0x8,%esp
+    init_gdt();
+   10561:	e8 7a fe ff ff       	call   103e0 <init_gdt>
+    irq_init();
+   10566:	e8 e2 fe ff ff       	call   1044d <irq_init>
+    time_init();
+   1056b:	e8 d3 ff ff ff       	call   10543 <time_init>
+    irq_enable_global();
+   10570:	e8 60 fe ff ff       	call   103d5 <irq_enable_global>
+}
+   10575:	90                   	nop
+   10576:	c9                   	leave  
+   10577:	c3                   	ret    
+
+00010578 <init_main>:
+
+void init_main() {
+   10578:	55                   	push   %ebp
+   10579:	89 e5                	mov    %esp,%ebp
+    // int a = 3 / 0;
+    
+    for(;;) {}
+   1057b:	eb fe                	jmp    1057b <init_main+0x3>
