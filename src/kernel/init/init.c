@@ -7,7 +7,7 @@ void kernel_init (boot_info_t * boot_info) {
     irq_init();
     time_init();
     
-    // irq_enable_global();
+    irq_enable_global();
 }
 
 void init_main() {

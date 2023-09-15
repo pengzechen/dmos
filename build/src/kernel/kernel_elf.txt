@@ -10,7 +10,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x10000
   Start of program headers:          52 (bytes into file)
-  Start of section headers:          13136 (bytes into file)
+  Start of section headers:          13120 (bytes into file)
   Flags:                             0x0
   Size of this header:               52 (bytes)
   Size of program headers:           32 (bytes)
@@ -22,18 +22,18 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .text             PROGBITS        00010000 001000 0005b6 00  AX  0   0  1
+  [ 1] .text             PROGBITS        00010000 001000 0005b8 00  AX  0   0  1
   [ 2] .bss              NOBITS          00011000 002000 000c04 00  WA  0   0 32
-  [ 3] .comment          PROGBITS        00000000 0015b6 000011 01  MS  0   0  1
-  [ 4] .debug_aranges    PROGBITS        00000000 0015c8 000080 00      0   0  8
-  [ 5] .debug_info       PROGBITS        00000000 001648 00098b 00      0   0  1
-  [ 6] .debug_abbrev     PROGBITS        00000000 001fd3 000399 00      0   0  1
-  [ 7] .debug_line       PROGBITS        00000000 00236c 000370 00      0   0  1
-  [ 8] .debug_frame      PROGBITS        00000000 0026dc 00035c 00      0   0  4
-  [ 9] .debug_str        PROGBITS        00000000 002a38 0003a9 01  MS  0   0  1
-  [10] .symtab           SYMTAB          00000000 002de4 000320 10     11  27  4
-  [11] .strtab           STRTAB          00000000 003104 0001cf 00      0   0  1
-  [12] .shstrtab         STRTAB          00000000 0032d3 00007c 00      0   0  1
+  [ 3] .comment          PROGBITS        00000000 0015b8 000011 01  MS  0   0  1
+  [ 4] .debug_aranges    PROGBITS        00000000 0015d0 000080 00      0   0  8
+  [ 5] .debug_info       PROGBITS        00000000 001650 00098b 00      0   0  1
+  [ 6] .debug_abbrev     PROGBITS        00000000 001fdb 00037f 00      0   0  1
+  [ 7] .debug_line       PROGBITS        00000000 00235a 000370 00      0   0  1
+  [ 8] .debug_frame      PROGBITS        00000000 0026cc 00035c 00      0   0  4
+  [ 9] .debug_str        PROGBITS        00000000 002a28 0003a9 01  MS  0   0  1
+  [10] .symtab           SYMTAB          00000000 002dd4 000320 10     11  27  4
+  [11] .strtab           STRTAB          00000000 0030f4 0001cf 00      0   0  1
+  [12] .shstrtab         STRTAB          00000000 0032c3 00007c 00      0   0  1
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -44,7 +44,7 @@ There are no section groups in this file.
 
 Program Headers:
   Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
-  LOAD           0x001000 0x00010000 0x00010000 0x005b6 0x005b6 R E 0x1000
+  LOAD           0x001000 0x00010000 0x00010000 0x005b8 0x005b8 R E 0x1000
   LOAD           0x002000 0x00011000 0x00011000 0x00000 0x00c04 RW  0x1000
 
  Section to Segment mapping:
@@ -81,34 +81,34 @@ Symbol table '.symtab' contains 50 entries:
     18: 000100fb    31 FUNC    LOCAL  DEFAULT    1 outb
     19: 00011000  2048 OBJECT  LOCAL  DEFAULT    2 gdt_table
     20: 00011800  1024 OBJECT  LOCAL  DEFAULT    2 idt_table
-    21: 0001021f   147 FUNC    LOCAL  DEFAULT    1 init_pic
+    21: 00010225   147 FUNC    LOCAL  DEFAULT    1 init_pic
     22: 00000000     0 FILE    LOCAL  DEFAULT  ABS time.c
-    23: 000104c7    31 FUNC    LOCAL  DEFAULT    1 outb
+    23: 000104dc    31 FUNC    LOCAL  DEFAULT    1 outb
     24: 00011c00     4 OBJECT  LOCAL  DEFAULT    2 sys_tick
-    25: 0001050f   114 FUNC    LOCAL  DEFAULT    1 pit_init
+    25: 0001051e    96 FUNC    LOCAL  DEFAULT    1 pit_init
     26: 00000000     0 FILE    LOCAL  DEFAULT  ABS init.c
-    27: 000103cf    11 FUNC    GLOBAL DEFAULT    1 irq_enable_global
-    28: 000105b1     5 FUNC    GLOBAL DEFAULT    1 init_main
-    29: 000102b2   139 FUNC    GLOBAL DEFAULT    1 irq_enable
+    27: 000103d5    11 FUNC    GLOBAL DEFAULT    1 irq_enable_global
+    28: 000105b3     5 FUNC    GLOBAL DEFAULT    1 init_main
+    29: 000102b8   139 FUNC    GLOBAL DEFAULT    1 irq_enable
     30: 00010023     0 NOTYPE  GLOBAL DEFAULT    1 exception_handler_unknown
-    31: 000103da    43 FUNC    GLOBAL DEFAULT    1 pic_send_eoi
-    32: 00010405   109 FUNC    GLOBAL DEFAULT    1 gdt_init
+    31: 000103e0    43 FUNC    GLOBAL DEFAULT    1 pic_send_eoi
+    32: 0001040b   109 FUNC    GLOBAL DEFAULT    1 gdt_init
     33: 00010061     0 NOTYPE  GLOBAL DEFAULT    1 exception_handler_time
     34: 00010042     0 NOTYPE  GLOBAL DEFAULT    1 exception_handler_divider
-    35: 000103c4    11 FUNC    GLOBAL DEFAULT    1 irq_disable_global
+    35: 000103ca    11 FUNC    GLOBAL DEFAULT    1 irq_disable_global
     36: 0001011a     6 FUNC    GLOBAL DEFAULT    1 handle_unknown
-    37: 00010599    24 FUNC    GLOBAL DEFAULT    1 kernel_init
+    37: 00010596    29 FUNC    GLOBAL DEFAULT    1 kernel_init
     38: 00010000     0 NOTYPE  GLOBAL DEFAULT    1 _start
-    39: 000101ed    50 FUNC    GLOBAL DEFAULT    1 irq_install
-    40: 0001033d   135 FUNC    GLOBAL DEFAULT    1 irq_disable
+    39: 000101f3    50 FUNC    GLOBAL DEFAULT    1 irq_install
+    40: 00010343   135 FUNC    GLOBAL DEFAULT    1 irq_disable
     41: 00011000     0 NOTYPE  GLOBAL DEFAULT    2 __bss_start
-    42: 00010472    85 FUNC    GLOBAL DEFAULT    1 irq_init
-    43: 000104ec    35 FUNC    GLOBAL DEFAULT    1 handle_time
-    44: 00010120   134 FUNC    GLOBAL DEFAULT    1 segment_desc_set
+    42: 00010478   100 FUNC    GLOBAL DEFAULT    1 irq_init
+    43: 000104fb    35 FUNC    GLOBAL DEFAULT    1 handle_time
+    44: 00010126   134 FUNC    GLOBAL DEFAULT    1 segment_desc_set
     45: 00011000     0 NOTYPE  GLOBAL DEFAULT    2 _edata
     46: 00011c04     0 NOTYPE  GLOBAL DEFAULT    2 _end
-    47: 000104e6     6 FUNC    GLOBAL DEFAULT    1 handle_divider
-    48: 000101a6    71 FUNC    GLOBAL DEFAULT    1 gate_desc_set
-    49: 00010581    24 FUNC    GLOBAL DEFAULT    1 time_init
+    47: 00010120     6 FUNC    GLOBAL DEFAULT    1 handle_divider
+    48: 000101ac    71 FUNC    GLOBAL DEFAULT    1 gate_desc_set
+    49: 0001057e    24 FUNC    GLOBAL DEFAULT    1 time_init
 
 No version information found in this file.

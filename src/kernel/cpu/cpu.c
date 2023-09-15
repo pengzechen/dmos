@@ -9,6 +9,8 @@ static gate_desc_t idt_table[IDT_TABLE_NR];
 
 void exception_handler_unknown();
 void handle_unknown(exception_frame_t * frame) {}
+void exception_handler_divider();
+void handle_divider(exception_frame_t * frame) {}
 
 
 void segment_desc_set(int selector, uint32_t base, uint32_t limit, uint16_t attr) {
@@ -133,7 +135,7 @@ void irq_init () {
 	}
 
     lidt((uint32_t)idt_table, sizeof(idt_table));
-
+    irq_install(0, exception_handler_divider);
     init_pic();
 }
 
