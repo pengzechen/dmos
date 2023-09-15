@@ -34,7 +34,15 @@ void gate_desc_set(gate_desc_t * desc, uint16_t selector, uint32_t offset, uint1
 	desc->offset31_16 = (offset >> 16) & 0xffff;
 }
 
-
+int gdt_alloc_desc() {
+    for(int i=1; i<GDT_TABLE_SIZE; i++) {
+        segment_desc_t* desc = gdt_table + i;
+        if(desc->attr == 0) {
+            return i*sizeof(segment_desc_t);
+        }
+    }
+    return -1;
+}
 
 int irq_install(int irq_num, irq_handler_t handler) {
     if(irq_num >= IDT_TABLE_NR) {

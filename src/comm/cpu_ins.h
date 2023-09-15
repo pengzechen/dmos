@@ -105,4 +105,8 @@ static inline void far_jump(uint32_t selector, uint32_t offset) {
 	__asm__ __volatile__("ljmpl *(%[a])"::[a]"r"(addr));
 }
 
+static inline void write_tr (uint16_t tss_sel) {
+	__asm__ __volatile__ ("ltr %%ax"::"a"(tss_sel));
+}
+
 #endif

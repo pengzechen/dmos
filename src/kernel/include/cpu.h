@@ -26,10 +26,12 @@ struct _segment_desc_t {
 
 #define SEG_TYPE_CODE       (1 << 3)
 #define SEG_TYPE_DATA       (0 << 3)
+#define SEG_TYPE_TSS        (9 << 0)              // TSS
 #define SEG_TYPE_RW         (1 << 1)
 
 
 void segment_desc_set(int selector, uint32_t base, uint32_t limit, uint16_t attr);
+int gdt_alloc_desc();
 void gdt_init();
 
 
@@ -72,8 +74,6 @@ void irq_disable_global();
 
 #define IRQ_TIMER 0x20
 
-
-
 // 8259 芯片相关
 // PIC控制器相关的寄存器及位配置
 #define PIC0_ICW1			0x20
@@ -82,7 +82,6 @@ void irq_disable_global();
 #define PIC0_ICW4			0x21
 #define PIC0_IMR			0x21
 #define PIC0_OCW2           0x20
-
 
 #define PIC1_ICW1			0xa0
 #define PIC1_ICW2			0xa1
@@ -102,4 +101,21 @@ void irq_disable_global();
 
 
 void pic_send_eoi(int irq_num);
+
+
+// tss ----------------------------------------------
+#pragma pack(1)
+typedef struct tss_s {
+    uint32_t pre_link;
+    uint32_t esp0, ss0, esp1, ss1, esp2, ss2;
+    uint32_t cr3;       // 虚拟内存
+    uint32_t eip, eflags, eax, ecx, edx, ebx, esp, edp, esi, edi;
+    uint32_t es, cs, ss, ds, fs, gs;
+    uint32_t ldt;       // ldt 表
+    uint32_t iomap;
+} tss_t;
+#pragma pack()
+
+#define EFLAGES_DEFAULT   (1 << 1)
+#define EFLAGS_IF         (1 << 9)
 #endif

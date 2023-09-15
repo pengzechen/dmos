@@ -37,6 +37,12 @@
 },
 {
   "directory": "D:/os/dmos/build/src/kernel",
+  "command": "\"D:/os/x86_64-elf-tools-windows(1)/bin/x86_64-elf-gcc.exe\"  @CMakeFiles/kernel.dir/includes_C.rsp -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o CMakeFiles/kernel.dir/core/task.c.obj -c D:/os/dmos/src/kernel/core/task.c",
+  "file": "D:/os/dmos/src/kernel/core/task.c",
+  "output": "src/kernel/CMakeFiles/kernel.dir/core/task.c.obj"
+},
+{
+  "directory": "D:/os/dmos/build/src/kernel",
   "command": "\"D:/os/x86_64-elf-tools-windows(1)/bin/x86_64-elf-gcc.exe\"  @CMakeFiles/kernel.dir/includes_C.rsp -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o CMakeFiles/kernel.dir/cpu/cpu.c.obj -c D:/os/dmos/src/kernel/cpu/cpu.c",
   "file": "D:/os/dmos/src/kernel/cpu/cpu.c",
   "output": "src/kernel/CMakeFiles/kernel.dir/cpu/cpu.c.obj"
