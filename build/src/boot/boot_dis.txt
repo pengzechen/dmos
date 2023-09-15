@@ -1,6 +1,6 @@
 
-D:/linux_kernel/dmos/build/src/boot/boot.elf:     file format elf32-i386
-D:/linux_kernel/dmos/build/src/boot/boot.elf
+D:/os/dmos/build/src/boot/boot.elf:     file format elf32-i386
+D:/os/dmos/build/src/boot/boot.elf
 architecture: i386, flags 0x00000112:
 EXEC_P, HAS_SYMS, D_PAGED
 start address 0x00007c00
@@ -21,13 +21,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   3 .debug_aranges 00000020  00000000  00000000  00000e18  2**3
                   CONTENTS, READONLY, DEBUGGING
-  4 .debug_info   00000066  00000000  00000000  00000e38  2**0
+  4 .debug_info   0000005b  00000000  00000000  00000e38  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_abbrev 00000014  00000000  00000000  00000e9e  2**0
+  5 .debug_abbrev 00000014  00000000  00000000  00000e93  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_line   00000062  00000000  00000000  00000eb2  2**0
+  6 .debug_line   00000058  00000000  00000000  00000ea7  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_str    000000b9  00000000  00000000  00000f14  2**0
+  7 .debug_str    000000ae  00000000  00000000  00000eff  2**0
                   CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 00007c00 l    d  .text	00000000 .text
@@ -38,7 +38,7 @@ SYMBOL TABLE:
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_line	00000000 .debug_line
 00000000 l    d  .debug_str	00000000 .debug_str
-00000000 l    df *ABS*	00000000 src/boot/CMakeFiles/boot.dir/boot.S.obj
+00000000 l    df *ABS*	00000000 CMakeFiles/boot.dir/boot.S.obj
 00007c13 l       .text	00000000 read_loader
 00007dfe l       boot_end	00000000 boot_sig
 00000000 l    df *ABS*	00000000 boot1.c

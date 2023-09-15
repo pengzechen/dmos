@@ -45,7 +45,7 @@ int irq_install(int irq_num, irq_handler_t handler) {
         GATE_P_PRESENT | GATE_DPL0 | GATE_TYPE_IDT);
 }
 
-static void init_pic(void) {
+static void init_pic() {
     outb(PIC0_ICW1, PIC_ICW1_ALWAYS_1 | PIC_ICW1_ICW4);
     outb(PIC0_ICW2, IRQ_PIC_START);
     outb(PIC0_ICW3, 1 << 2);
@@ -102,19 +102,16 @@ void irq_enable_global(void) {
 
 void pic_send_eoi(int irq_num) {
     irq_num -= IRQ_PIC_START;
-    if (irq_num >= 8) {
+    if (irq_num >= 8) 
         outb(PIC1_OCW2, PIC_OCW2_EOI);
-    }
     
     outb(PIC0_OCW2, PIC_OCW2_EOI);
-
 }
 
 
 void gdt_init() {
-    for(int i=1; i < GDT_TABLE_SIZE; i++) {
+    for(int i=1; i < GDT_TABLE_SIZE; i++) 
         segment_desc_set(i << 3, 0, 0, 0);
-    }
 
     segment_desc_set(KERNEL_SELECTOR_DS, 0x00000000, 0xFFFFFFFF,
         SEG_P_PRESENT | SEG_DPL0 | SEG_S_NOMAL | SEG_TYPE_DATA
@@ -129,10 +126,9 @@ void gdt_init() {
 }
 
 void irq_init () {
-    for (uint32_t i = 0; i < IDT_TABLE_NR; i++) {
+    for (uint32_t i = 0; i < IDT_TABLE_NR; i++) 
     	gate_desc_set(idt_table + i, KERNEL_SELECTOR_CS, (uint32_t) exception_handler_unknown,
             GATE_P_PRESENT | GATE_DPL0 | GATE_TYPE_IDT);
-	}
 
     lidt((uint32_t)idt_table, sizeof(idt_table));
     irq_install(0, exception_handler_divider);

@@ -97,8 +97,6 @@ void enable_page_mode (void) {
 void load_kernel(void) {
     read_disk(100, 500, (uint8_t *)SYS_KERNEL_LOAD_ADDR);
 
-     // 解析ELF文件，并通过调用的方式，进入到内核中去执行，同时传递boot参数
-	 // 临时将elf文件先读到SYS_KERNEL_LOAD_ADDR处，再进行解析
     uint32_t kernel_entry = reload_elf_file((uint8_t *)SYS_KERNEL_LOAD_ADDR);
 	if (kernel_entry == 0) {
 		die(-1);

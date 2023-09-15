@@ -1,4 +1,4 @@
-set(CMAKE_C_COMPILER "D:/linux_kernel/tool/x86_64-elf-tools-windows/bin/x86_64-elf-gcc.exe")
+set(CMAKE_C_COMPILER "D:/os/x86_64-elf-tools-windows(1)/bin/x86_64-elf-gcc.exe")
 set(CMAKE_C_COMPILER_ARG1 "")
 set(CMAKE_C_COMPILER_ID "GNU")
 set(CMAKE_C_COMPILER_VERSION "7.1.0")
@@ -21,11 +21,11 @@ set(CMAKE_C_SIMULATE_VERSION "")
 
 
 
-set(CMAKE_AR "D:/linux_kernel/tool/x86_64-elf-tools-windows/bin/x86_64-elf-ar.exe")
-set(CMAKE_C_COMPILER_AR "D:/linux_kernel/tool/x86_64-elf-tools-windows/bin/x86_64-elf-gcc-ar.exe")
-set(CMAKE_RANLIB "D:/linux_kernel/tool/x86_64-elf-tools-windows/bin/x86_64-elf-ranlib.exe")
-set(CMAKE_C_COMPILER_RANLIB "D:/linux_kernel/tool/x86_64-elf-tools-windows/bin/x86_64-elf-gcc-ranlib.exe")
-set(CMAKE_LINKER "D:/linux_kernel/tool/x86_64-elf-tools-windows/bin/x86_64-elf-ld.exe")
+set(CMAKE_AR "D:/os/x86_64-elf-tools-windows(1)/bin/x86_64-elf-ar.exe")
+set(CMAKE_C_COMPILER_AR "D:/os/x86_64-elf-tools-windows(1)/bin/x86_64-elf-gcc-ar.exe")
+set(CMAKE_RANLIB "D:/os/x86_64-elf-tools-windows(1)/bin/x86_64-elf-ranlib.exe")
+set(CMAKE_C_COMPILER_RANLIB "D:/os/x86_64-elf-tools-windows(1)/bin/x86_64-elf-gcc-ranlib.exe")
+set(CMAKE_LINKER "D:/os/x86_64-elf-tools-windows(1)/bin/x86_64-elf-ld.exe")
 set(CMAKE_MT "")
 set(CMAKE_COMPILER_IS_GNUCC 1)
 set(CMAKE_C_COMPILER_LOADED 1)

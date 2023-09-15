@@ -1,6 +1,6 @@
 
-D:/linux_kernel/dmos/build/src/loader/loader.elf:     file format elf32-i386
-D:/linux_kernel/dmos/build/src/loader/loader.elf
+D:/os/dmos/build/src/loader/loader.elf:     file format elf32-i386
+D:/os/dmos/build/src/loader/loader.elf
 architecture: i386, flags 0x00000112:
 EXEC_P, HAS_SYMS, D_PAGED
 start address 0x00008000
@@ -25,17 +25,17 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000060  00000000  00000000  00004018  2**3
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000009a5  00000000  00000000  00004078  2**0
+  6 .debug_info   0000099c  00000000  00000000  00004078  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000369  00000000  00000000  00004a1d  2**0
+  7 .debug_abbrev 00000369  00000000  00000000  00004a14  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000002da  00000000  00000000  00004d86  2**0
+  8 .debug_line   000002a8  00000000  00000000  00004d7d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000308  00000000  00000000  00005060  2**2
+  9 .debug_frame  00000308  00000000  00000000  00005028  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000402  00000000  00000000  00005368  2**0
+ 10 .debug_str    000003ef  00000000  00000000  00005330  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000018  00000000  00000000  0000576a  2**0
+ 11 .debug_ranges 00000018  00000000  00000000  0000571f  2**0
                   CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 00008000 l    d  .text	00000000 .text
@@ -986,8 +986,6 @@ void load_kernel(void) {
     8665:	ff                   	(bad)  
     8666:	ff 83 c4 0c          	incw   0xcc4(%bp,%di)
 
-     // 解析ELF文件，并通过调用的方式，进入到内核中去执行，同时传递boot参数
-	 // 临时将elf文件先读到SYS_KERNEL_LOAD_ADDR处，再进行解析
     uint32_t kernel_entry = reload_elf_file((uint8_t *)SYS_KERNEL_LOAD_ADDR);
     866a:	68 00 00             	push   $0x0
     866d:	10 00                	adc    %al,(%bx,%si)

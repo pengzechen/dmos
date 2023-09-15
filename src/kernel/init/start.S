@@ -32,6 +32,7 @@ gdt_reload:
     .text
     .extern handle_\name
     .global exception_handler_\name
+    
 exception_handler_\name:
     .if \with_error_code == 0
         push $0
@@ -57,7 +58,7 @@ exception_handler_\name:
 
 .endm
 
-exception_handler unknown, -1, 0 
-exception_handler divider,  0, 0 
+exception_handler unknown, -1, 0
+exception_handler divider,  0, 0
 
 exception_handler time, 0x20, 0

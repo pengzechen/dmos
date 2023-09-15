@@ -1,4 +1,4 @@
-# Install script for directory: D:/linux_kernel/dmos
+# Install script for directory: D:/os/dmos
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,14 +34,14 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "D:/linux_kernel/tool/x86_64-elf-tools-windows/bin/x86_64-elf-objdump.exe")
+  set(CMAKE_OBJDUMP "D:/os/x86_64-elf-tools-windows(1)/bin/x86_64-elf-objdump.exe")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("D:/linux_kernel/dmos/build/src/boot/cmake_install.cmake")
-  include("D:/linux_kernel/dmos/build/src/loader/cmake_install.cmake")
-  include("D:/linux_kernel/dmos/build/src/kernel/cmake_install.cmake")
+  include("D:/os/dmos/build/src/boot/cmake_install.cmake")
+  include("D:/os/dmos/build/src/loader/cmake_install.cmake")
+  include("D:/os/dmos/build/src/kernel/cmake_install.cmake")
 
 endif()
 
@@ -53,5 +53,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/linux_kernel/dmos/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/os/dmos/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
