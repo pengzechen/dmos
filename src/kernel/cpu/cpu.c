@@ -10,9 +10,6 @@ static gate_desc_t idt_table[IDT_TABLE_NR];
 void exception_handler_unknown();
 void handle_unknown(exception_frame_t * frame) {}
 
-void exception_handler_divider();
-void handle_divider(exception_frame_t * frame) {}
-
 
 void segment_desc_set(int selector, uint32_t base, uint32_t limit, uint16_t attr) {
     segment_desc_t * desc = gdt_table + (selector >> 3);
@@ -51,15 +48,14 @@ static void init_pic(void) {
     outb(PIC0_ICW2, IRQ_PIC_START);
     outb(PIC0_ICW3, 1 << 2);
     outb(PIC0_ICW4, PIC_ICW4_8086);
-
     outb(PIC1_ICW1, PIC_ICW1_ICW4 | PIC_ICW1_ALWAYS_1);
     outb(PIC1_ICW2, IRQ_PIC_START + 8);
     outb(PIC1_ICW3, 2);
     outb(PIC1_ICW4, PIC_ICW4_8086);
-    
     outb(PIC0_IMR, 0xFF & ~(1 << 2));
     outb(PIC1_IMR, 0xFF);
 }
+
 
 // 中断的打开与关闭
 void irq_enable(int irq_num) {
@@ -102,8 +98,18 @@ void irq_enable_global(void) {
     sti();
 }
 
- 
-void init_gdt() {
+void pic_send_eoi(int irq_num) {
+    irq_num -= IRQ_PIC_START;
+    if (irq_num >= 8) {
+        outb(PIC1_OCW2, PIC_OCW2_EOI);
+    }
+    
+    outb(PIC0_OCW2, PIC_OCW2_EOI);
+
+}
+
+
+void gdt_init() {
     for(int i=1; i < GDT_TABLE_SIZE; i++) {
         segment_desc_set(i << 3, 0, 0, 0);
     }
@@ -126,10 +132,9 @@ void irq_init () {
             GATE_P_PRESENT | GATE_DPL0 | GATE_TYPE_IDT);
 	}
 
-    irq_install(0, exception_handler_divider);
-
     lidt((uint32_t)idt_table, sizeof(idt_table));
 
     init_pic();
 }
+
 

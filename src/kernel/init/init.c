@@ -3,10 +3,11 @@
 #include "mtime.h"
 
 void kernel_init (boot_info_t * boot_info) {
-    init_gdt();
+    gdt_init();
     irq_init();
     time_init();
-    irq_enable_global();
+    
+    // irq_enable_global();
 }
 
 void init_main() {
