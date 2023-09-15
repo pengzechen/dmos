@@ -14,7 +14,7 @@ void exception_handler_time();
 void handle_time(exception_frame_t * frame) {
     sys_tick++;
     pic_send_eoi(IRQ0_TIMER);
-}
+} 
 
 static void pit_init (void) {
     uint32_t reload_count = PIT_OSC_FREQ / (1000.0 / OS_TICK_MS);

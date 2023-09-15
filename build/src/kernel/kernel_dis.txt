@@ -851,7 +851,7 @@ void handle_time(exception_frame_t * frame) {
    10502:	6a 20                	push   $0x20
    10504:	e8 d1 fe ff ff       	call   103da <pic_send_eoi>
    10509:	83 c4 10             	add    $0x10,%esp
-}
+} 
    1050c:	90                   	nop
    1050d:	c9                   	leave  
    1050e:	c3                   	ret    

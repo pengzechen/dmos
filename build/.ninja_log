@@ -50,3 +50,10 @@
 83	295	7164603838494137	src/kernel/CMakeFiles/kernel.dir/init/init.c.obj	50b4eab69539b719
 32	296	7164603838504079	src/kernel/CMakeFiles/kernel.dir/cpu/cpu.c.obj	44182416bf69e6e6
 296	494	0	src/kernel/kernel.exe	7365ce443ead7c92
+11	187	7164608035257126	src/kernel/CMakeFiles/kernel.dir/dev/time.c.obj	a92dd1128429f7f3
+3	247	0	src/boot/boot.exe	d31fdb26f4421378
+7	248	0	src/loader/loader.exe	c9e755e3256a39dc
+188	402	0	src/kernel/kernel.exe	7365ce443ead7c92
+3	216	0	src/boot/boot.exe	d31fdb26f4421378
+7	239	0	src/loader/loader.exe	c9e755e3256a39dc
+10	245	0	src/kernel/kernel.exe	7365ce443ead7c92
