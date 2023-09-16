@@ -100,9 +100,6 @@ void loader_entry(void) {
     write_cr0(cr0 | (1 << 0));
 
 	
-
-	// 长跳转进入到保护模式
-    // 使用长跳转，以便清空流水线，将里面的16位代码给清空
     far_jump(8, (uint32_t)protect_mode_entry);
 
 	for(;;){}

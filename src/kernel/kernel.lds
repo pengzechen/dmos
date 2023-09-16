@@ -1,0 +1,25 @@
+/* 参考文档： https://ftp.gnu.org/old-gnu/Manuals/ld-2.9.1/html_chapter/ld_3.html */
+SECTIONS
+{
+	. = 0x10000;
+
+	.text : {
+		
+		*(.text)
+	}
+	.rodata : {
+
+		*(.rodata)
+	}
+
+	. = 0x20000;
+
+	.data : {
+
+		*(.data)
+	}
+	.bss : {
+
+		*(.bss)
+	}
+}

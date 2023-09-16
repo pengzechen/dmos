@@ -4,6 +4,7 @@
 #include <comm/types.h>
 
 typedef struct _segment_desc_t segment_desc_t;
+
 #pragma pack(1)
 struct _segment_desc_t {
     uint16_t limit15_0;
@@ -19,13 +20,13 @@ struct _segment_desc_t {
 #define SEG_P_PRESENT       (1 << 7)
 
 #define SEG_DPL0            (0 << 5)
-#define SEF_DPL3            (3 << 5)
+#define SEG_DPL3            (3 << 5)
 
 #define SEG_RPL0                (0 << 0)
 #define SEG_RPL3                (3 << 0)
 
 #define SEG_S_SYSTEM        (0 << 4)
-#define SEG_S_NOMAL         (1 << 4)
+#define SEG_S_NORMAL        (1 << 4)
 
 #define SEG_TYPE_CODE       (1 << 3)
 #define SEG_TYPE_DATA       (0 << 3)
@@ -34,8 +35,8 @@ struct _segment_desc_t {
 
 
 void segment_desc_set(int selector, uint32_t base, uint32_t limit, uint16_t attr);
-int gdt_alloc_desc();
 void gdt_init();
+int gdt_alloc_desc();
 
 
 // idt --------------------------------------------------------------------------------------
@@ -95,6 +96,26 @@ void irq_disable_global();
 #define IRQ19_XM            19
 #define IRQ20_VE            20
 #define IRQ_TIMER           0x20
+void exception_handler_unknown (void);
+void exception_handler_divider (void);
+void exception_handler_Debug (void);
+void exception_handler_NMI (void);
+void exception_handler_breakpoint (void);
+void exception_handler_overflow (void);
+void exception_handler_bound_range (void);
+void exception_handler_invalid_opcode (void);
+void exception_handler_device_unavailable (void);
+void exception_handler_double_fault (void);
+void exception_handler_invalid_tss (void);
+void exception_handler_segment_not_present (void);
+void exception_handler_stack_segment_fault (void);
+void exception_handler_general_protection (void);
+void exception_handler_page_fault (void);
+void exception_handler_fpu_error (void);
+void exception_handler_alignment_check (void);
+void exception_handler_machine_check (void);
+void exception_handler_smd_exception (void);
+void exception_handler_virtual_exception (void);
 
 // 8259 芯片相关
 // PIC控制器相关的寄存器及位配置

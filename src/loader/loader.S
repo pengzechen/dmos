@@ -7,6 +7,9 @@ _start:
 	jmp loader_entry
 
 
+
+
+
 	.code32
 	.text
 	.global protect_mode_entry

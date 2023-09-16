@@ -9,14 +9,18 @@ _start:
     # mov %esp, %ebp
     # mov 0x8(%ebp), %eax
     # push %eax
+
     # 第二种方法
     # mov 4(%esp), %eax
     # push %eax
+
     # 第三种方法
     push 4(%esp)
 
     # kernel_init(boot_info)
     call kernel_init
+
+	// 重新加载GDT
 	jmp $KERNEL_SELECTOR_CS, $gdt_reload
 
 gdt_reload:
@@ -26,7 +30,16 @@ gdt_reload:
     mov %ax, %es
     mov %ax, %fs
     mov %ax, %gs
-    jmp init_main
+
+	// 栈设置
+	mov $(stack + KERNEL_STACK_SIZE), %esp
+
+	// 栈和段等沿用之前的设置
+	jmp init_main
+
+	.bss
+.comm stack, KERNEL_STACK_SIZE    // comm 声明未初始化的通用内存区域，以字节计
+
 
 .macro exception_handler name num with_error_code
     .text
@@ -80,3 +93,27 @@ exception_handler smd_exception, 19, 0
 exception_handler virtual_exception, 20, 0
 
 exception_handler time, 0x20, 0
+
+
+    // simple_switch(&from, &to)
+.text
+.global simple_switch
+    
+simple_switch:
+    mov 4(%esp), %eax
+    mov 8(%esp), %edx
+
+    push %ebp
+    push %ebx
+    push %esi
+    push %edi
+    mov %esp, (%eax)
+
+
+    mov %edx, %esp
+    pop %edi
+    pop %esi
+    pop %ebx
+    pop %ebp
+
+    ret

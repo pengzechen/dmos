@@ -486,9 +486,6 @@ void loader_entry(void) {
     8305:	66 83 c4 04          	add    $0x4,%esp
 
 	
-
-	// 长跳转进入到保护模式
-    // 使用长跳转，以便清空流水线，将里面的16位代码给清空
     far_jump(8, (uint32_t)protect_mode_entry);
     8309:	66 b8 03 80 00 00    	mov    $0x8003,%eax
     830f:	66 50                	push   %eax
