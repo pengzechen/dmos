@@ -31,44 +31,56 @@
 },
 {
   "directory": "D:/linux_kernel/dmos/build",
-  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -m32 -g -g -o src\\kernel\\CMakeFiles\\kernel.dir\\init\\start.S.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\init\\start.S",
-  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\init\\start.S",
-  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\init\\start.S.obj"
+  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -m32 -g -g -o src\\kernel\\CMakeFiles\\kernel.dir\\start.S.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\start.S",
+  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\start.S",
+  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\start.S.obj"
 },
 {
   "directory": "D:/linux_kernel/dmos/build",
-  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\core\\task.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\core\\task.c",
-  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\core\\task.c",
-  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\core\\task.c.obj"
+  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\cpu.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\cpu.c",
+  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\cpu.c",
+  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\cpu.c.obj"
 },
 {
   "directory": "D:/linux_kernel/dmos/build",
-  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\cpu\\cpu.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\cpu\\cpu.c",
-  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\cpu\\cpu.c",
-  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\cpu\\cpu.c.obj"
+  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\dev\\mtime.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\dev\\mtime.c",
+  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\dev\\mtime.c",
+  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\dev\\mtime.c.obj"
 },
 {
   "directory": "D:/linux_kernel/dmos/build",
-  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\dev\\time.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\dev\\time.c",
-  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\dev\\time.c",
-  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\dev\\time.c.obj"
+  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\init.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\init.c",
+  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\init.c",
+  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\init.c.obj"
 },
 {
   "directory": "D:/linux_kernel/dmos/build",
-  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\init\\init.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\init\\init.c",
-  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\init\\init.c",
-  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\init\\init.c.obj"
+  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\irq.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\irq.c",
+  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\irq.c",
+  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\irq.c.obj"
 },
 {
   "directory": "D:/linux_kernel/dmos/build",
-  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\tools\\klib.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\tools\\klib.c",
-  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\tools\\klib.c",
-  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\tools\\klib.c.obj"
+  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\lib\\klib.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\lib\\klib.c",
+  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\lib\\klib.c",
+  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\lib\\klib.c.obj"
 },
 {
   "directory": "D:/linux_kernel/dmos/build",
-  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\tools\\log.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\tools\\log.c",
-  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\tools\\log.c",
-  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\tools\\log.c.obj"
+  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\lib\\list.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\lib\\list.c",
+  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\lib\\list.c",
+  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\lib\\list.c.obj"
+},
+{
+  "directory": "D:/linux_kernel/dmos/build",
+  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\log.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\log.c",
+  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\log.c",
+  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\log.c.obj"
+},
+{
+  "directory": "D:/linux_kernel/dmos/build",
+  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\task.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\task.c",
+  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\task.c",
+  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\task.c.obj"
 }
 ]

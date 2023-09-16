@@ -16,7 +16,7 @@ _start:
 	.extern load_kernel
 
 protect_mode_entry:
-	// 重新加载所有的数据段描述符
+						// 重新加载所有的数据段描述符
 	mov $16, %ax		// 16为数据段选择子
 	mov %ax, %ds
     mov %ax, %ss

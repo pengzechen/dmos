@@ -29,7 +29,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 00000369  00000000  00000000  00004a1d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000002da  00000000  00000000  00004d86  2**0
+  8 .debug_line   000002d8  00000000  00000000  00004d86  2**0
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  00000308  00000000  00000000  00005060  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -102,7 +102,7 @@ _start:
 	.extern load_kernel
 
 protect_mode_entry:
-	// 重新加载所有的数据段描述符
+						// 重新加载所有的数据段描述符
 	mov $16, %ax		// 16为数据段选择子
     8003:	66 b8 10 00 8e d8    	mov    $0xd88e0010,%eax
 	mov %ax, %ds
@@ -329,9 +329,6 @@ static void  detect_memory(void) {
     8160:	66 e8 a1 ff ff ff    	calll  8107 <show_msg>
     8166:	66 83 c4 04          	add    $0x4,%esp
 
-	// 初次：EDX=0x534D4150,EAX=0xE820,ECX=24,INT 0x15, EBX=0（初次）
-	// 后续：EAX=0xE820,ECX=24,
-	// 结束判断：EBX=0
 	boot_info.ram_region_count = 0;
     816a:	66 c7 06 50 b0 00 00 	movl   $0x0,-0x4fb0
     8171:	00 00 
@@ -369,7 +366,6 @@ static void  detect_memory(void) {
     81d7:	e9 92 00             	jmp    826c <detect_memory+0x12a>
 		}
 
-		// todo: 20字节
 		if (bytes > 20 && (entry->ACPI & 0x0001) == 0){
     81da:	67 66 83 7d e0 14    	cmpl   $0x14,-0x20(%ebp)
     81e0:	7e 13                	jle    81f5 <detect_memory+0xb3>
@@ -381,7 +377,6 @@ static void  detect_memory(void) {
 			continue;
 		}
 
-        // 保存RAM信息，只取32位，空间有限无需考虑更大容量的情况
         if (entry->Type == 1) {
     81f5:	67 66 8b 45 e8       	mov    -0x18(%ebp),%eax
     81fa:	67 66 8b 40 10       	mov    0x10(%eax),%eax
@@ -447,12 +442,9 @@ void loader_entry(void) {
 	detect_memory();
     8294:	66 e8 a8 fe ff ff    	calll  8142 <detect_memory>
 
-	// 关闭中断
     cli();
     829a:	66 e8 78 fd ff ff    	calll  8018 <cli>
 
-	// 开启A20地址线，使得可访问1M以上空间
-    // 使用的是Fast A20 Gate方式，见https://wiki.osdev.org/A20#Fast_A20_Gate
     uint8_t v = inb(0x92);
     82a0:	66 68 92 00 00 00    	pushl  $0x92
     82a6:	66 e8 ad fd ff ff    	calll  8059 <inb>
@@ -474,7 +466,6 @@ void loader_entry(void) {
     82df:	66 e8 3e fd ff ff    	calll  8023 <lgdt>
     82e5:	66 83 c4 08          	add    $0x8,%esp
 
-	// 打开CR0的保护模式位，进入保持模式
     uint32_t cr0 = read_cr0();
     82e9:	66 e8 c1 fd ff ff    	calll  80b0 <read_cr0>
     82ef:	67 66 89 45 f8       	mov    %eax,-0x8(%ebp)
@@ -716,13 +707,11 @@ static void read_disk(int sector, int sector_count, uint8_t * buf) {
     8486:	ff                   	(bad)  
     8487:	ff 83 c4 08          	incw   0x8c4(%bp,%di)
 
-	// 读取数据
 	uint16_t *data_buf = (uint16_t*) buf;
     848b:	8b 45 10             	mov    0x10(%di),%ax
     848e:	89 45 f8             	mov    %ax,-0x8(%di)
 	while (sector_count-- > 0) {
     8491:	eb 4a                	jmp    84dd <read_disk+0x11c>
-		// 每次扇区读之前都要检查，等待数据就绪
 		while ((inb(0x1F7) & 0x88) != 0x8) {}
     8493:	90                   	nop
     8494:	68 f7 01             	push   $0x1f7
@@ -736,7 +725,6 @@ static void read_disk(int sector, int sector_count, uint8_t * buf) {
     84a9:	83 f8 08             	cmp    $0x8,%ax
     84ac:	75 e6                	jne    8494 <read_disk+0xd3>
 
-		// 读取并将数据写入到缓存中
 		for (int i = 0; i < SECTOR_SIZE / 2; i++) {
     84ae:	c7 45 f4 00 00       	movw   $0x0,-0xc(%di)
     84b3:	00 00                	add    %al,(%bx,%si)
@@ -776,8 +764,6 @@ static uint32_t reload_elf_file (uint8_t * file_buffer) {
     84f0:	55                   	push   %bp
     84f1:	89 e5                	mov    %sp,%bp
     84f3:	83 ec 20             	sub    $0x20,%sp
-    // 读取的只是ELF文件，不像BIN那样可直接运行，需要从中加载出有效数据和代码
-    // 简单判断是否是合法的ELF文件
     Elf32_Ehdr * elf_hdr = (Elf32_Ehdr *)file_buffer;
     84f6:	8b 45 08             	mov    0x8(%di),%ax
     84f9:	89 45 e8             	mov    %ax,-0x18(%di)
@@ -806,7 +792,6 @@ static uint32_t reload_elf_file (uint8_t * file_buffer) {
     852f:	00 00                	add    %al,(%bx,%si)
     }
 
-    // 然后从中加载程序头，将内容拷贝到相应的位置
     for (int i = 0; i < elf_hdr->e_phnum; i++) {
     8531:	c7 45 fc 00 00       	movw   $0x0,-0x4(%di)
     8536:	00 00                	add    %al,(%bx,%si)
@@ -830,7 +815,6 @@ static uint32_t reload_elf_file (uint8_t * file_buffer) {
             continue;
         }
 
-		// 全部使用物理地址，此时分页机制还未打开
         uint8_t * src = file_buffer + phdr->p_offset;
     8561:	8b 45 e4             	mov    -0x1c(%di),%ax
     8564:	8b 50 04             	mov    0x4(%bx,%si),%dx
@@ -863,7 +847,6 @@ static uint32_t reload_elf_file (uint8_t * file_buffer) {
     85a7:	77 d8                	ja     8581 <reload_elf_file+0x91>
         }
 
-		// memsz和filesz不同时，后续要填0
 		dest= (uint8_t *)phdr->p_paddr + phdr->p_filesz;
     85a9:	8b 45 e4             	mov    -0x1c(%di),%ax
     85ac:	8b 50 10             	mov    0x10(%bx,%si),%dx
@@ -926,11 +909,11 @@ void enable_page_mode (void) {
     860f:	55                   	push   %bp
     8610:	89 e5                	mov    %sp,%bp
     8612:	83 ec 10             	sub    $0x10,%sp
+
     static uint32_t page_dir[1024] __attribute__((aligned(4096))) = {
         [0] = PDE_P | PDE_PS | PDE_W,			// PDE_PS，开启4MB的页
     };
 
-    // 设置PSE，以便启用4M的页，而不是4KB
     uint32_t cr4 = read_cr4();
     8615:	e8 8a fd             	call   83a2 <write_cr3+0xa>
     8618:	ff                   	(bad)  
@@ -943,7 +926,6 @@ void enable_page_mode (void) {
     8627:	ff                   	(bad)  
     8628:	ff 83 c4 04          	incw   0x4c4(%bp,%di)
 
-    // 设置页表地址
     write_cr3((uint32_t)page_dir);
     862c:	b8 00 a0             	mov    $0xa000,%ax
     862f:	00 00                	add    %al,(%bx,%si)
@@ -952,7 +934,6 @@ void enable_page_mode (void) {
     8635:	ff                   	(bad)  
     8636:	ff 83 c4 04          	incw   0x4c4(%bp,%di)
 
-    // 开启分页机制
     write_cr0(read_cr0() | CR0_PG);
     863a:	e8 3c fd             	call   8379 <outb+0x1d>
     863d:	ff                   	(bad)  
@@ -974,6 +955,8 @@ void load_kernel(void) {
     8650:	55                   	push   %bp
     8651:	89 e5                	mov    %sp,%bp
     8653:	83 ec 18             	sub    $0x18,%sp
+
+    // 将100扇区之后500扇区的数据 放在 1024 * 1024 处
     read_disk(100, 500, (uint8_t *)SYS_KERNEL_LOAD_ADDR);
     8656:	68 00 00             	push   $0x0
     8659:	10 00                	adc    %al,(%bx,%si)
@@ -1001,7 +984,6 @@ void load_kernel(void) {
     8686:	ff 83 c4 04          	incw   0x4c4(%bp,%di)
 	}
 
-	// 开启分页机制
 	enable_page_mode();
     868a:	e8 80 ff             	call   860d <die+0x3>
     868d:	ff                   	(bad)  
