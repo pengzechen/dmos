@@ -21,6 +21,9 @@ struct _segment_desc_t {
 #define SEG_DPL0            (0 << 5)
 #define SEF_DPL3            (3 << 5)
 
+#define SEG_RPL0                (0 << 0)
+#define SEG_RPL3                (3 << 0)
+
 #define SEG_S_SYSTEM        (0 << 4)
 #define SEG_S_NOMAL         (1 << 4)
 
@@ -66,13 +69,32 @@ typedef struct _exception_frame_t {
 
 typedef void (*irq_handler_t) (exception_frame_t * frame);
 
-int  irq_install(int irq_num, irq_handler_t handler);
+int  irq_install(int irq_num, uint32_t handler);
 void irq_enable (int irq_num );
 void irq_disable(int irq_num );
 void irq_enable_global();
 void irq_disable_global();
 
-#define IRQ_TIMER 0x20
+#define IRQ0_DE             0
+#define IRQ1_DB             1
+#define IRQ2_NMI            2
+#define IRQ3_BP             3
+#define IRQ4_OF             4
+#define IRQ5_BR             5
+#define IRQ6_UD             6
+#define IRQ7_NM             7
+#define IRQ8_DF             8
+#define IRQ10_TS            10
+#define IRQ11_NP            11
+#define IRQ12_SS            12
+#define IRQ13_GP            13
+#define IRQ14_PF            14
+#define IRQ16_MF            16
+#define IRQ17_AC            17
+#define IRQ18_MC            18
+#define IRQ19_XM            19
+#define IRQ20_VE            20
+#define IRQ_TIMER           0x20
 
 // 8259 芯片相关
 // PIC控制器相关的寄存器及位配置
@@ -105,15 +127,15 @@ void pic_send_eoi(int irq_num);
 
 // tss ----------------------------------------------
 #pragma pack(1)
-typedef struct tss_s {
+typedef struct _tss_t {
     uint32_t pre_link;
     uint32_t esp0, ss0, esp1, ss1, esp2, ss2;
-    uint32_t cr3;       // 虚拟内存
-    uint32_t eip, eflags, eax, ecx, edx, ebx, esp, edp, esi, edi;
+    uint32_t cr3;
+    uint32_t eip, eflags, eax, ecx, edx, ebx, esp, ebp, esi, edi;
     uint32_t es, cs, ss, ds, fs, gs;
-    uint32_t ldt;       // ldt 表
+    uint32_t ldt;
     uint32_t iomap;
-} tss_t;
+}tss_t;
 #pragma pack()
 
 #define EFLAGES_DEFAULT   (1 << 1)

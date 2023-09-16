@@ -1,4 +1,4 @@
-# Install script for directory: D:/os/dmos/src/kernel
+# Install script for directory: D:/linux_kernel/dmos/src/kernel
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,6 +34,6 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "D:/os/x86_64-elf-tools-windows(1)/bin/x86_64-elf-objdump.exe")
+  set(CMAKE_OBJDUMP "D:/linux_kernel/tool/x86_64-elf-tools-windows/bin/x86_64-elf-objdump.exe")
 endif()
 

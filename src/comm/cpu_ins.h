@@ -102,11 +102,12 @@ static inline void write_cr4(uint32_t v) {
 
 static inline void far_jump(uint32_t selector, uint32_t offset) {
 	volatile uint32_t addr[] = {offset, selector };
+	
 	__asm__ __volatile__("ljmpl *(%[a])"::[a]"r"(addr));
 }
 
-static inline void write_tr (uint16_t tss_sel) {
-	__asm__ __volatile__ ("ltr %%ax"::"a"(tss_sel));
+static inline void write_tr (int tss_selector) {
+    __asm__ __volatile__("ltr %%ax"::"a"(tss_selector));
 }
 
 #endif
