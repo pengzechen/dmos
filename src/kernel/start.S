@@ -109,11 +109,11 @@ simple_switch:
     push %edi
     mov %esp, (%eax)
 
-
     mov %edx, %esp
     pop %edi
     pop %esi
     pop %ebx
     pop %ebp
+    sti
 
     ret

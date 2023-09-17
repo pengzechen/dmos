@@ -6,8 +6,8 @@ static uint32_t sys_tick;
 void exception_handler_time();
 void handle_time(exception_frame_t * frame) {
     sys_tick++;
-    if(sys_tick % 100 == 0) klog("%d----------------------------", sys_tick);
     pic_send_eoi(IRQ0_TIMER);
+    task_time_tick();
 } 
 
 static void pit_init (void) {

@@ -6,6 +6,7 @@
 #include <os_cfg.h>
 #include <irq.h>
 #include <log.h>
+#include <task.h>
 
 #define PIT_OSC_FREQ            1193182
 #define PIT_COMMAND_MODE_PORT   0x43
