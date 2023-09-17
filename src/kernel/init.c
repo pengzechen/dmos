@@ -1,18 +1,17 @@
 #include <loader/loader.h>
+#include <comm/cpu_ins.h>
 #include <cpu.h>
 #include <irq.h>
 #include <mtime.h>
 #include <log.h>
 #include <task.h>
-#include <comm/cpu_ins.h>
 #include <list.h>
 
 void kernel_init (boot_info_t * boot_info) {
     log_init();
-    // gdt_init();
+    gdt_init();
     irq_init();
     time_init();
-
 }
 
 
@@ -44,7 +43,6 @@ void list_test() {
         list_insert_last(&list, node);
     }
     show_list(list);
-// ------------------
     
     for(int i=0; i<5; i++) {
         list_node_t* node = list_delete_first(&list);

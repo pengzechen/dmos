@@ -37,15 +37,15 @@
 },
 {
   "directory": "D:/linux_kernel/dmos/build",
-  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\cpu.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\cpu.c",
-  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\cpu.c",
-  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\cpu.c.obj"
-},
-{
-  "directory": "D:/linux_kernel/dmos/build",
   "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\dev\\mtime.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\dev\\mtime.c",
   "file": "D:\\linux_kernel\\dmos\\src\\kernel\\dev\\mtime.c",
   "output": "src\\kernel\\CMakeFiles\\kernel.dir\\dev\\mtime.c.obj"
+},
+{
+  "directory": "D:/linux_kernel/dmos/build",
+  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\gdt.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\gdt.c",
+  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\gdt.c",
+  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\gdt.c.obj"
 },
 {
   "directory": "D:/linux_kernel/dmos/build",
