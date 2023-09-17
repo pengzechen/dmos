@@ -110,4 +110,18 @@ static inline void write_tr (uint16_t tss_selector) {
     __asm__ __volatile__("ltr %%ax"::"a"(tss_selector));
 }
 
+static inline uint32_t read_eflags() {
+	uint32_t eflags;
+
+	__asm__ __volatile__("pushf\n\tpop %%eax":"=a"(eflags));
+
+	return eflags;
+}
+
+static inline void write_eflags(uint32_t eflags) {
+
+	__asm__ __volatile__("push %%eax\n\tpopf"::"a"(eflags));
+
+
+}
 #endif

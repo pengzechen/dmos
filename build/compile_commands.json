@@ -79,6 +79,12 @@
 },
 {
   "directory": "D:/linux_kernel/dmos/build",
+  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\sem.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\sem.c",
+  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\sem.c",
+  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\sem.c.obj"
+},
+{
+  "directory": "D:/linux_kernel/dmos/build",
   "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -g -c -O0 -m32 -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -g -o src\\kernel\\CMakeFiles\\kernel.dir\\task.c.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\task.c",
   "file": "D:\\linux_kernel\\dmos\\src\\kernel\\task.c",
   "output": "src\\kernel\\CMakeFiles\\kernel.dir\\task.c.obj"

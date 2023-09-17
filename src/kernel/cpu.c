@@ -18,7 +18,7 @@ void segment_desc_set(int selector, uint32_t base, uint32_t limit, uint16_t attr
 
 void gdt_init() {
     for (int i = 0; i < GDT_TABLE_SIZE; i++) {
-        segment_desc_set(i << 3, 0, 0, 0);
+        segment_desc_set(i * sizeof(segment_desc_t), 0, 0, 0);
     }
 
     segment_desc_set(KERNEL_SELECTOR_DS, 0x00000000, 0xFFFFFFFF,
@@ -34,7 +34,7 @@ void gdt_init() {
 }
 
 int  gdt_alloc_desc() {
-    int i=1;
+    int i = 1;
     for(; i < GDT_TABLE_SIZE; i++) {
         segment_desc_t* desc = gdt_table2 + i;
         if(desc->attr == 0) {

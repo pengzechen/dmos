@@ -9,11 +9,10 @@
 
 void kernel_init (boot_info_t * boot_info) {
     log_init();
-    gdt_init();
+    // gdt_init();
     irq_init();
     time_init();
-    task_manager_init();
-    irq_enable_global();
+
 }
 
 
@@ -74,6 +73,9 @@ void offset_test() {
 void init_main() {
     klog("Kernal %s is running ... ", "1.0.0");
 
+    task_manager_init();
     task1_func_init();
+    irq_enable_global();
+    
     task_switch_from_to(0, get_first_task());
 }

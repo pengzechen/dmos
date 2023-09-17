@@ -24,6 +24,7 @@
         "cpu_ins.h": "c",
         "irq.h": "c",
         "time.h": "c",
-        "mtime.h": "c"
+        "mtime.h": "c",
+        "sem.h": "c"
     },
 }

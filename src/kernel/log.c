@@ -21,6 +21,8 @@ void klog(const char* fmt, ...) {
     k_vsprint(buf, fmt, args);
     va_end(args);
 
+    irq_state_t state = irq_enter_proection();
+
     const char *p = buf;
     while(*p != '\0') {
         while( (inb(COM1_PORT + 5) & (1 << 6)) == 0);
@@ -28,5 +30,7 @@ void klog(const char* fmt, ...) {
     }
     outb(COM1_PORT, '\r');  // 回到0列
     outb(COM1_PORT, '\n');  // 向下一行
+
+    irq_leave_proection(state);
 }
 

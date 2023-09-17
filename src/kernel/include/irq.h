@@ -115,4 +115,9 @@ void gate_desc_set(gate_desc_t * desc, uint16_t selector, uint32_t offset, uint1
 void irq_init ();
 void pic_send_eoi(int irq_num);    // 中断处理完通知 8259
 
+typedef uint32_t irq_state_t;
+
+irq_state_t irq_enter_proection();
+void irq_leave_proection(irq_state_t state);
+
 #endif
