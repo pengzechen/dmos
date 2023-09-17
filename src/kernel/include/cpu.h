@@ -2,10 +2,7 @@
 #define CPU_H
 
 #include <os_cfg.h>
-#include <comm/cpu_ins.h>
 #include <comm/types.h>
-#include <log.h>
-
 
 #define SEG_G               (1 << 15)
 #define SEG_D               (1 << 14)

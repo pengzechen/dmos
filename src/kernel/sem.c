@@ -1,5 +1,5 @@
 #include <sem.h>
-
+#include <irq.h>
 
 void sem_init(sem_t* sem, int init_count) {
     sem->count = init_count;

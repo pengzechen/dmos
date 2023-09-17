@@ -2,7 +2,10 @@
 
 #define COM1_PORT       0x3f8
 
+static mutex_t mutex;
+
 void log_init() {
+    mutex_init(&mutex);
     outb(COM1_PORT + 1, 0x00);
     outb(COM1_PORT + 3, 0x80);
     outb(COM1_PORT + 0, 0x3);
@@ -21,7 +24,8 @@ void klog(const char* fmt, ...) {
     k_vsprint(buf, fmt, args);
     va_end(args);
 
-    irq_state_t state = irq_enter_proection();
+    mutex_lock(&mutex);
+    // irq_state_t state = irq_enter_proection();
 
     const char *p = buf;
     while(*p != '\0') {
@@ -31,6 +35,8 @@ void klog(const char* fmt, ...) {
     outb(COM1_PORT, '\r');  // 回到0列
     outb(COM1_PORT, '\n');  // 向下一行
 
-    irq_leave_proection(state);
+    mutex_unlock(&mutex);
+    // irq_leave_proection(state);
+
 }
 

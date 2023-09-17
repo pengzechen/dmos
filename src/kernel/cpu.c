@@ -1,4 +1,7 @@
 #include <cpu.h>
+#include <log.h>
+#include <comm/cpu_ins.h>
+
 
 static segment_desc_t gdt_table2[GDT_TABLE_SIZE];
 

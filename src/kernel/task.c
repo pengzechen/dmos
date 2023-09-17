@@ -1,14 +1,22 @@
 #include <task.h>
-
-void simple_switch(uint32_t **from, uint32_t* to);
+#include <sem.h>
+#include <irq.h>
+#include <comm/cpu_ins.h>
+#include <cpu.h>
+#include <klib.h>
+#include <os_cfg.h>
+#include <log.h>
 
 static void idle_task_func() { for(;;) hlt(); }
 
-void task_switch_from_to(task_t* from, task_t* to) {
-    // far_jump(to->tss_sel, 0);  // 使用 tss 机制
+void simple_switch(uint32_t **from, uint32_t* to);
 
+void task_switch_from_to(task_t* from, task_t* to) {
+    // far_jump(to->tss_sel, 0);             // 使用 tss 机制
     simple_switch(&from->stack, to->stack);  // 使用直接跳转机制
 }
+
+
 
 static task_manager_t task_manager;
 static uint32_t task1_stack[2048];
@@ -93,8 +101,8 @@ void task1_func() {
     int count = 0;
     for(;;) {
         klog("-------------------------11111-----------------: %d", count--);
-        sem_notify(&sem_test);
         sys_sleep(1000);
+        sem_notify(&sem_test);
     }
 }
 

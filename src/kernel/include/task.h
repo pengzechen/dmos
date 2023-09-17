@@ -2,18 +2,11 @@
 #define TASK_H
 
 #include <comm/types.h>
-#include <comm/cpu_ins.h>
-#include <cpu.h>
-#include <klib.h>
-#include <os_cfg.h>
-#include <log.h>
 #include <list.h>
-
-#include <sem.h>
-#include <irq.h>
+#include <cpu.h>
 
 #define TASK_NAME_SIZE           32
-#define TASK_TIME_SLICE_DEFAULT  5
+#define TASK_TIME_SLICE_DEFAULT  10
 
 typedef struct _task_s {
     uint32_t    *       stack;

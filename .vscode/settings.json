@@ -25,6 +25,8 @@
         "irq.h": "c",
         "time.h": "c",
         "mtime.h": "c",
-        "sem.h": "c"
+        "sem.h": "c",
+        "mux.h": "c",
+        "stdarg.h": "c"
     },
 }

@@ -98,7 +98,7 @@ exception_handler time, 0x20, 0
     // simple_switch(&from, &to)
 .text
 .global simple_switch
-    
+
 simple_switch:
     mov 4(%esp), %eax
     mov 8(%esp), %edx
@@ -114,6 +114,6 @@ simple_switch:
     pop %esi
     pop %ebx
     pop %ebp
+    
     sti
-
     ret

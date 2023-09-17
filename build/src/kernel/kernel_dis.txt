@@ -7,37 +7,37 @@ start address 0x00010000
 
 Program Header:
     LOAD off    0x00001000 vaddr 0x00010000 paddr 0x00010000 align 2**12
-         filesz 0x00002141 memsz 0x00002141 flags r-x
+         filesz 0x000022fd memsz 0x000022fd flags r-x
     LOAD off    0x00004000 vaddr 0x00200000 paddr 0x00200000 align 2**12
-         filesz 0x00000004 memsz 0x00008eb0 flags rw-
+         filesz 0x00000004 memsz 0x00008ed0 flags rw-
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00001e26  00010000  00010000  00001000  2**0
+  0 .text         00001fe2  00010000  00010000  00001000  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .rodata       00000319  00011e28  00011e28  00002e28  2**2
+  1 .rodata       00000319  00011fe4  00011fe4  00002fe4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   2 .data         00000004  00200000  00200000  00004000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  3 .bss          00008e90  00200020  00200020  00004004  2**5
+  3 .bss          00008eb0  00200020  00200020  00004004  2**5
                   ALLOC
-  4 .debug_line   00000cd3  00000000  00000000  00004004  2**0
+  4 .debug_line   00000e1c  00000000  00000000  00004004  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00002482  00000000  00000000  00004cd7  2**0
+  5 .debug_info   00002bbd  00000000  00000000  00004e20  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000bc1  00000000  00000000  00007159  2**0
+  6 .debug_abbrev 00000d05  00000000  00000000  000079dd  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_aranges 00000140  00000000  00000000  00007d20  2**3
+  7 .debug_aranges 00000160  00000000  00000000  000086e8  2**3
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_str    00000abf  00000000  00000000  00007e60  2**0
+  8 .debug_str    00000b37  00000000  00000000  00008848  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .comment      00000011  00000000  00000000  0000891f  2**0
+  9 .comment      00000011  00000000  00000000  0000937f  2**0
                   CONTENTS, READONLY
- 10 .debug_frame  00000da4  00000000  00000000  00008930  2**2
+ 10 .debug_frame  00000e38  00000000  00000000  00009390  2**2
                   CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 00010000 l    d  .text	00000000 .text
-00011e28 l    d  .rodata	00000000 .rodata
+00011fe4 l    d  .rodata	00000000 .rodata
 00200000 l    d  .data	00000000 .data
 00200020 l    d  .bss	00000000 .bss
 00000000 l    d  .debug_line	00000000 .debug_line
@@ -79,32 +79,35 @@ SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 log.c
 000114d7 l     F .text	0000001d inb
 000114f4 l     F .text	0000001f outb
+00200c40 l     O .bss	00000014 mutex
+00000000 l    df *ABS*	00000000 mutex.c
+0001168e l     F .text	0000000b list_count
 00000000 l    df *ABS*	00000000 sem.c
-0001165c l     F .text	0000000b list_count
+00011818 l     F .text	0000000b list_count
 00000000 l    df *ABS*	00000000 task.c
-000117a0 l     F .text	00000007 hlt
-000117a7 l     F .text	0000001b list_node_init
-000117c2 l     F .text	0000000b list_node_next
-000117cd l     F .text	0000000b list_count
-000117d8 l     F .text	0000000a list_first
-000117e2 l     F .text	0000000a idle_task_func
-00200c40 l     O .bss	00000198 task_manager
-00200de0 l     O .bss	00002000 task1_stack
-00202de0 l     O .bss	00002000 idle_task_stack
-00204de0 l     O .bss	00002000 task3_stack
-00206de0 l     O .bss	000000b8 task3
-00011b2b g     F .text	0000000a task_current
+0001195c l     F .text	0000001b list_node_init
+00011977 l     F .text	0000000b list_node_next
+00011982 l     F .text	0000000b list_count
+0001198d l     F .text	0000000a list_first
+00011997 l     F .text	00000007 hlt
+0001199e l     F .text	0000000a idle_task_func
+00200c60 l     O .bss	00000198 task_manager
+00200e00 l     O .bss	00002000 task1_stack
+00202e00 l     O .bss	00002000 idle_task_stack
+00204e00 l     O .bss	00002000 task3_stack
+00206e00 l     O .bss	000000b8 task3
+00011ce7 g     F .text	0000000a task_current
 00010e31 g     F .text	00000018 irq_enter_proection
 00011452 g     F .text	00000085 list_delete
 00010dfb g     F .text	0000000b irq_enable_global
 00011375 g     F .text	00000064 list_insert_last
-00011b35 g     F .text	00000035 task_set_ready
+00011cf1 g     F .text	00000035 task_set_ready
 000108ab g     F .text	0000001c handle_overflow
 00010267 g       .text	00000000 exception_handler_virtual_exception
-00011a85 g     F .text	00000039 task3_func
+00011c41 g     F .text	00000039 task3_func
 00010a33 g     F .text	0000001c handle_virtual_exception
-00011513 g     F .text	00000075 log_init
-00208ea0 g     O .bss	00000010 sem_test
+00011513 g     F .text	0000009d log_init
+00208ec0 g     O .bss	00000010 sem_test
 0001071b g     F .text	00000040 init_main
 0001020c g       .text	00000000 exception_handler_alignment_check
 00010f11 g     F .text	0000007a k_strncmp
@@ -113,14 +116,14 @@ SYMBOL TABLE:
 00010028 g       .text	00000000 exception_handler_unknown
 00010857 g     F .text	0000001c handle_Debug
 000100a4 g       .text	00000000 exception_handler_breakpoint
-0001180a g     F .text	000000cc tss_init
+000119c6 g     F .text	000000cc tss_init
 000101b3 g       .text	00000000 exception_handler_general_protection
-00011777 g     F .text	00000029 sem_count
+00011933 g     F .text	00000029 sem_count
 000109a7 g     F .text	0000001c handle_page_fault
 0001013f g       .text	00000000 exception_handler_double_fault
 00010e06 g     F .text	0000002b pic_send_eoi
-00011a3c g     F .text	00000049 task1_func
-0001168a g     F .text	0000006b sem_wait
+00011bf8 g     F .text	00000049 task1_func
+00011846 g     F .text	0000006b sem_wait
 00010e5a g     F .text	00000047 k_strcpy
 00010ea1 g     F .text	00000070 k_strncpy
 00010196 g       .text	00000000 exception_handler_stack_segment_fault
@@ -128,53 +131,56 @@ SYMBOL TABLE:
 000100c3 g       .text	00000000 exception_handler_overflow
 000102a5 g       .text	00000000 simple_switch
 00010286 g       .text	00000000 exception_handler_time
-00206ea0 g     O .bss	00002000 stack
-00011d73 g     F .text	00000058 sys_sleep
+00206ec0 g     O .bss	00002000 stack
+00011f2f g     F .text	00000058 sys_sleep
 00010558 g     F .text	00000163 list_test
 000108e3 g     F .text	0000001c handle_invalid_opcode
 00010f8b g     F .text	0000003b k_strlen
 00011056 g     F .text	00000064 k_memcmp
 000100e2 g       .text	00000000 exception_handler_bound_range
-000116f5 g     F .text	00000082 sem_notify
-00011b21 g     F .text	0000000a get_first_task
+000118b1 g     F .text	00000082 sem_notify
+00011cdd g     F .text	0000000a get_first_task
 0001015c g       .text	00000000 exception_handler_invalid_tss
 00011191 g     F .text	0000014d k_vsprint
 00011316 g     F .text	0000005f list_insert_first
-00011e06 g     F .text	00000020 task_set_wakeup
+00011fc2 g     F .text	00000020 task_set_wakeup
 00010047 g       .text	00000000 exception_handler_divider
 000109c3 g     F .text	0000001c handle_fpu_error
 00010df0 g     F .text	0000000b irq_disable_global
-00011b95 g     F .text	00000061 sys_sched_yield
+00011d51 g     F .text	00000061 sys_sched_yield
 0001081f g     F .text	0000001c handle_unknown
 000104fb g     F .text	00000018 kernel_init
 00011015 g     F .text	00000041 k_memset
-00011667 g     F .text	00000023 sem_init
+00011823 g     F .text	00000023 sem_init
 00010000 g       .text	00000000 _start
 00010120 g       .text	00000000 exception_handler_device_unavailable
 00010101 g       .text	00000000 exception_handler_invalid_opcode
 00010513 g     F .text	00000045 show_list
+000116c7 g     F .text	00000094 mutex_lock
 00010229 g       .text	00000000 exception_handler_machine_check
-00011dcb g     F .text	0000003b task_set_sleep
+00011f87 g     F .text	0000003b task_set_sleep
 00010a96 g     F .text	00000030 irq_install
 00010a17 g     F .text	0000001c handle_smd_exception
-00011abe g     F .text	00000063 task1_func_init
+00011699 g     F .text	0000002e mutex_init
+00011c7a g     F .text	00000063 task1_func_init
 00010d69 g     F .text	00000087 irq_disable
 0001098b g     F .text	0000001c handle_general_protection
 00010248 g       .text	00000000 exception_handler_smd_exception
 00010e49 g     F .text	00000011 irq_leave_proection
 000109df g     F .text	0000001c handle_alignment_check
-00011c39 g     F .text	0000005c task_dispatch
+00011df5 g     F .text	0000005c task_dispatch
 000109fb g     F .text	0000001c handle_machine_check
-00011bf6 g     F .text	00000043 task_next_run
+00011db2 g     F .text	00000043 task_next_run
 000112f1 g     F .text	00000025 list_init
 0001096f g     F .text	0000001c handle_stack_segment_fault
 000101d0 g       .text	00000000 exception_handler_page_fault
-00011b6a g     F .text	0000002b task_set_block
+00011d26 g     F .text	0000002b task_set_block
 000108c7 g     F .text	0000001c handle_bound_range
 000101ed g       .text	00000000 exception_handler_fpu_error
-000117ec g     F .text	0000001e task_switch_from_to
+000119a8 g     F .text	0000001e task_switch_from_to
 00010b59 g     F .text	00000185 irq_init
 000110ba g     F .text	000000d7 k_itoa
+0001175b g     F .text	000000bd mutex_unlock
 0001091b g     F .text	0000001c handle_double_fault
 0001043a g     F .text	00000028 handle_time
 000102e3 g     F .text	00000086 segment_desc_set
@@ -182,17 +188,17 @@ SYMBOL TABLE:
 0001088f g     F .text	0000001c handle_breakpoint
 00010179 g       .text	00000000 exception_handler_segment_not_present
 00010085 g       .text	00000000 exception_handler_NMI
-000119e7 g     F .text	00000055 task_manager_init
+00011ba3 g     F .text	00000055 task_manager_init
 00010066 g       .text	00000000 exception_handler_Debug
-00011c95 g     F .text	000000de task_time_tick
+00011e51 g     F .text	000000de task_time_tick
 000108ff g     F .text	0000001c handle_device_unavailable
 0001083b g     F .text	0000001c handle_divider
 00010fc6 g     F .text	0000004f k_memcpy
-000118d6 g     F .text	00000111 task_init
+00011a92 g     F .text	00000111 task_init
 000103d6 g     F .text	00000045 gdt_alloc_desc
 000113d9 g     F .text	00000079 list_delete_first
 00010a4f g     F .text	00000047 gate_desc_set
-00011588 g     F .text	000000d4 klog
+000115b0 g     F .text	000000de klog
 00010873 g     F .text	0000001c handle_NMI
 00010937 g     F .text	0000001c handle_invalid_tss
 000104c3 g     F .text	00000018 time_init
@@ -236,7 +242,7 @@ gdt_reload:
 
 	// 栈设置
 	mov $(stack + KERNEL_STACK_SIZE), %esp
-   1001e:	bc a0 8e 20 00       	mov    $0x208ea0,%esp
+   1001e:	bc c0 8e 20 00       	mov    $0x208ec0,%esp
 
 	// 栈和段等沿用之前的设置
 	jmp init_main
@@ -665,7 +671,7 @@ exception_handler time, 0x20, 0
     // simple_switch(&from, &to)
 .text
 .global simple_switch
-    
+
 simple_switch:
     mov 4(%esp), %eax
    102a5:	8b 44 24 04          	mov    0x4(%esp),%eax
@@ -693,9 +699,9 @@ simple_switch:
    102b7:	5b                   	pop    %ebx
     pop %ebp
    102b8:	5d                   	pop    %ebp
+    
     sti
    102b9:	fb                   	sti    
-
    102ba:	c3                   	ret    
 
 000102bb <lgdt>:
@@ -733,7 +739,8 @@ static inline void lgdt(uint32_t start, uint32_t size) {
    102e2:	c3                   	ret    
 
 000102e3 <segment_desc_set>:
-#include <cpu.h>
+#include <comm/cpu_ins.h>
+
 
 static segment_desc_t gdt_table2[GDT_TABLE_SIZE];
 
@@ -932,7 +939,7 @@ void handle_time(exception_frame_t * frame) {
    10452:	e8 af 09 00 00       	call   10e06 <pic_send_eoi>
    10457:	83 c4 10             	add    $0x10,%esp
     task_time_tick();
-   1045a:	e8 36 18 00 00       	call   11c95 <task_time_tick>
+   1045a:	e8 f2 19 00 00       	call   11e51 <task_time_tick>
 } 
    1045f:	90                   	nop
    10460:	c9                   	leave  
@@ -1088,8 +1095,8 @@ void show_list(list_t list) {
    10540:	56                   	push   %esi
    10541:	53                   	push   %ebx
    10542:	50                   	push   %eax
-   10543:	68 28 1e 01 00       	push   $0x11e28
-   10548:	e8 3b 10 00 00       	call   11588 <klog>
+   10543:	68 e4 1f 01 00       	push   $0x11fe4
+   10548:	e8 63 10 00 00       	call   115b0 <klog>
    1054d:	83 c4 10             	add    $0x10,%esp
          list_first(&list), list_last(&list), list_count(&list) );
 }
@@ -1137,8 +1144,8 @@ void list_test() {
    1059f:	83 ec 04             	sub    $0x4,%esp
    105a2:	50                   	push   %eax
    105a3:	ff 75 f4             	pushl  -0xc(%ebp)
-   105a6:	68 50 1e 01 00       	push   $0x11e50
-   105ab:	e8 d8 0f 00 00       	call   11588 <klog>
+   105a6:	68 0c 20 01 00       	push   $0x1200c
+   105ab:	e8 00 10 00 00       	call   115b0 <klog>
    105b0:	83 c4 10             	add    $0x10,%esp
         list_insert_first(&list, node);
    105b3:	83 ec 08             	sub    $0x8,%esp
@@ -1188,8 +1195,8 @@ void list_test() {
    10624:	83 ec 04             	sub    $0x4,%esp
    10627:	50                   	push   %eax
    10628:	ff 75 f0             	pushl  -0x10(%ebp)
-   1062b:	68 50 1e 01 00       	push   $0x11e50
-   10630:	e8 53 0f 00 00       	call   11588 <klog>
+   1062b:	68 0c 20 01 00       	push   $0x1200c
+   10630:	e8 7b 0f 00 00       	call   115b0 <klog>
    10635:	83 c4 10             	add    $0x10,%esp
         list_insert_last(&list, node);
    10638:	83 ec 08             	sub    $0x8,%esp
@@ -1227,8 +1234,8 @@ void list_test() {
    10686:	83 ec 04             	sub    $0x4,%esp
    10689:	50                   	push   %eax
    1068a:	ff 75 ec             	pushl  -0x14(%ebp)
-   1068d:	68 70 1e 01 00       	push   $0x11e70
-   10692:	e8 f1 0e 00 00       	call   11588 <klog>
+   1068d:	68 2c 20 01 00       	push   $0x1202c
+   10692:	e8 19 0f 00 00       	call   115b0 <klog>
    10697:	83 c4 10             	add    $0x10,%esp
     for(int i=0; i<5; i++) {
    1069a:	83 45 ec 01          	addl   $0x1,-0x14(%ebp)
@@ -1284,8 +1291,8 @@ void offset_test() {
    10706:	74 10                	je     10718 <offset_test+0x5d>
         klog("error");
    10708:	83 ec 0c             	sub    $0xc,%esp
-   1070b:	68 91 1e 01 00       	push   $0x11e91
-   10710:	e8 73 0e 00 00       	call   11588 <klog>
+   1070b:	68 4d 20 01 00       	push   $0x1204d
+   10710:	e8 9b 0e 00 00       	call   115b0 <klog>
    10715:	83 c4 10             	add    $0x10,%esp
     }
 }
@@ -1302,24 +1309,24 @@ void init_main() {
    1071e:	83 ec 08             	sub    $0x8,%esp
     klog("Kernal %s is running ... ", "1.0.0");
    10721:	83 ec 08             	sub    $0x8,%esp
-   10724:	68 97 1e 01 00       	push   $0x11e97
-   10729:	68 9d 1e 01 00       	push   $0x11e9d
-   1072e:	e8 55 0e 00 00       	call   11588 <klog>
+   10724:	68 53 20 01 00       	push   $0x12053
+   10729:	68 59 20 01 00       	push   $0x12059
+   1072e:	e8 7d 0e 00 00       	call   115b0 <klog>
    10733:	83 c4 10             	add    $0x10,%esp
 
     task_manager_init();
-   10736:	e8 ac 12 00 00       	call   119e7 <task_manager_init>
+   10736:	e8 68 14 00 00       	call   11ba3 <task_manager_init>
     task1_func_init();
-   1073b:	e8 7e 13 00 00       	call   11abe <task1_func_init>
+   1073b:	e8 3a 15 00 00       	call   11c7a <task1_func_init>
     irq_enable_global();
    10740:	e8 b6 06 00 00       	call   10dfb <irq_enable_global>
     
     task_switch_from_to(0, get_first_task());
-   10745:	e8 d7 13 00 00       	call   11b21 <get_first_task>
+   10745:	e8 93 15 00 00       	call   11cdd <get_first_task>
    1074a:	83 ec 08             	sub    $0x8,%esp
    1074d:	50                   	push   %eax
    1074e:	6a 00                	push   $0x0
-   10750:	e8 97 10 00 00       	call   117ec <task_switch_from_to>
+   10750:	e8 53 12 00 00       	call   119a8 <task_switch_from_to>
    10755:	83 c4 10             	add    $0x10,%esp
    10758:	90                   	nop
    10759:	c9                   	leave  
@@ -1469,14 +1476,14 @@ static void default_handler (exception_frame_t * frame, const char * message) {
    107f2:	83 ec 08             	sub    $0x8,%esp
     klog("--------------------------------");
    107f5:	83 ec 0c             	sub    $0xc,%esp
-   107f8:	68 b8 1e 01 00       	push   $0x11eb8
-   107fd:	e8 86 0d 00 00       	call   11588 <klog>
+   107f8:	68 74 20 01 00       	push   $0x12074
+   107fd:	e8 ae 0d 00 00       	call   115b0 <klog>
    10802:	83 c4 10             	add    $0x10,%esp
     klog("IRQ/Exception happend: %s.", message);
    10805:	83 ec 08             	sub    $0x8,%esp
    10808:	ff 75 0c             	pushl  0xc(%ebp)
-   1080b:	68 d9 1e 01 00       	push   $0x11ed9
-   10810:	e8 73 0d 00 00       	call   11588 <klog>
+   1080b:	68 95 20 01 00       	push   $0x12095
+   10810:	e8 9b 0d 00 00       	call   115b0 <klog>
    10815:	83 c4 10             	add    $0x10,%esp
     for (;;) {
         hlt();
@@ -1492,7 +1499,7 @@ void handle_unknown (exception_frame_t * frame) {
    10822:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Unknown exception.");
    10825:	83 ec 08             	sub    $0x8,%esp
-   10828:	68 f4 1e 01 00       	push   $0x11ef4
+   10828:	68 b0 20 01 00       	push   $0x120b0
    1082d:	ff 75 08             	pushl  0x8(%ebp)
    10830:	e8 ba ff ff ff       	call   107ef <default_handler>
    10835:	83 c4 10             	add    $0x10,%esp
@@ -1508,7 +1515,7 @@ void handle_divider(exception_frame_t * frame) {
    1083e:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Divider Error.");
    10841:	83 ec 08             	sub    $0x8,%esp
-   10844:	68 07 1f 01 00       	push   $0x11f07
+   10844:	68 c3 20 01 00       	push   $0x120c3
    10849:	ff 75 08             	pushl  0x8(%ebp)
    1084c:	e8 9e ff ff ff       	call   107ef <default_handler>
    10851:	83 c4 10             	add    $0x10,%esp
@@ -1524,7 +1531,7 @@ void handle_Debug(exception_frame_t * frame) {
    1085a:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Debug Exception");
    1085d:	83 ec 08             	sub    $0x8,%esp
-   10860:	68 16 1f 01 00       	push   $0x11f16
+   10860:	68 d2 20 01 00       	push   $0x120d2
    10865:	ff 75 08             	pushl  0x8(%ebp)
    10868:	e8 82 ff ff ff       	call   107ef <default_handler>
    1086d:	83 c4 10             	add    $0x10,%esp
@@ -1540,7 +1547,7 @@ void handle_NMI(exception_frame_t * frame) {
    10876:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "NMI Interrupt.");
    10879:	83 ec 08             	sub    $0x8,%esp
-   1087c:	68 26 1f 01 00       	push   $0x11f26
+   1087c:	68 e2 20 01 00       	push   $0x120e2
    10881:	ff 75 08             	pushl  0x8(%ebp)
    10884:	e8 66 ff ff ff       	call   107ef <default_handler>
    10889:	83 c4 10             	add    $0x10,%esp
@@ -1556,7 +1563,7 @@ void handle_breakpoint(exception_frame_t * frame) {
    10892:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Breakpoint.");
    10895:	83 ec 08             	sub    $0x8,%esp
-   10898:	68 35 1f 01 00       	push   $0x11f35
+   10898:	68 f1 20 01 00       	push   $0x120f1
    1089d:	ff 75 08             	pushl  0x8(%ebp)
    108a0:	e8 4a ff ff ff       	call   107ef <default_handler>
    108a5:	83 c4 10             	add    $0x10,%esp
@@ -1572,7 +1579,7 @@ void handle_overflow(exception_frame_t * frame) {
    108ae:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Overflow.");
    108b1:	83 ec 08             	sub    $0x8,%esp
-   108b4:	68 41 1f 01 00       	push   $0x11f41
+   108b4:	68 fd 20 01 00       	push   $0x120fd
    108b9:	ff 75 08             	pushl  0x8(%ebp)
    108bc:	e8 2e ff ff ff       	call   107ef <default_handler>
    108c1:	83 c4 10             	add    $0x10,%esp
@@ -1588,7 +1595,7 @@ void handle_bound_range(exception_frame_t * frame) {
    108ca:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "BOUND Range Exceeded.");
    108cd:	83 ec 08             	sub    $0x8,%esp
-   108d0:	68 4b 1f 01 00       	push   $0x11f4b
+   108d0:	68 07 21 01 00       	push   $0x12107
    108d5:	ff 75 08             	pushl  0x8(%ebp)
    108d8:	e8 12 ff ff ff       	call   107ef <default_handler>
    108dd:	83 c4 10             	add    $0x10,%esp
@@ -1604,7 +1611,7 @@ void handle_invalid_opcode(exception_frame_t * frame) {
    108e6:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Invalid Opcode.");
    108e9:	83 ec 08             	sub    $0x8,%esp
-   108ec:	68 61 1f 01 00       	push   $0x11f61
+   108ec:	68 1d 21 01 00       	push   $0x1211d
    108f1:	ff 75 08             	pushl  0x8(%ebp)
    108f4:	e8 f6 fe ff ff       	call   107ef <default_handler>
    108f9:	83 c4 10             	add    $0x10,%esp
@@ -1620,7 +1627,7 @@ void handle_device_unavailable(exception_frame_t * frame) {
    10902:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Device Not Available.");
    10905:	83 ec 08             	sub    $0x8,%esp
-   10908:	68 71 1f 01 00       	push   $0x11f71
+   10908:	68 2d 21 01 00       	push   $0x1212d
    1090d:	ff 75 08             	pushl  0x8(%ebp)
    10910:	e8 da fe ff ff       	call   107ef <default_handler>
    10915:	83 c4 10             	add    $0x10,%esp
@@ -1636,7 +1643,7 @@ void handle_double_fault(exception_frame_t * frame) {
    1091e:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Double Fault.");
    10921:	83 ec 08             	sub    $0x8,%esp
-   10924:	68 87 1f 01 00       	push   $0x11f87
+   10924:	68 43 21 01 00       	push   $0x12143
    10929:	ff 75 08             	pushl  0x8(%ebp)
    1092c:	e8 be fe ff ff       	call   107ef <default_handler>
    10931:	83 c4 10             	add    $0x10,%esp
@@ -1652,7 +1659,7 @@ void handle_invalid_tss(exception_frame_t * frame) {
    1093a:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Invalid TSS");
    1093d:	83 ec 08             	sub    $0x8,%esp
-   10940:	68 95 1f 01 00       	push   $0x11f95
+   10940:	68 51 21 01 00       	push   $0x12151
    10945:	ff 75 08             	pushl  0x8(%ebp)
    10948:	e8 a2 fe ff ff       	call   107ef <default_handler>
    1094d:	83 c4 10             	add    $0x10,%esp
@@ -1668,7 +1675,7 @@ void handle_segment_not_present(exception_frame_t * frame) {
    10956:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Segment Not Present.");
    10959:	83 ec 08             	sub    $0x8,%esp
-   1095c:	68 a1 1f 01 00       	push   $0x11fa1
+   1095c:	68 5d 21 01 00       	push   $0x1215d
    10961:	ff 75 08             	pushl  0x8(%ebp)
    10964:	e8 86 fe ff ff       	call   107ef <default_handler>
    10969:	83 c4 10             	add    $0x10,%esp
@@ -1684,7 +1691,7 @@ void handle_stack_segment_fault(exception_frame_t * frame) {
    10972:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Stack-Segment Fault.");
    10975:	83 ec 08             	sub    $0x8,%esp
-   10978:	68 b6 1f 01 00       	push   $0x11fb6
+   10978:	68 72 21 01 00       	push   $0x12172
    1097d:	ff 75 08             	pushl  0x8(%ebp)
    10980:	e8 6a fe ff ff       	call   107ef <default_handler>
    10985:	83 c4 10             	add    $0x10,%esp
@@ -1700,7 +1707,7 @@ void handle_general_protection(exception_frame_t * frame) {
    1098e:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "IRQ/Exception happend: General Protection.");
    10991:	83 ec 08             	sub    $0x8,%esp
-   10994:	68 cc 1f 01 00       	push   $0x11fcc
+   10994:	68 88 21 01 00       	push   $0x12188
    10999:	ff 75 08             	pushl  0x8(%ebp)
    1099c:	e8 4e fe ff ff       	call   107ef <default_handler>
    109a1:	83 c4 10             	add    $0x10,%esp
@@ -1716,7 +1723,7 @@ void handle_page_fault(exception_frame_t * frame) {
    109aa:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "IRQ/Exception happend: Page fault.");
    109ad:	83 ec 08             	sub    $0x8,%esp
-   109b0:	68 f8 1f 01 00       	push   $0x11ff8
+   109b0:	68 b4 21 01 00       	push   $0x121b4
    109b5:	ff 75 08             	pushl  0x8(%ebp)
    109b8:	e8 32 fe ff ff       	call   107ef <default_handler>
    109bd:	83 c4 10             	add    $0x10,%esp
@@ -1732,7 +1739,7 @@ void handle_fpu_error(exception_frame_t * frame) {
    109c6:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "X87 FPU Floating Point Error.");
    109c9:	83 ec 08             	sub    $0x8,%esp
-   109cc:	68 1b 20 01 00       	push   $0x1201b
+   109cc:	68 d7 21 01 00       	push   $0x121d7
    109d1:	ff 75 08             	pushl  0x8(%ebp)
    109d4:	e8 16 fe ff ff       	call   107ef <default_handler>
    109d9:	83 c4 10             	add    $0x10,%esp
@@ -1748,7 +1755,7 @@ void handle_alignment_check(exception_frame_t * frame) {
    109e2:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Alignment Check.");
    109e5:	83 ec 08             	sub    $0x8,%esp
-   109e8:	68 39 20 01 00       	push   $0x12039
+   109e8:	68 f5 21 01 00       	push   $0x121f5
    109ed:	ff 75 08             	pushl  0x8(%ebp)
    109f0:	e8 fa fd ff ff       	call   107ef <default_handler>
    109f5:	83 c4 10             	add    $0x10,%esp
@@ -1764,7 +1771,7 @@ void handle_machine_check(exception_frame_t * frame) {
    109fe:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Machine Check.");
    10a01:	83 ec 08             	sub    $0x8,%esp
-   10a04:	68 4a 20 01 00       	push   $0x1204a
+   10a04:	68 06 22 01 00       	push   $0x12206
    10a09:	ff 75 08             	pushl  0x8(%ebp)
    10a0c:	e8 de fd ff ff       	call   107ef <default_handler>
    10a11:	83 c4 10             	add    $0x10,%esp
@@ -1780,7 +1787,7 @@ void handle_smd_exception(exception_frame_t * frame) {
    10a1a:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "SIMD Floating Point Exception.");
    10a1d:	83 ec 08             	sub    $0x8,%esp
-   10a20:	68 5c 20 01 00       	push   $0x1205c
+   10a20:	68 18 22 01 00       	push   $0x12218
    10a25:	ff 75 08             	pushl  0x8(%ebp)
    10a28:	e8 c2 fd ff ff       	call   107ef <default_handler>
    10a2d:	83 c4 10             	add    $0x10,%esp
@@ -1796,7 +1803,7 @@ void handle_virtual_exception(exception_frame_t * frame) {
    10a36:	83 ec 08             	sub    $0x8,%esp
 	default_handler(frame, "Virtualization Exception.");
    10a39:	83 ec 08             	sub    $0x8,%esp
-   10a3c:	68 7b 20 01 00       	push   $0x1207b
+   10a3c:	68 37 22 01 00       	push   $0x12237
    10a41:	ff 75 08             	pushl  0x8(%ebp)
    10a44:	e8 a6 fd ff ff       	call   107ef <default_handler>
    10a49:	83 c4 10             	add    $0x10,%esp
@@ -3225,1165 +3232,1380 @@ static inline void outb(uint16_t port, uint8_t data) {
    11512:	c3                   	ret    
 
 00011513 <log_init>:
-#include <log.h>
 
 #define COM1_PORT       0x3f8
+
+static mutex_t mutex;
 
 void log_init() {
    11513:	55                   	push   %ebp
    11514:	89 e5                	mov    %esp,%ebp
+   11516:	83 ec 08             	sub    $0x8,%esp
+    mutex_init(&mutex);
+   11519:	83 ec 0c             	sub    $0xc,%esp
+   1151c:	68 40 0c 20 00       	push   $0x200c40
+   11521:	e8 73 01 00 00       	call   11699 <mutex_init>
+   11526:	83 c4 10             	add    $0x10,%esp
     outb(COM1_PORT + 1, 0x00);
-   11516:	6a 00                	push   $0x0
-   11518:	68 f9 03 00 00       	push   $0x3f9
-   1151d:	e8 d2 ff ff ff       	call   114f4 <outb>
-   11522:	83 c4 08             	add    $0x8,%esp
+   11529:	83 ec 08             	sub    $0x8,%esp
+   1152c:	6a 00                	push   $0x0
+   1152e:	68 f9 03 00 00       	push   $0x3f9
+   11533:	e8 bc ff ff ff       	call   114f4 <outb>
+   11538:	83 c4 10             	add    $0x10,%esp
     outb(COM1_PORT + 3, 0x80);
-   11525:	68 80 00 00 00       	push   $0x80
-   1152a:	68 fb 03 00 00       	push   $0x3fb
-   1152f:	e8 c0 ff ff ff       	call   114f4 <outb>
-   11534:	83 c4 08             	add    $0x8,%esp
+   1153b:	83 ec 08             	sub    $0x8,%esp
+   1153e:	68 80 00 00 00       	push   $0x80
+   11543:	68 fb 03 00 00       	push   $0x3fb
+   11548:	e8 a7 ff ff ff       	call   114f4 <outb>
+   1154d:	83 c4 10             	add    $0x10,%esp
     outb(COM1_PORT + 0, 0x3);
-   11537:	6a 03                	push   $0x3
-   11539:	68 f8 03 00 00       	push   $0x3f8
-   1153e:	e8 b1 ff ff ff       	call   114f4 <outb>
-   11543:	83 c4 08             	add    $0x8,%esp
+   11550:	83 ec 08             	sub    $0x8,%esp
+   11553:	6a 03                	push   $0x3
+   11555:	68 f8 03 00 00       	push   $0x3f8
+   1155a:	e8 95 ff ff ff       	call   114f4 <outb>
+   1155f:	83 c4 10             	add    $0x10,%esp
     outb(COM1_PORT + 1, 0x00);
-   11546:	6a 00                	push   $0x0
-   11548:	68 f9 03 00 00       	push   $0x3f9
-   1154d:	e8 a2 ff ff ff       	call   114f4 <outb>
-   11552:	83 c4 08             	add    $0x8,%esp
+   11562:	83 ec 08             	sub    $0x8,%esp
+   11565:	6a 00                	push   $0x0
+   11567:	68 f9 03 00 00       	push   $0x3f9
+   1156c:	e8 83 ff ff ff       	call   114f4 <outb>
+   11571:	83 c4 10             	add    $0x10,%esp
     outb(COM1_PORT + 3, 0x03);
-   11555:	6a 03                	push   $0x3
-   11557:	68 fb 03 00 00       	push   $0x3fb
-   1155c:	e8 93 ff ff ff       	call   114f4 <outb>
-   11561:	83 c4 08             	add    $0x8,%esp
+   11574:	83 ec 08             	sub    $0x8,%esp
+   11577:	6a 03                	push   $0x3
+   11579:	68 fb 03 00 00       	push   $0x3fb
+   1157e:	e8 71 ff ff ff       	call   114f4 <outb>
+   11583:	83 c4 10             	add    $0x10,%esp
     outb(COM1_PORT + 2, 0xc7);
-   11564:	68 c7 00 00 00       	push   $0xc7
-   11569:	68 fa 03 00 00       	push   $0x3fa
-   1156e:	e8 81 ff ff ff       	call   114f4 <outb>
-   11573:	83 c4 08             	add    $0x8,%esp
+   11586:	83 ec 08             	sub    $0x8,%esp
+   11589:	68 c7 00 00 00       	push   $0xc7
+   1158e:	68 fa 03 00 00       	push   $0x3fa
+   11593:	e8 5c ff ff ff       	call   114f4 <outb>
+   11598:	83 c4 10             	add    $0x10,%esp
     outb(COM1_PORT + 4, 0x0f);
-   11576:	6a 0f                	push   $0xf
-   11578:	68 fc 03 00 00       	push   $0x3fc
-   1157d:	e8 72 ff ff ff       	call   114f4 <outb>
-   11582:	83 c4 08             	add    $0x8,%esp
+   1159b:	83 ec 08             	sub    $0x8,%esp
+   1159e:	6a 0f                	push   $0xf
+   115a0:	68 fc 03 00 00       	push   $0x3fc
+   115a5:	e8 4a ff ff ff       	call   114f4 <outb>
+   115aa:	83 c4 10             	add    $0x10,%esp
 }
-   11585:	90                   	nop
-   11586:	c9                   	leave  
-   11587:	c3                   	ret    
+   115ad:	90                   	nop
+   115ae:	c9                   	leave  
+   115af:	c3                   	ret    
 
-00011588 <klog>:
+000115b0 <klog>:
 
 
 void klog(const char* fmt, ...) {
-   11588:	55                   	push   %ebp
-   11589:	89 e5                	mov    %esp,%ebp
-   1158b:	81 ec 98 00 00 00    	sub    $0x98,%esp
+   115b0:	55                   	push   %ebp
+   115b1:	89 e5                	mov    %esp,%ebp
+   115b3:	81 ec 98 00 00 00    	sub    $0x98,%esp
     char buf[128];
     k_memset(buf, 0, 128);
-   11591:	83 ec 04             	sub    $0x4,%esp
-   11594:	68 80 00 00 00       	push   $0x80
-   11599:	6a 00                	push   $0x0
-   1159b:	8d 85 70 ff ff ff    	lea    -0x90(%ebp),%eax
-   115a1:	50                   	push   %eax
-   115a2:	e8 6e fa ff ff       	call   11015 <k_memset>
-   115a7:	83 c4 10             	add    $0x10,%esp
+   115b9:	83 ec 04             	sub    $0x4,%esp
+   115bc:	68 80 00 00 00       	push   $0x80
+   115c1:	6a 00                	push   $0x0
+   115c3:	8d 85 74 ff ff ff    	lea    -0x8c(%ebp),%eax
+   115c9:	50                   	push   %eax
+   115ca:	e8 46 fa ff ff       	call   11015 <k_memset>
+   115cf:	83 c4 10             	add    $0x10,%esp
     va_list args;
     va_start(args, fmt);
-   115aa:	8d 45 0c             	lea    0xc(%ebp),%eax
-   115ad:	89 85 6c ff ff ff    	mov    %eax,-0x94(%ebp)
+   115d2:	8d 45 0c             	lea    0xc(%ebp),%eax
+   115d5:	89 85 70 ff ff ff    	mov    %eax,-0x90(%ebp)
     k_vsprint(buf, fmt, args);
-   115b3:	8b 85 6c ff ff ff    	mov    -0x94(%ebp),%eax
-   115b9:	83 ec 04             	sub    $0x4,%esp
-   115bc:	50                   	push   %eax
-   115bd:	ff 75 08             	pushl  0x8(%ebp)
-   115c0:	8d 85 70 ff ff ff    	lea    -0x90(%ebp),%eax
-   115c6:	50                   	push   %eax
-   115c7:	e8 c5 fb ff ff       	call   11191 <k_vsprint>
-   115cc:	83 c4 10             	add    $0x10,%esp
+   115db:	8b 85 70 ff ff ff    	mov    -0x90(%ebp),%eax
+   115e1:	83 ec 04             	sub    $0x4,%esp
+   115e4:	50                   	push   %eax
+   115e5:	ff 75 08             	pushl  0x8(%ebp)
+   115e8:	8d 85 74 ff ff ff    	lea    -0x8c(%ebp),%eax
+   115ee:	50                   	push   %eax
+   115ef:	e8 9d fb ff ff       	call   11191 <k_vsprint>
+   115f4:	83 c4 10             	add    $0x10,%esp
     va_end(args);
 
-    irq_state_t state = irq_enter_proection();
-   115cf:	e8 5d f8 ff ff       	call   10e31 <irq_enter_proection>
-   115d4:	89 45 f0             	mov    %eax,-0x10(%ebp)
+    mutex_lock(&mutex);
+   115f7:	83 ec 0c             	sub    $0xc,%esp
+   115fa:	68 40 0c 20 00       	push   $0x200c40
+   115ff:	e8 c3 00 00 00       	call   116c7 <mutex_lock>
+   11604:	83 c4 10             	add    $0x10,%esp
+    // irq_state_t state = irq_enter_proection();
 
     const char *p = buf;
-   115d7:	8d 85 70 ff ff ff    	lea    -0x90(%ebp),%eax
-   115dd:	89 45 f4             	mov    %eax,-0xc(%ebp)
+   11607:	8d 85 74 ff ff ff    	lea    -0x8c(%ebp),%eax
+   1160d:	89 45 f4             	mov    %eax,-0xc(%ebp)
     while(*p != '\0') {
-   115e0:	eb 3b                	jmp    1161d <klog+0x95>
+   11610:	eb 3b                	jmp    1164d <klog+0x9d>
         while( (inb(COM1_PORT + 5) & (1 << 6)) == 0);
-   115e2:	90                   	nop
-   115e3:	83 ec 0c             	sub    $0xc,%esp
-   115e6:	68 fd 03 00 00       	push   $0x3fd
-   115eb:	e8 e7 fe ff ff       	call   114d7 <inb>
-   115f0:	83 c4 10             	add    $0x10,%esp
-   115f3:	0f b6 c0             	movzbl %al,%eax
-   115f6:	83 e0 40             	and    $0x40,%eax
-   115f9:	85 c0                	test   %eax,%eax
-   115fb:	74 e6                	je     115e3 <klog+0x5b>
+   11612:	90                   	nop
+   11613:	83 ec 0c             	sub    $0xc,%esp
+   11616:	68 fd 03 00 00       	push   $0x3fd
+   1161b:	e8 b7 fe ff ff       	call   114d7 <inb>
+   11620:	83 c4 10             	add    $0x10,%esp
+   11623:	0f b6 c0             	movzbl %al,%eax
+   11626:	83 e0 40             	and    $0x40,%eax
+   11629:	85 c0                	test   %eax,%eax
+   1162b:	74 e6                	je     11613 <klog+0x63>
         outb(COM1_PORT, *p++);
-   115fd:	8b 45 f4             	mov    -0xc(%ebp),%eax
-   11600:	8d 50 01             	lea    0x1(%eax),%edx
-   11603:	89 55 f4             	mov    %edx,-0xc(%ebp)
-   11606:	0f b6 00             	movzbl (%eax),%eax
-   11609:	0f b6 c0             	movzbl %al,%eax
-   1160c:	83 ec 08             	sub    $0x8,%esp
-   1160f:	50                   	push   %eax
-   11610:	68 f8 03 00 00       	push   $0x3f8
-   11615:	e8 da fe ff ff       	call   114f4 <outb>
-   1161a:	83 c4 10             	add    $0x10,%esp
+   1162d:	8b 45 f4             	mov    -0xc(%ebp),%eax
+   11630:	8d 50 01             	lea    0x1(%eax),%edx
+   11633:	89 55 f4             	mov    %edx,-0xc(%ebp)
+   11636:	0f b6 00             	movzbl (%eax),%eax
+   11639:	0f b6 c0             	movzbl %al,%eax
+   1163c:	83 ec 08             	sub    $0x8,%esp
+   1163f:	50                   	push   %eax
+   11640:	68 f8 03 00 00       	push   $0x3f8
+   11645:	e8 aa fe ff ff       	call   114f4 <outb>
+   1164a:	83 c4 10             	add    $0x10,%esp
     while(*p != '\0') {
-   1161d:	8b 45 f4             	mov    -0xc(%ebp),%eax
-   11620:	0f b6 00             	movzbl (%eax),%eax
-   11623:	84 c0                	test   %al,%al
-   11625:	75 bb                	jne    115e2 <klog+0x5a>
+   1164d:	8b 45 f4             	mov    -0xc(%ebp),%eax
+   11650:	0f b6 00             	movzbl (%eax),%eax
+   11653:	84 c0                	test   %al,%al
+   11655:	75 bb                	jne    11612 <klog+0x62>
     }
     outb(COM1_PORT, '\r');  // 回到0列
-   11627:	83 ec 08             	sub    $0x8,%esp
-   1162a:	6a 0d                	push   $0xd
-   1162c:	68 f8 03 00 00       	push   $0x3f8
-   11631:	e8 be fe ff ff       	call   114f4 <outb>
-   11636:	83 c4 10             	add    $0x10,%esp
+   11657:	83 ec 08             	sub    $0x8,%esp
+   1165a:	6a 0d                	push   $0xd
+   1165c:	68 f8 03 00 00       	push   $0x3f8
+   11661:	e8 8e fe ff ff       	call   114f4 <outb>
+   11666:	83 c4 10             	add    $0x10,%esp
     outb(COM1_PORT, '\n');  // 向下一行
-   11639:	83 ec 08             	sub    $0x8,%esp
-   1163c:	6a 0a                	push   $0xa
-   1163e:	68 f8 03 00 00       	push   $0x3f8
-   11643:	e8 ac fe ff ff       	call   114f4 <outb>
-   11648:	83 c4 10             	add    $0x10,%esp
+   11669:	83 ec 08             	sub    $0x8,%esp
+   1166c:	6a 0a                	push   $0xa
+   1166e:	68 f8 03 00 00       	push   $0x3f8
+   11673:	e8 7c fe ff ff       	call   114f4 <outb>
+   11678:	83 c4 10             	add    $0x10,%esp
 
-    irq_leave_proection(state);
-   1164b:	83 ec 0c             	sub    $0xc,%esp
-   1164e:	ff 75 f0             	pushl  -0x10(%ebp)
-   11651:	e8 f3 f7 ff ff       	call   10e49 <irq_leave_proection>
-   11656:	83 c4 10             	add    $0x10,%esp
-}
-   11659:	90                   	nop
-   1165a:	c9                   	leave  
-   1165b:	c3                   	ret    
-
-0001165c <list_count>:
-static inline int list_count (list_t* list) {
-   1165c:	55                   	push   %ebp
-   1165d:	89 e5                	mov    %esp,%ebp
-    return list->count;
-   1165f:	8b 45 08             	mov    0x8(%ebp),%eax
-   11662:	8b 40 08             	mov    0x8(%eax),%eax
-}
-   11665:	5d                   	pop    %ebp
-   11666:	c3                   	ret    
-
-00011667 <sem_init>:
-#include <sem.h>
-
-
-void sem_init(sem_t* sem, int init_count) {
-   11667:	55                   	push   %ebp
-   11668:	89 e5                	mov    %esp,%ebp
-   1166a:	83 ec 08             	sub    $0x8,%esp
-    sem->count = init_count;
-   1166d:	8b 45 08             	mov    0x8(%ebp),%eax
-   11670:	8b 55 0c             	mov    0xc(%ebp),%edx
-   11673:	89 10                	mov    %edx,(%eax)
-    list_init(&sem->wait_list);
-   11675:	8b 45 08             	mov    0x8(%ebp),%eax
-   11678:	83 c0 04             	add    $0x4,%eax
+    mutex_unlock(&mutex);
    1167b:	83 ec 0c             	sub    $0xc,%esp
-   1167e:	50                   	push   %eax
-   1167f:	e8 6d fc ff ff       	call   112f1 <list_init>
-   11684:	83 c4 10             	add    $0x10,%esp
+   1167e:	68 40 0c 20 00       	push   $0x200c40
+   11683:	e8 d3 00 00 00       	call   1175b <mutex_unlock>
+   11688:	83 c4 10             	add    $0x10,%esp
+    // irq_leave_proection(state);
+
 }
-   11687:	90                   	nop
-   11688:	c9                   	leave  
-   11689:	c3                   	ret    
+   1168b:	90                   	nop
+   1168c:	c9                   	leave  
+   1168d:	c3                   	ret    
 
-0001168a <sem_wait>:
+0001168e <list_count>:
+static inline int list_count (list_t* list) {
+   1168e:	55                   	push   %ebp
+   1168f:	89 e5                	mov    %esp,%ebp
+    return list->count;
+   11691:	8b 45 08             	mov    0x8(%ebp),%eax
+   11694:	8b 40 08             	mov    0x8(%eax),%eax
+}
+   11697:	5d                   	pop    %ebp
+   11698:	c3                   	ret    
 
-void sem_wait(sem_t* sem) {
-   1168a:	55                   	push   %ebp
-   1168b:	89 e5                	mov    %esp,%ebp
-   1168d:	83 ec 18             	sub    $0x18,%esp
-    irq_state_t state = irq_enter_proection();
-   11690:	e8 9c f7 ff ff       	call   10e31 <irq_enter_proection>
-   11695:	89 45 f4             	mov    %eax,-0xc(%ebp)
-    if (sem->count > 0) {
-   11698:	8b 45 08             	mov    0x8(%ebp),%eax
-   1169b:	8b 00                	mov    (%eax),%eax
-   1169d:	85 c0                	test   %eax,%eax
-   1169f:	7e 0f                	jle    116b0 <sem_wait+0x26>
-        sem->count--;
-   116a1:	8b 45 08             	mov    0x8(%ebp),%eax
-   116a4:	8b 00                	mov    (%eax),%eax
-   116a6:	8d 50 ff             	lea    -0x1(%eax),%edx
+00011699 <mutex_init>:
+#include <mux.h>
+#include <irq.h>
+#include <log.h>
+
+void mutex_init (mutex_t * mutex) {
+   11699:	55                   	push   %ebp
+   1169a:	89 e5                	mov    %esp,%ebp
+   1169c:	83 ec 08             	sub    $0x8,%esp
+    mutex->locked_count = 0;
+   1169f:	8b 45 08             	mov    0x8(%ebp),%eax
+   116a2:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
+    mutex->owner = (task_t *)0;
    116a9:	8b 45 08             	mov    0x8(%ebp),%eax
-   116ac:	89 10                	mov    %edx,(%eax)
-   116ae:	eb 34                	jmp    116e4 <sem_wait+0x5a>
+   116ac:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+    list_init(&mutex->wait_list);
+   116b2:	8b 45 08             	mov    0x8(%ebp),%eax
+   116b5:	83 c0 08             	add    $0x8,%eax
+   116b8:	83 ec 0c             	sub    $0xc,%esp
+   116bb:	50                   	push   %eax
+   116bc:	e8 30 fc ff ff       	call   112f1 <list_init>
+   116c1:	83 c4 10             	add    $0x10,%esp
+}
+   116c4:	90                   	nop
+   116c5:	c9                   	leave  
+   116c6:	c3                   	ret    
+
+000116c7 <mutex_lock>:
+
+void mutex_lock (mutex_t * mutex) {
+   116c7:	55                   	push   %ebp
+   116c8:	89 e5                	mov    %esp,%ebp
+   116ca:	83 ec 18             	sub    $0x18,%esp
+    irq_state_t  irq_state = irq_enter_proection();
+   116cd:	e8 5f f7 ff ff       	call   10e31 <irq_enter_proection>
+   116d2:	89 45 f4             	mov    %eax,-0xc(%ebp)
+
+    task_t * curr = task_current();
+   116d5:	e8 0d 06 00 00       	call   11ce7 <task_current>
+   116da:	89 45 f0             	mov    %eax,-0x10(%ebp)
+    if (mutex->locked_count == 0) {
+   116dd:	8b 45 08             	mov    0x8(%ebp),%eax
+   116e0:	8b 40 04             	mov    0x4(%eax),%eax
+   116e3:	85 c0                	test   %eax,%eax
+   116e5:	75 14                	jne    116fb <mutex_lock+0x34>
+        mutex->locked_count = 1;
+   116e7:	8b 45 08             	mov    0x8(%ebp),%eax
+   116ea:	c7 40 04 01 00 00 00 	movl   $0x1,0x4(%eax)
+        mutex->owner = curr;
+   116f1:	8b 45 08             	mov    0x8(%ebp),%eax
+   116f4:	8b 55 f0             	mov    -0x10(%ebp),%edx
+   116f7:	89 10                	mov    %edx,(%eax)
+   116f9:	eb 4f                	jmp    1174a <mutex_lock+0x83>
+    } else if (mutex->owner == curr) {
+   116fb:	8b 45 08             	mov    0x8(%ebp),%eax
+   116fe:	8b 00                	mov    (%eax),%eax
+   11700:	39 45 f0             	cmp    %eax,-0x10(%ebp)
+   11703:	75 11                	jne    11716 <mutex_lock+0x4f>
+        mutex->locked_count++;
+   11705:	8b 45 08             	mov    0x8(%ebp),%eax
+   11708:	8b 40 04             	mov    0x4(%eax),%eax
+   1170b:	8d 50 01             	lea    0x1(%eax),%edx
+   1170e:	8b 45 08             	mov    0x8(%ebp),%eax
+   11711:	89 50 04             	mov    %edx,0x4(%eax)
+   11714:	eb 34                	jmp    1174a <mutex_lock+0x83>
     } else {
         task_t * curr = task_current();
-   116b0:	e8 76 04 00 00       	call   11b2b <task_current>
-   116b5:	89 45 f0             	mov    %eax,-0x10(%ebp)
+   11716:	e8 cc 05 00 00       	call   11ce7 <task_current>
+   1171b:	89 45 ec             	mov    %eax,-0x14(%ebp)
         task_set_block(curr);
-   116b8:	83 ec 0c             	sub    $0xc,%esp
-   116bb:	ff 75 f0             	pushl  -0x10(%ebp)
-   116be:	e8 a7 04 00 00       	call   11b6a <task_set_block>
-   116c3:	83 c4 10             	add    $0x10,%esp
-        list_insert_last(&sem->wait_list, &curr->wait_node);
-   116c6:	8b 45 f0             	mov    -0x10(%ebp),%eax
-   116c9:	8d 50 44             	lea    0x44(%eax),%edx
-   116cc:	8b 45 08             	mov    0x8(%ebp),%eax
-   116cf:	83 c0 04             	add    $0x4,%eax
-   116d2:	83 ec 08             	sub    $0x8,%esp
-   116d5:	52                   	push   %edx
-   116d6:	50                   	push   %eax
-   116d7:	e8 99 fc ff ff       	call   11375 <list_insert_last>
-   116dc:	83 c4 10             	add    $0x10,%esp
+   1171e:	83 ec 0c             	sub    $0xc,%esp
+   11721:	ff 75 ec             	pushl  -0x14(%ebp)
+   11724:	e8 fd 05 00 00       	call   11d26 <task_set_block>
+   11729:	83 c4 10             	add    $0x10,%esp
+        list_insert_last(&mutex->wait_list, &curr->wait_node);
+   1172c:	8b 45 ec             	mov    -0x14(%ebp),%eax
+   1172f:	8d 50 44             	lea    0x44(%eax),%edx
+   11732:	8b 45 08             	mov    0x8(%ebp),%eax
+   11735:	83 c0 08             	add    $0x8,%eax
+   11738:	83 ec 08             	sub    $0x8,%esp
+   1173b:	52                   	push   %edx
+   1173c:	50                   	push   %eax
+   1173d:	e8 33 fc ff ff       	call   11375 <list_insert_last>
+   11742:	83 c4 10             	add    $0x10,%esp
         task_dispatch();
-   116df:	e8 55 05 00 00       	call   11c39 <task_dispatch>
+   11745:	e8 ab 06 00 00       	call   11df5 <task_dispatch>
+    }
+
+    irq_leave_proection(irq_state);
+   1174a:	83 ec 0c             	sub    $0xc,%esp
+   1174d:	ff 75 f4             	pushl  -0xc(%ebp)
+   11750:	e8 f4 f6 ff ff       	call   10e49 <irq_leave_proection>
+   11755:	83 c4 10             	add    $0x10,%esp
+}
+   11758:	90                   	nop
+   11759:	c9                   	leave  
+   1175a:	c3                   	ret    
+
+0001175b <mutex_unlock>:
+
+void mutex_unlock (mutex_t * mutex) {
+   1175b:	55                   	push   %ebp
+   1175c:	89 e5                	mov    %esp,%ebp
+   1175e:	83 ec 18             	sub    $0x18,%esp
+    irq_state_t  irq_state = irq_enter_proection();
+   11761:	e8 cb f6 ff ff       	call   10e31 <irq_enter_proection>
+   11766:	89 45 f4             	mov    %eax,-0xc(%ebp)
+    task_t * curr = task_current();
+   11769:	e8 79 05 00 00       	call   11ce7 <task_current>
+   1176e:	89 45 f0             	mov    %eax,-0x10(%ebp)
+    if (mutex->owner == curr) {
+   11771:	8b 45 08             	mov    0x8(%ebp),%eax
+   11774:	8b 00                	mov    (%eax),%eax
+   11776:	39 45 f0             	cmp    %eax,-0x10(%ebp)
+   11779:	0f 85 88 00 00 00    	jne    11807 <mutex_unlock+0xac>
+        if (--mutex->locked_count == 0) {
+   1177f:	8b 45 08             	mov    0x8(%ebp),%eax
+   11782:	8b 40 04             	mov    0x4(%eax),%eax
+   11785:	8d 50 ff             	lea    -0x1(%eax),%edx
+   11788:	8b 45 08             	mov    0x8(%ebp),%eax
+   1178b:	89 50 04             	mov    %edx,0x4(%eax)
+   1178e:	8b 45 08             	mov    0x8(%ebp),%eax
+   11791:	8b 40 04             	mov    0x4(%eax),%eax
+   11794:	85 c0                	test   %eax,%eax
+   11796:	75 6f                	jne    11807 <mutex_unlock+0xac>
+            mutex->owner = (task_t *)0;
+   11798:	8b 45 08             	mov    0x8(%ebp),%eax
+   1179b:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+
+            if (list_count(&mutex->wait_list)) {
+   117a1:	8b 45 08             	mov    0x8(%ebp),%eax
+   117a4:	83 c0 08             	add    $0x8,%eax
+   117a7:	83 ec 0c             	sub    $0xc,%esp
+   117aa:	50                   	push   %eax
+   117ab:	e8 de fe ff ff       	call   1168e <list_count>
+   117b0:	83 c4 10             	add    $0x10,%esp
+   117b3:	85 c0                	test   %eax,%eax
+   117b5:	74 50                	je     11807 <mutex_unlock+0xac>
+                list_node_t * task_node = list_delete_first(&mutex->wait_list);
+   117b7:	8b 45 08             	mov    0x8(%ebp),%eax
+   117ba:	83 c0 08             	add    $0x8,%eax
+   117bd:	83 ec 0c             	sub    $0xc,%esp
+   117c0:	50                   	push   %eax
+   117c1:	e8 13 fc ff ff       	call   113d9 <list_delete_first>
+   117c6:	83 c4 10             	add    $0x10,%esp
+   117c9:	89 45 ec             	mov    %eax,-0x14(%ebp)
+                task_t * task = list_node_parent(task_node, task_t, wait_node);
+   117cc:	83 7d ec 00          	cmpl   $0x0,-0x14(%ebp)
+   117d0:	74 08                	je     117da <mutex_unlock+0x7f>
+   117d2:	8b 45 ec             	mov    -0x14(%ebp),%eax
+   117d5:	83 e8 44             	sub    $0x44,%eax
+   117d8:	eb 05                	jmp    117df <mutex_unlock+0x84>
+   117da:	b8 00 00 00 00       	mov    $0x0,%eax
+   117df:	89 45 e8             	mov    %eax,-0x18(%ebp)
+                task_set_ready(task);
+   117e2:	83 ec 0c             	sub    $0xc,%esp
+   117e5:	ff 75 e8             	pushl  -0x18(%ebp)
+   117e8:	e8 04 05 00 00       	call   11cf1 <task_set_ready>
+   117ed:	83 c4 10             	add    $0x10,%esp
+
+                mutex->locked_count = 1;
+   117f0:	8b 45 08             	mov    0x8(%ebp),%eax
+   117f3:	c7 40 04 01 00 00 00 	movl   $0x1,0x4(%eax)
+                mutex->owner = task;
+   117fa:	8b 45 08             	mov    0x8(%ebp),%eax
+   117fd:	8b 55 e8             	mov    -0x18(%ebp),%edx
+   11800:	89 10                	mov    %edx,(%eax)
+
+                task_dispatch();
+   11802:	e8 ee 05 00 00       	call   11df5 <task_dispatch>
+            }
+        }
+    }
+
+    irq_leave_proection(irq_state);
+   11807:	83 ec 0c             	sub    $0xc,%esp
+   1180a:	ff 75 f4             	pushl  -0xc(%ebp)
+   1180d:	e8 37 f6 ff ff       	call   10e49 <irq_leave_proection>
+   11812:	83 c4 10             	add    $0x10,%esp
+   11815:	90                   	nop
+   11816:	c9                   	leave  
+   11817:	c3                   	ret    
+
+00011818 <list_count>:
+static inline int list_count (list_t* list) {
+   11818:	55                   	push   %ebp
+   11819:	89 e5                	mov    %esp,%ebp
+    return list->count;
+   1181b:	8b 45 08             	mov    0x8(%ebp),%eax
+   1181e:	8b 40 08             	mov    0x8(%eax),%eax
+}
+   11821:	5d                   	pop    %ebp
+   11822:	c3                   	ret    
+
+00011823 <sem_init>:
+#include <sem.h>
+#include <irq.h>
+
+void sem_init(sem_t* sem, int init_count) {
+   11823:	55                   	push   %ebp
+   11824:	89 e5                	mov    %esp,%ebp
+   11826:	83 ec 08             	sub    $0x8,%esp
+    sem->count = init_count;
+   11829:	8b 45 08             	mov    0x8(%ebp),%eax
+   1182c:	8b 55 0c             	mov    0xc(%ebp),%edx
+   1182f:	89 10                	mov    %edx,(%eax)
+    list_init(&sem->wait_list);
+   11831:	8b 45 08             	mov    0x8(%ebp),%eax
+   11834:	83 c0 04             	add    $0x4,%eax
+   11837:	83 ec 0c             	sub    $0xc,%esp
+   1183a:	50                   	push   %eax
+   1183b:	e8 b1 fa ff ff       	call   112f1 <list_init>
+   11840:	83 c4 10             	add    $0x10,%esp
+}
+   11843:	90                   	nop
+   11844:	c9                   	leave  
+   11845:	c3                   	ret    
+
+00011846 <sem_wait>:
+
+void sem_wait(sem_t* sem) {
+   11846:	55                   	push   %ebp
+   11847:	89 e5                	mov    %esp,%ebp
+   11849:	83 ec 18             	sub    $0x18,%esp
+    irq_state_t state = irq_enter_proection();
+   1184c:	e8 e0 f5 ff ff       	call   10e31 <irq_enter_proection>
+   11851:	89 45 f4             	mov    %eax,-0xc(%ebp)
+    if (sem->count > 0) {
+   11854:	8b 45 08             	mov    0x8(%ebp),%eax
+   11857:	8b 00                	mov    (%eax),%eax
+   11859:	85 c0                	test   %eax,%eax
+   1185b:	7e 0f                	jle    1186c <sem_wait+0x26>
+        sem->count--;
+   1185d:	8b 45 08             	mov    0x8(%ebp),%eax
+   11860:	8b 00                	mov    (%eax),%eax
+   11862:	8d 50 ff             	lea    -0x1(%eax),%edx
+   11865:	8b 45 08             	mov    0x8(%ebp),%eax
+   11868:	89 10                	mov    %edx,(%eax)
+   1186a:	eb 34                	jmp    118a0 <sem_wait+0x5a>
+    } else {
+        task_t * curr = task_current();
+   1186c:	e8 76 04 00 00       	call   11ce7 <task_current>
+   11871:	89 45 f0             	mov    %eax,-0x10(%ebp)
+        task_set_block(curr);
+   11874:	83 ec 0c             	sub    $0xc,%esp
+   11877:	ff 75 f0             	pushl  -0x10(%ebp)
+   1187a:	e8 a7 04 00 00       	call   11d26 <task_set_block>
+   1187f:	83 c4 10             	add    $0x10,%esp
+        list_insert_last(&sem->wait_list, &curr->wait_node);
+   11882:	8b 45 f0             	mov    -0x10(%ebp),%eax
+   11885:	8d 50 44             	lea    0x44(%eax),%edx
+   11888:	8b 45 08             	mov    0x8(%ebp),%eax
+   1188b:	83 c0 04             	add    $0x4,%eax
+   1188e:	83 ec 08             	sub    $0x8,%esp
+   11891:	52                   	push   %edx
+   11892:	50                   	push   %eax
+   11893:	e8 dd fa ff ff       	call   11375 <list_insert_last>
+   11898:	83 c4 10             	add    $0x10,%esp
+        task_dispatch();
+   1189b:	e8 55 05 00 00       	call   11df5 <task_dispatch>
     }
     irq_leave_proection(state);
-   116e4:	83 ec 0c             	sub    $0xc,%esp
-   116e7:	ff 75 f4             	pushl  -0xc(%ebp)
-   116ea:	e8 5a f7 ff ff       	call   10e49 <irq_leave_proection>
-   116ef:	83 c4 10             	add    $0x10,%esp
+   118a0:	83 ec 0c             	sub    $0xc,%esp
+   118a3:	ff 75 f4             	pushl  -0xc(%ebp)
+   118a6:	e8 9e f5 ff ff       	call   10e49 <irq_leave_proection>
+   118ab:	83 c4 10             	add    $0x10,%esp
 }
-   116f2:	90                   	nop
-   116f3:	c9                   	leave  
-   116f4:	c3                   	ret    
+   118ae:	90                   	nop
+   118af:	c9                   	leave  
+   118b0:	c3                   	ret    
 
-000116f5 <sem_notify>:
+000118b1 <sem_notify>:
 
 void sem_notify(sem_t* sem) {
-   116f5:	55                   	push   %ebp
-   116f6:	89 e5                	mov    %esp,%ebp
-   116f8:	83 ec 18             	sub    $0x18,%esp
+   118b1:	55                   	push   %ebp
+   118b2:	89 e5                	mov    %esp,%ebp
+   118b4:	83 ec 18             	sub    $0x18,%esp
 
     irq_state_t state = irq_enter_proection();
-   116fb:	e8 31 f7 ff ff       	call   10e31 <irq_enter_proection>
-   11700:	89 45 f4             	mov    %eax,-0xc(%ebp)
+   118b7:	e8 75 f5 ff ff       	call   10e31 <irq_enter_proection>
+   118bc:	89 45 f4             	mov    %eax,-0xc(%ebp)
     if (list_count(&sem->wait_list)) {
-   11703:	8b 45 08             	mov    0x8(%ebp),%eax
-   11706:	83 c0 04             	add    $0x4,%eax
-   11709:	83 ec 0c             	sub    $0xc,%esp
-   1170c:	50                   	push   %eax
-   1170d:	e8 4a ff ff ff       	call   1165c <list_count>
-   11712:	83 c4 10             	add    $0x10,%esp
-   11715:	85 c0                	test   %eax,%eax
-   11717:	74 40                	je     11759 <sem_notify+0x64>
+   118bf:	8b 45 08             	mov    0x8(%ebp),%eax
+   118c2:	83 c0 04             	add    $0x4,%eax
+   118c5:	83 ec 0c             	sub    $0xc,%esp
+   118c8:	50                   	push   %eax
+   118c9:	e8 4a ff ff ff       	call   11818 <list_count>
+   118ce:	83 c4 10             	add    $0x10,%esp
+   118d1:	85 c0                	test   %eax,%eax
+   118d3:	74 40                	je     11915 <sem_notify+0x64>
         list_node_t* node = list_delete_first(&sem->wait_list);
-   11719:	8b 45 08             	mov    0x8(%ebp),%eax
-   1171c:	83 c0 04             	add    $0x4,%eax
-   1171f:	83 ec 0c             	sub    $0xc,%esp
-   11722:	50                   	push   %eax
-   11723:	e8 b1 fc ff ff       	call   113d9 <list_delete_first>
-   11728:	83 c4 10             	add    $0x10,%esp
-   1172b:	89 45 f0             	mov    %eax,-0x10(%ebp)
+   118d5:	8b 45 08             	mov    0x8(%ebp),%eax
+   118d8:	83 c0 04             	add    $0x4,%eax
+   118db:	83 ec 0c             	sub    $0xc,%esp
+   118de:	50                   	push   %eax
+   118df:	e8 f5 fa ff ff       	call   113d9 <list_delete_first>
+   118e4:	83 c4 10             	add    $0x10,%esp
+   118e7:	89 45 f0             	mov    %eax,-0x10(%ebp)
 
         task_t* task = list_node_parent(node, task_t, wait_node);
-   1172e:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
-   11732:	74 08                	je     1173c <sem_notify+0x47>
-   11734:	8b 45 f0             	mov    -0x10(%ebp),%eax
-   11737:	83 e8 44             	sub    $0x44,%eax
-   1173a:	eb 05                	jmp    11741 <sem_notify+0x4c>
-   1173c:	b8 00 00 00 00       	mov    $0x0,%eax
-   11741:	89 45 ec             	mov    %eax,-0x14(%ebp)
+   118ea:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
+   118ee:	74 08                	je     118f8 <sem_notify+0x47>
+   118f0:	8b 45 f0             	mov    -0x10(%ebp),%eax
+   118f3:	83 e8 44             	sub    $0x44,%eax
+   118f6:	eb 05                	jmp    118fd <sem_notify+0x4c>
+   118f8:	b8 00 00 00 00       	mov    $0x0,%eax
+   118fd:	89 45 ec             	mov    %eax,-0x14(%ebp)
         task_set_ready(task);
-   11744:	83 ec 0c             	sub    $0xc,%esp
-   11747:	ff 75 ec             	pushl  -0x14(%ebp)
-   1174a:	e8 e6 03 00 00       	call   11b35 <task_set_ready>
-   1174f:	83 c4 10             	add    $0x10,%esp
+   11900:	83 ec 0c             	sub    $0xc,%esp
+   11903:	ff 75 ec             	pushl  -0x14(%ebp)
+   11906:	e8 e6 03 00 00       	call   11cf1 <task_set_ready>
+   1190b:	83 c4 10             	add    $0x10,%esp
         task_dispatch();
-   11752:	e8 e2 04 00 00       	call   11c39 <task_dispatch>
-   11757:	eb 0d                	jmp    11766 <sem_notify+0x71>
+   1190e:	e8 e2 04 00 00       	call   11df5 <task_dispatch>
+   11913:	eb 0d                	jmp    11922 <sem_notify+0x71>
     } else {
         sem->count++;
-   11759:	8b 45 08             	mov    0x8(%ebp),%eax
-   1175c:	8b 00                	mov    (%eax),%eax
-   1175e:	8d 50 01             	lea    0x1(%eax),%edx
-   11761:	8b 45 08             	mov    0x8(%ebp),%eax
-   11764:	89 10                	mov    %edx,(%eax)
+   11915:	8b 45 08             	mov    0x8(%ebp),%eax
+   11918:	8b 00                	mov    (%eax),%eax
+   1191a:	8d 50 01             	lea    0x1(%eax),%edx
+   1191d:	8b 45 08             	mov    0x8(%ebp),%eax
+   11920:	89 10                	mov    %edx,(%eax)
     }
     irq_leave_proection(state);
-   11766:	83 ec 0c             	sub    $0xc,%esp
-   11769:	ff 75 f4             	pushl  -0xc(%ebp)
-   1176c:	e8 d8 f6 ff ff       	call   10e49 <irq_leave_proection>
-   11771:	83 c4 10             	add    $0x10,%esp
+   11922:	83 ec 0c             	sub    $0xc,%esp
+   11925:	ff 75 f4             	pushl  -0xc(%ebp)
+   11928:	e8 1c f5 ff ff       	call   10e49 <irq_leave_proection>
+   1192d:	83 c4 10             	add    $0x10,%esp
 
 }
-   11774:	90                   	nop
-   11775:	c9                   	leave  
-   11776:	c3                   	ret    
+   11930:	90                   	nop
+   11931:	c9                   	leave  
+   11932:	c3                   	ret    
 
-00011777 <sem_count>:
+00011933 <sem_count>:
 
 int  sem_count(sem_t* sem) {
-   11777:	55                   	push   %ebp
-   11778:	89 e5                	mov    %esp,%ebp
-   1177a:	83 ec 18             	sub    $0x18,%esp
+   11933:	55                   	push   %ebp
+   11934:	89 e5                	mov    %esp,%ebp
+   11936:	83 ec 18             	sub    $0x18,%esp
     irq_state_t state = irq_enter_proection();
-   1177d:	e8 af f6 ff ff       	call   10e31 <irq_enter_proection>
-   11782:	89 45 f4             	mov    %eax,-0xc(%ebp)
+   11939:	e8 f3 f4 ff ff       	call   10e31 <irq_enter_proection>
+   1193e:	89 45 f4             	mov    %eax,-0xc(%ebp)
     int count = sem->count;
-   11785:	8b 45 08             	mov    0x8(%ebp),%eax
-   11788:	8b 00                	mov    (%eax),%eax
-   1178a:	89 45 f0             	mov    %eax,-0x10(%ebp)
+   11941:	8b 45 08             	mov    0x8(%ebp),%eax
+   11944:	8b 00                	mov    (%eax),%eax
+   11946:	89 45 f0             	mov    %eax,-0x10(%ebp)
     irq_leave_proection(state);
-   1178d:	83 ec 0c             	sub    $0xc,%esp
-   11790:	ff 75 f4             	pushl  -0xc(%ebp)
-   11793:	e8 b1 f6 ff ff       	call   10e49 <irq_leave_proection>
-   11798:	83 c4 10             	add    $0x10,%esp
+   11949:	83 ec 0c             	sub    $0xc,%esp
+   1194c:	ff 75 f4             	pushl  -0xc(%ebp)
+   1194f:	e8 f5 f4 ff ff       	call   10e49 <irq_leave_proection>
+   11954:	83 c4 10             	add    $0x10,%esp
     return count;
-   1179b:	8b 45 f0             	mov    -0x10(%ebp),%eax
-   1179e:	c9                   	leave  
-   1179f:	c3                   	ret    
+   11957:	8b 45 f0             	mov    -0x10(%ebp),%eax
+   1195a:	c9                   	leave  
+   1195b:	c3                   	ret    
 
-000117a0 <hlt>:
-static inline void hlt() {
-   117a0:	55                   	push   %ebp
-   117a1:	89 e5                	mov    %esp,%ebp
-	__asm__ __volatile__("hlt");
-   117a3:	f4                   	hlt    
-}
-   117a4:	90                   	nop
-   117a5:	5d                   	pop    %ebp
-   117a6:	c3                   	ret    
-
-000117a7 <list_node_init>:
+0001195c <list_node_init>:
 static inline void list_node_init(list_node_t* node) {
-   117a7:	55                   	push   %ebp
-   117a8:	89 e5                	mov    %esp,%ebp
+   1195c:	55                   	push   %ebp
+   1195d:	89 e5                	mov    %esp,%ebp
     node->pre = node->next = (list_node_t*)0;
-   117aa:	8b 45 08             	mov    0x8(%ebp),%eax
-   117ad:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
-   117b4:	8b 45 08             	mov    0x8(%ebp),%eax
-   117b7:	8b 50 04             	mov    0x4(%eax),%edx
-   117ba:	8b 45 08             	mov    0x8(%ebp),%eax
-   117bd:	89 10                	mov    %edx,(%eax)
+   1195f:	8b 45 08             	mov    0x8(%ebp),%eax
+   11962:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
+   11969:	8b 45 08             	mov    0x8(%ebp),%eax
+   1196c:	8b 50 04             	mov    0x4(%eax),%edx
+   1196f:	8b 45 08             	mov    0x8(%ebp),%eax
+   11972:	89 10                	mov    %edx,(%eax)
 }
-   117bf:	90                   	nop
-   117c0:	5d                   	pop    %ebp
-   117c1:	c3                   	ret    
+   11974:	90                   	nop
+   11975:	5d                   	pop    %ebp
+   11976:	c3                   	ret    
 
-000117c2 <list_node_next>:
+00011977 <list_node_next>:
 static inline list_node_t* list_node_next(list_node_t* node) {
-   117c2:	55                   	push   %ebp
-   117c3:	89 e5                	mov    %esp,%ebp
+   11977:	55                   	push   %ebp
+   11978:	89 e5                	mov    %esp,%ebp
     return node->next;
-   117c5:	8b 45 08             	mov    0x8(%ebp),%eax
-   117c8:	8b 40 04             	mov    0x4(%eax),%eax
+   1197a:	8b 45 08             	mov    0x8(%ebp),%eax
+   1197d:	8b 40 04             	mov    0x4(%eax),%eax
 }
-   117cb:	5d                   	pop    %ebp
-   117cc:	c3                   	ret    
+   11980:	5d                   	pop    %ebp
+   11981:	c3                   	ret    
 
-000117cd <list_count>:
+00011982 <list_count>:
 static inline int list_count (list_t* list) {
-   117cd:	55                   	push   %ebp
-   117ce:	89 e5                	mov    %esp,%ebp
+   11982:	55                   	push   %ebp
+   11983:	89 e5                	mov    %esp,%ebp
     return list->count;
-   117d0:	8b 45 08             	mov    0x8(%ebp),%eax
-   117d3:	8b 40 08             	mov    0x8(%eax),%eax
+   11985:	8b 45 08             	mov    0x8(%ebp),%eax
+   11988:	8b 40 08             	mov    0x8(%eax),%eax
 }
-   117d6:	5d                   	pop    %ebp
-   117d7:	c3                   	ret    
+   1198b:	5d                   	pop    %ebp
+   1198c:	c3                   	ret    
 
-000117d8 <list_first>:
+0001198d <list_first>:
 static inline list_node_t* list_first (list_t* list) {
-   117d8:	55                   	push   %ebp
-   117d9:	89 e5                	mov    %esp,%ebp
+   1198d:	55                   	push   %ebp
+   1198e:	89 e5                	mov    %esp,%ebp
     return list->first;
-   117db:	8b 45 08             	mov    0x8(%ebp),%eax
-   117de:	8b 00                	mov    (%eax),%eax
+   11990:	8b 45 08             	mov    0x8(%ebp),%eax
+   11993:	8b 00                	mov    (%eax),%eax
 }
-   117e0:	5d                   	pop    %ebp
-   117e1:	c3                   	ret    
+   11995:	5d                   	pop    %ebp
+   11996:	c3                   	ret    
 
-000117e2 <idle_task_func>:
-#include <task.h>
+00011997 <hlt>:
+static inline void hlt() {
+   11997:	55                   	push   %ebp
+   11998:	89 e5                	mov    %esp,%ebp
+	__asm__ __volatile__("hlt");
+   1199a:	f4                   	hlt    
+}
+   1199b:	90                   	nop
+   1199c:	5d                   	pop    %ebp
+   1199d:	c3                   	ret    
+
+0001199e <idle_task_func>:
+#include <cpu.h>
+#include <klib.h>
+#include <os_cfg.h>
+#include <log.h>
+
+static void idle_task_func() { for(;;) hlt(); }
+   1199e:	55                   	push   %ebp
+   1199f:	89 e5                	mov    %esp,%ebp
+   119a1:	e8 f1 ff ff ff       	call   11997 <hlt>
+   119a6:	eb f9                	jmp    119a1 <idle_task_func+0x3>
+
+000119a8 <task_switch_from_to>:
 
 void simple_switch(uint32_t **from, uint32_t* to);
 
-static void idle_task_func() { for(;;) hlt(); }
-   117e2:	55                   	push   %ebp
-   117e3:	89 e5                	mov    %esp,%ebp
-   117e5:	e8 b6 ff ff ff       	call   117a0 <hlt>
-   117ea:	eb f9                	jmp    117e5 <idle_task_func+0x3>
-
-000117ec <task_switch_from_to>:
-
 void task_switch_from_to(task_t* from, task_t* to) {
-   117ec:	55                   	push   %ebp
-   117ed:	89 e5                	mov    %esp,%ebp
-   117ef:	83 ec 08             	sub    $0x8,%esp
-    // far_jump(to->tss_sel, 0);  // 使用 tss 机制
-
+   119a8:	55                   	push   %ebp
+   119a9:	89 e5                	mov    %esp,%ebp
+   119ab:	83 ec 08             	sub    $0x8,%esp
+    // far_jump(to->tss_sel, 0);             // 使用 tss 机制
     simple_switch(&from->stack, to->stack);  // 使用直接跳转机制
-   117f2:	8b 45 0c             	mov    0xc(%ebp),%eax
-   117f5:	8b 10                	mov    (%eax),%edx
-   117f7:	8b 45 08             	mov    0x8(%ebp),%eax
-   117fa:	83 ec 08             	sub    $0x8,%esp
-   117fd:	52                   	push   %edx
-   117fe:	50                   	push   %eax
-   117ff:	e8 a1 ea ff ff       	call   102a5 <simple_switch>
-   11804:	83 c4 10             	add    $0x10,%esp
+   119ae:	8b 45 0c             	mov    0xc(%ebp),%eax
+   119b1:	8b 10                	mov    (%eax),%edx
+   119b3:	8b 45 08             	mov    0x8(%ebp),%eax
+   119b6:	83 ec 08             	sub    $0x8,%esp
+   119b9:	52                   	push   %edx
+   119ba:	50                   	push   %eax
+   119bb:	e8 e5 e8 ff ff       	call   102a5 <simple_switch>
+   119c0:	83 c4 10             	add    $0x10,%esp
 }
-   11807:	90                   	nop
-   11808:	c9                   	leave  
-   11809:	c3                   	ret    
+   119c3:	90                   	nop
+   119c4:	c9                   	leave  
+   119c5:	c3                   	ret    
 
-0001180a <tss_init>:
+000119c6 <tss_init>:
 static uint32_t task3_stack[2048];
 static task_t task3;
 sem_t  sem_test;
 
 
 int tss_init(task_t* task, uint32_t entry, uint32_t esp) {
-   1180a:	55                   	push   %ebp
-   1180b:	89 e5                	mov    %esp,%ebp
-   1180d:	83 ec 18             	sub    $0x18,%esp
+   119c6:	55                   	push   %ebp
+   119c7:	89 e5                	mov    %esp,%ebp
+   119c9:	83 ec 18             	sub    $0x18,%esp
     int tss_sel = gdt_alloc_desc();
-   11810:	e8 c1 eb ff ff       	call   103d6 <gdt_alloc_desc>
-   11815:	89 45 f4             	mov    %eax,-0xc(%ebp)
+   119cc:	e8 05 ea ff ff       	call   103d6 <gdt_alloc_desc>
+   119d1:	89 45 f4             	mov    %eax,-0xc(%ebp)
 
 
     segment_desc_set(tss_sel, (uint32_t)&task->tss, sizeof(tss_t), 
-   11818:	8b 45 08             	mov    0x8(%ebp),%eax
-   1181b:	83 c0 4c             	add    $0x4c,%eax
-   1181e:	68 89 00 00 00       	push   $0x89
-   11823:	6a 68                	push   $0x68
-   11825:	50                   	push   %eax
-   11826:	ff 75 f4             	pushl  -0xc(%ebp)
-   11829:	e8 b5 ea ff ff       	call   102e3 <segment_desc_set>
-   1182e:	83 c4 10             	add    $0x10,%esp
+   119d4:	8b 45 08             	mov    0x8(%ebp),%eax
+   119d7:	83 c0 4c             	add    $0x4c,%eax
+   119da:	68 89 00 00 00       	push   $0x89
+   119df:	6a 68                	push   $0x68
+   119e1:	50                   	push   %eax
+   119e2:	ff 75 f4             	pushl  -0xc(%ebp)
+   119e5:	e8 f9 e8 ff ff       	call   102e3 <segment_desc_set>
+   119ea:	83 c4 10             	add    $0x10,%esp
         SEG_P_PRESENT | SEG_DPL0 | SEG_TYPE_TSS
     );
 
     k_memset(&task->tss, 0, sizeof(tss_t));
-   11831:	8b 45 08             	mov    0x8(%ebp),%eax
-   11834:	83 c0 4c             	add    $0x4c,%eax
-   11837:	83 ec 04             	sub    $0x4,%esp
-   1183a:	6a 68                	push   $0x68
-   1183c:	6a 00                	push   $0x0
-   1183e:	50                   	push   %eax
-   1183f:	e8 d1 f7 ff ff       	call   11015 <k_memset>
-   11844:	83 c4 10             	add    $0x10,%esp
+   119ed:	8b 45 08             	mov    0x8(%ebp),%eax
+   119f0:	83 c0 4c             	add    $0x4c,%eax
+   119f3:	83 ec 04             	sub    $0x4,%esp
+   119f6:	6a 68                	push   $0x68
+   119f8:	6a 00                	push   $0x0
+   119fa:	50                   	push   %eax
+   119fb:	e8 15 f6 ff ff       	call   11015 <k_memset>
+   11a00:	83 c4 10             	add    $0x10,%esp
 
     task->tss.eip  = entry;
-   11847:	8b 45 08             	mov    0x8(%ebp),%eax
-   1184a:	8b 55 0c             	mov    0xc(%ebp),%edx
-   1184d:	89 50 6c             	mov    %edx,0x6c(%eax)
+   11a03:	8b 45 08             	mov    0x8(%ebp),%eax
+   11a06:	8b 55 0c             	mov    0xc(%ebp),%edx
+   11a09:	89 50 6c             	mov    %edx,0x6c(%eax)
     task->tss.esp  = esp;
-   11850:	8b 45 08             	mov    0x8(%ebp),%eax
-   11853:	8b 55 10             	mov    0x10(%ebp),%edx
-   11856:	89 90 84 00 00 00    	mov    %edx,0x84(%eax)
+   11a0c:	8b 45 08             	mov    0x8(%ebp),%eax
+   11a0f:	8b 55 10             	mov    0x10(%ebp),%edx
+   11a12:	89 90 84 00 00 00    	mov    %edx,0x84(%eax)
     task->tss.esp0 = esp;
-   1185c:	8b 45 08             	mov    0x8(%ebp),%eax
-   1185f:	8b 55 10             	mov    0x10(%ebp),%edx
-   11862:	89 50 50             	mov    %edx,0x50(%eax)
+   11a18:	8b 45 08             	mov    0x8(%ebp),%eax
+   11a1b:	8b 55 10             	mov    0x10(%ebp),%edx
+   11a1e:	89 50 50             	mov    %edx,0x50(%eax)
 
     task->tss.ss  = KERNEL_SELECTOR_DS;
-   11865:	8b 45 08             	mov    0x8(%ebp),%eax
-   11868:	c7 80 9c 00 00 00 10 	movl   $0x10,0x9c(%eax)
-   1186f:	00 00 00 
+   11a21:	8b 45 08             	mov    0x8(%ebp),%eax
+   11a24:	c7 80 9c 00 00 00 10 	movl   $0x10,0x9c(%eax)
+   11a2b:	00 00 00 
     task->tss.ss0 = KERNEL_SELECTOR_DS;
-   11872:	8b 45 08             	mov    0x8(%ebp),%eax
-   11875:	c7 40 54 10 00 00 00 	movl   $0x10,0x54(%eax)
+   11a2e:	8b 45 08             	mov    0x8(%ebp),%eax
+   11a31:	c7 40 54 10 00 00 00 	movl   $0x10,0x54(%eax)
     task->tss.es  = KERNEL_SELECTOR_DS;
-   1187c:	8b 45 08             	mov    0x8(%ebp),%eax
-   1187f:	c7 80 94 00 00 00 10 	movl   $0x10,0x94(%eax)
-   11886:	00 00 00 
+   11a38:	8b 45 08             	mov    0x8(%ebp),%eax
+   11a3b:	c7 80 94 00 00 00 10 	movl   $0x10,0x94(%eax)
+   11a42:	00 00 00 
     task->tss.ds  = KERNEL_SELECTOR_DS;
-   11889:	8b 45 08             	mov    0x8(%ebp),%eax
-   1188c:	c7 80 a0 00 00 00 10 	movl   $0x10,0xa0(%eax)
-   11893:	00 00 00 
+   11a45:	8b 45 08             	mov    0x8(%ebp),%eax
+   11a48:	c7 80 a0 00 00 00 10 	movl   $0x10,0xa0(%eax)
+   11a4f:	00 00 00 
     task->tss.fs  = KERNEL_SELECTOR_DS;
-   11896:	8b 45 08             	mov    0x8(%ebp),%eax
-   11899:	c7 80 a4 00 00 00 10 	movl   $0x10,0xa4(%eax)
-   118a0:	00 00 00 
+   11a52:	8b 45 08             	mov    0x8(%ebp),%eax
+   11a55:	c7 80 a4 00 00 00 10 	movl   $0x10,0xa4(%eax)
+   11a5c:	00 00 00 
     task->tss.gs  = KERNEL_SELECTOR_DS;
-   118a3:	8b 45 08             	mov    0x8(%ebp),%eax
-   118a6:	c7 80 a8 00 00 00 10 	movl   $0x10,0xa8(%eax)
-   118ad:	00 00 00 
+   11a5f:	8b 45 08             	mov    0x8(%ebp),%eax
+   11a62:	c7 80 a8 00 00 00 10 	movl   $0x10,0xa8(%eax)
+   11a69:	00 00 00 
 
     task->tss.cs  = KERNEL_SELECTOR_CS;
-   118b0:	8b 45 08             	mov    0x8(%ebp),%eax
-   118b3:	c7 80 98 00 00 00 08 	movl   $0x8,0x98(%eax)
-   118ba:	00 00 00 
+   11a6c:	8b 45 08             	mov    0x8(%ebp),%eax
+   11a6f:	c7 80 98 00 00 00 08 	movl   $0x8,0x98(%eax)
+   11a76:	00 00 00 
 
     task->tss.eflags = EFLAGES_DEFAULT | EFLAGS_IF;
-   118bd:	8b 45 08             	mov    0x8(%ebp),%eax
-   118c0:	c7 40 70 02 02 00 00 	movl   $0x202,0x70(%eax)
+   11a79:	8b 45 08             	mov    0x8(%ebp),%eax
+   11a7c:	c7 40 70 02 02 00 00 	movl   $0x202,0x70(%eax)
 
     task->tss_sel = tss_sel;
-   118c7:	8b 55 f4             	mov    -0xc(%ebp),%edx
-   118ca:	8b 45 08             	mov    0x8(%ebp),%eax
-   118cd:	89 90 b4 00 00 00    	mov    %edx,0xb4(%eax)
+   11a83:	8b 55 f4             	mov    -0xc(%ebp),%edx
+   11a86:	8b 45 08             	mov    0x8(%ebp),%eax
+   11a89:	89 90 b4 00 00 00    	mov    %edx,0xb4(%eax)
 }
-   118d3:	90                   	nop
-   118d4:	c9                   	leave  
-   118d5:	c3                   	ret    
+   11a8f:	90                   	nop
+   11a90:	c9                   	leave  
+   11a91:	c3                   	ret    
 
-000118d6 <task_init>:
+00011a92 <task_init>:
 
 // 初始化一个任务
 int task_init(task_t* task, const char* name, uint32_t entry, uint32_t esp) {
-   118d6:	55                   	push   %ebp
-   118d7:	89 e5                	mov    %esp,%ebp
-   118d9:	83 ec 18             	sub    $0x18,%esp
+   11a92:	55                   	push   %ebp
+   11a93:	89 e5                	mov    %esp,%ebp
+   11a95:	83 ec 18             	sub    $0x18,%esp
     // tss_init(task, entry, esp);  // 使用 tss 机制
 
     // 使用直接跳转机制
     uint32_t* pesp = (uint32_t*)esp;
-   118dc:	8b 45 14             	mov    0x14(%ebp),%eax
-   118df:	89 45 f4             	mov    %eax,-0xc(%ebp)
+   11a98:	8b 45 14             	mov    0x14(%ebp),%eax
+   11a9b:	89 45 f4             	mov    %eax,-0xc(%ebp)
     if(pesp) {
-   118e2:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
-   118e6:	74 48                	je     11930 <task_init+0x5a>
+   11a9e:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
+   11aa2:	74 48                	je     11aec <task_init+0x5a>
         *(--pesp) = entry;
-   118e8:	83 6d f4 04          	subl   $0x4,-0xc(%ebp)
-   118ec:	8b 45 f4             	mov    -0xc(%ebp),%eax
-   118ef:	8b 55 10             	mov    0x10(%ebp),%edx
-   118f2:	89 10                	mov    %edx,(%eax)
+   11aa4:	83 6d f4 04          	subl   $0x4,-0xc(%ebp)
+   11aa8:	8b 45 f4             	mov    -0xc(%ebp),%eax
+   11aab:	8b 55 10             	mov    0x10(%ebp),%edx
+   11aae:	89 10                	mov    %edx,(%eax)
         *(--pesp) = 0;
-   118f4:	83 6d f4 04          	subl   $0x4,-0xc(%ebp)
-   118f8:	8b 45 f4             	mov    -0xc(%ebp),%eax
-   118fb:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+   11ab0:	83 6d f4 04          	subl   $0x4,-0xc(%ebp)
+   11ab4:	8b 45 f4             	mov    -0xc(%ebp),%eax
+   11ab7:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
         *(--pesp) = 0;
-   11901:	83 6d f4 04          	subl   $0x4,-0xc(%ebp)
-   11905:	8b 45 f4             	mov    -0xc(%ebp),%eax
-   11908:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+   11abd:	83 6d f4 04          	subl   $0x4,-0xc(%ebp)
+   11ac1:	8b 45 f4             	mov    -0xc(%ebp),%eax
+   11ac4:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
         *(--pesp) = 0;
-   1190e:	83 6d f4 04          	subl   $0x4,-0xc(%ebp)
-   11912:	8b 45 f4             	mov    -0xc(%ebp),%eax
-   11915:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+   11aca:	83 6d f4 04          	subl   $0x4,-0xc(%ebp)
+   11ace:	8b 45 f4             	mov    -0xc(%ebp),%eax
+   11ad1:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
         *(--pesp) = 0;
-   1191b:	83 6d f4 04          	subl   $0x4,-0xc(%ebp)
-   1191f:	8b 45 f4             	mov    -0xc(%ebp),%eax
-   11922:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+   11ad7:	83 6d f4 04          	subl   $0x4,-0xc(%ebp)
+   11adb:	8b 45 f4             	mov    -0xc(%ebp),%eax
+   11ade:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
         task->stack = pesp;
-   11928:	8b 45 08             	mov    0x8(%ebp),%eax
-   1192b:	8b 55 f4             	mov    -0xc(%ebp),%edx
-   1192e:	89 10                	mov    %edx,(%eax)
+   11ae4:	8b 45 08             	mov    0x8(%ebp),%eax
+   11ae7:	8b 55 f4             	mov    -0xc(%ebp),%edx
+   11aea:	89 10                	mov    %edx,(%eax)
     }
 
     k_strncpy(task->name, name, TASK_NAME_SIZE);        // 进程名
-   11930:	8b 45 08             	mov    0x8(%ebp),%eax
-   11933:	83 c0 08             	add    $0x8,%eax
-   11936:	83 ec 04             	sub    $0x4,%esp
-   11939:	6a 20                	push   $0x20
-   1193b:	ff 75 0c             	pushl  0xc(%ebp)
-   1193e:	50                   	push   %eax
-   1193f:	e8 5d f5 ff ff       	call   10ea1 <k_strncpy>
-   11944:	83 c4 10             	add    $0x10,%esp
+   11aec:	8b 45 08             	mov    0x8(%ebp),%eax
+   11aef:	83 c0 08             	add    $0x8,%eax
+   11af2:	83 ec 04             	sub    $0x4,%esp
+   11af5:	6a 20                	push   $0x20
+   11af7:	ff 75 0c             	pushl  0xc(%ebp)
+   11afa:	50                   	push   %eax
+   11afb:	e8 a1 f3 ff ff       	call   10ea1 <k_strncpy>
+   11b00:	83 c4 10             	add    $0x10,%esp
     task->state = TASK_CREATED;                         // 状态  created
-   11947:	8b 45 08             	mov    0x8(%ebp),%eax
-   1194a:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
+   11b03:	8b 45 08             	mov    0x8(%ebp),%eax
+   11b06:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
 
     task->time_ticks = TASK_TIME_SLICE_DEFAULT;         //  最大时间片
-   11951:	8b 45 08             	mov    0x8(%ebp),%eax
-   11954:	c7 40 2c 05 00 00 00 	movl   $0x5,0x2c(%eax)
+   11b0d:	8b 45 08             	mov    0x8(%ebp),%eax
+   11b10:	c7 40 2c 0a 00 00 00 	movl   $0xa,0x2c(%eax)
     task->slice_ticks = TASK_TIME_SLICE_DEFAULT;        //  当前时间片
-   1195b:	8b 45 08             	mov    0x8(%ebp),%eax
-   1195e:	c7 40 28 05 00 00 00 	movl   $0x5,0x28(%eax)
+   11b17:	8b 45 08             	mov    0x8(%ebp),%eax
+   11b1a:	c7 40 28 0a 00 00 00 	movl   $0xa,0x28(%eax)
     task->sleep_ticks = 0;
-   11965:	8b 45 08             	mov    0x8(%ebp),%eax
-   11968:	c7 40 30 00 00 00 00 	movl   $0x0,0x30(%eax)
+   11b21:	8b 45 08             	mov    0x8(%ebp),%eax
+   11b24:	c7 40 30 00 00 00 00 	movl   $0x0,0x30(%eax)
     list_node_init(&task->all_node); 
-   1196f:	8b 45 08             	mov    0x8(%ebp),%eax
-   11972:	83 c0 3c             	add    $0x3c,%eax
-   11975:	83 ec 0c             	sub    $0xc,%esp
-   11978:	50                   	push   %eax
-   11979:	e8 29 fe ff ff       	call   117a7 <list_node_init>
-   1197e:	83 c4 10             	add    $0x10,%esp
+   11b2b:	8b 45 08             	mov    0x8(%ebp),%eax
+   11b2e:	83 c0 3c             	add    $0x3c,%eax
+   11b31:	83 ec 0c             	sub    $0xc,%esp
+   11b34:	50                   	push   %eax
+   11b35:	e8 22 fe ff ff       	call   1195c <list_node_init>
+   11b3a:	83 c4 10             	add    $0x10,%esp
     list_node_init(&task->run_node);
-   11981:	8b 45 08             	mov    0x8(%ebp),%eax
-   11984:	83 c0 34             	add    $0x34,%eax
-   11987:	83 ec 0c             	sub    $0xc,%esp
-   1198a:	50                   	push   %eax
-   1198b:	e8 17 fe ff ff       	call   117a7 <list_node_init>
-   11990:	83 c4 10             	add    $0x10,%esp
+   11b3d:	8b 45 08             	mov    0x8(%ebp),%eax
+   11b40:	83 c0 34             	add    $0x34,%eax
+   11b43:	83 ec 0c             	sub    $0xc,%esp
+   11b46:	50                   	push   %eax
+   11b47:	e8 10 fe ff ff       	call   1195c <list_node_init>
+   11b4c:	83 c4 10             	add    $0x10,%esp
     list_node_init(&task->wait_node);
-   11993:	8b 45 08             	mov    0x8(%ebp),%eax
-   11996:	83 c0 44             	add    $0x44,%eax
-   11999:	83 ec 0c             	sub    $0xc,%esp
-   1199c:	50                   	push   %eax
-   1199d:	e8 05 fe ff ff       	call   117a7 <list_node_init>
-   119a2:	83 c4 10             	add    $0x10,%esp
+   11b4f:	8b 45 08             	mov    0x8(%ebp),%eax
+   11b52:	83 c0 44             	add    $0x44,%eax
+   11b55:	83 ec 0c             	sub    $0xc,%esp
+   11b58:	50                   	push   %eax
+   11b59:	e8 fe fd ff ff       	call   1195c <list_node_init>
+   11b5e:	83 c4 10             	add    $0x10,%esp
 
     irq_state_t state = irq_enter_proection();   //--enter protection
-   119a5:	e8 87 f4 ff ff       	call   10e31 <irq_enter_proection>
-   119aa:	89 45 f0             	mov    %eax,-0x10(%ebp)
+   11b61:	e8 cb f2 ff ff       	call   10e31 <irq_enter_proection>
+   11b66:	89 45 f0             	mov    %eax,-0x10(%ebp)
         task_set_ready(task);                                        // 加入到就绪队列
-   119ad:	83 ec 0c             	sub    $0xc,%esp
-   119b0:	ff 75 08             	pushl  0x8(%ebp)
-   119b3:	e8 7d 01 00 00       	call   11b35 <task_set_ready>
-   119b8:	83 c4 10             	add    $0x10,%esp
+   11b69:	83 ec 0c             	sub    $0xc,%esp
+   11b6c:	ff 75 08             	pushl  0x8(%ebp)
+   11b6f:	e8 7d 01 00 00       	call   11cf1 <task_set_ready>
+   11b74:	83 c4 10             	add    $0x10,%esp
         list_insert_last(&task_manager.task_list, &task->all_node);  // 加入到所有队列
-   119bb:	8b 45 08             	mov    0x8(%ebp),%eax
-   119be:	83 c0 3c             	add    $0x3c,%eax
-   119c1:	83 ec 08             	sub    $0x8,%esp
-   119c4:	50                   	push   %eax
-   119c5:	68 5c 0c 20 00       	push   $0x200c5c
-   119ca:	e8 a6 f9 ff ff       	call   11375 <list_insert_last>
-   119cf:	83 c4 10             	add    $0x10,%esp
+   11b77:	8b 45 08             	mov    0x8(%ebp),%eax
+   11b7a:	83 c0 3c             	add    $0x3c,%eax
+   11b7d:	83 ec 08             	sub    $0x8,%esp
+   11b80:	50                   	push   %eax
+   11b81:	68 7c 0c 20 00       	push   $0x200c7c
+   11b86:	e8 ea f7 ff ff       	call   11375 <list_insert_last>
+   11b8b:	83 c4 10             	add    $0x10,%esp
     irq_leave_proection(state);  //--leave protection
-   119d2:	83 ec 0c             	sub    $0xc,%esp
-   119d5:	ff 75 f0             	pushl  -0x10(%ebp)
-   119d8:	e8 6c f4 ff ff       	call   10e49 <irq_leave_proection>
-   119dd:	83 c4 10             	add    $0x10,%esp
+   11b8e:	83 ec 0c             	sub    $0xc,%esp
+   11b91:	ff 75 f0             	pushl  -0x10(%ebp)
+   11b94:	e8 b0 f2 ff ff       	call   10e49 <irq_leave_proection>
+   11b99:	83 c4 10             	add    $0x10,%esp
 
     return 0;
-   119e0:	b8 00 00 00 00       	mov    $0x0,%eax
+   11b9c:	b8 00 00 00 00       	mov    $0x0,%eax
 }
-   119e5:	c9                   	leave  
-   119e6:	c3                   	ret    
+   11ba1:	c9                   	leave  
+   11ba2:	c3                   	ret    
 
-000119e7 <task_manager_init>:
+00011ba3 <task_manager_init>:
 
 // 初始化任务管理
 void task_manager_init() {
-   119e7:	55                   	push   %ebp
-   119e8:	89 e5                	mov    %esp,%ebp
-   119ea:	83 ec 08             	sub    $0x8,%esp
+   11ba3:	55                   	push   %ebp
+   11ba4:	89 e5                	mov    %esp,%ebp
+   11ba6:	83 ec 08             	sub    $0x8,%esp
     sem_init(&sem_test, 0);
-   119ed:	83 ec 08             	sub    $0x8,%esp
-   119f0:	6a 00                	push   $0x0
-   119f2:	68 a0 8e 20 00       	push   $0x208ea0
-   119f7:	e8 6b fc ff ff       	call   11667 <sem_init>
-   119fc:	83 c4 10             	add    $0x10,%esp
+   11ba9:	83 ec 08             	sub    $0x8,%esp
+   11bac:	6a 00                	push   $0x0
+   11bae:	68 c0 8e 20 00       	push   $0x208ec0
+   11bb3:	e8 6b fc ff ff       	call   11823 <sem_init>
+   11bb8:	83 c4 10             	add    $0x10,%esp
     list_init(&task_manager.ready_list);
-   119ff:	83 ec 0c             	sub    $0xc,%esp
-   11a02:	68 44 0c 20 00       	push   $0x200c44
-   11a07:	e8 e5 f8 ff ff       	call   112f1 <list_init>
-   11a0c:	83 c4 10             	add    $0x10,%esp
+   11bbb:	83 ec 0c             	sub    $0xc,%esp
+   11bbe:	68 64 0c 20 00       	push   $0x200c64
+   11bc3:	e8 29 f7 ff ff       	call   112f1 <list_init>
+   11bc8:	83 c4 10             	add    $0x10,%esp
     list_init(&task_manager.task_list);
-   11a0f:	83 ec 0c             	sub    $0xc,%esp
-   11a12:	68 5c 0c 20 00       	push   $0x200c5c
-   11a17:	e8 d5 f8 ff ff       	call   112f1 <list_init>
-   11a1c:	83 c4 10             	add    $0x10,%esp
+   11bcb:	83 ec 0c             	sub    $0xc,%esp
+   11bce:	68 7c 0c 20 00       	push   $0x200c7c
+   11bd3:	e8 19 f7 ff ff       	call   112f1 <list_init>
+   11bd8:	83 c4 10             	add    $0x10,%esp
     list_init(&task_manager.sleep_list);
-   11a1f:	83 ec 0c             	sub    $0xc,%esp
-   11a22:	68 50 0c 20 00       	push   $0x200c50
-   11a27:	e8 c5 f8 ff ff       	call   112f1 <list_init>
-   11a2c:	83 c4 10             	add    $0x10,%esp
+   11bdb:	83 ec 0c             	sub    $0xc,%esp
+   11bde:	68 70 0c 20 00       	push   $0x200c70
+   11be3:	e8 09 f7 ff ff       	call   112f1 <list_init>
+   11be8:	83 c4 10             	add    $0x10,%esp
     task_manager.curr_task = get_first_task();
-   11a2f:	e8 ed 00 00 00       	call   11b21 <get_first_task>
-   11a34:	a3 40 0c 20 00       	mov    %eax,0x200c40
+   11beb:	e8 ed 00 00 00       	call   11cdd <get_first_task>
+   11bf0:	a3 60 0c 20 00       	mov    %eax,0x200c60
 }
-   11a39:	90                   	nop
-   11a3a:	c9                   	leave  
-   11a3b:	c3                   	ret    
+   11bf5:	90                   	nop
+   11bf6:	c9                   	leave  
+   11bf7:	c3                   	ret    
 
-00011a3c <task1_func>:
+00011bf8 <task1_func>:
 
 
 void task1_func() {
-   11a3c:	55                   	push   %ebp
-   11a3d:	89 e5                	mov    %esp,%ebp
-   11a3f:	83 ec 18             	sub    $0x18,%esp
+   11bf8:	55                   	push   %ebp
+   11bf9:	89 e5                	mov    %esp,%ebp
+   11bfb:	83 ec 18             	sub    $0x18,%esp
     int count = 0;
-   11a42:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+   11bfe:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
     for(;;) {
         klog("-------------------------11111-----------------: %d", count--);
-   11a49:	8b 45 f4             	mov    -0xc(%ebp),%eax
-   11a4c:	8d 50 ff             	lea    -0x1(%eax),%edx
-   11a4f:	89 55 f4             	mov    %edx,-0xc(%ebp)
-   11a52:	83 ec 08             	sub    $0x8,%esp
-   11a55:	50                   	push   %eax
-   11a56:	68 b8 20 01 00       	push   $0x120b8
-   11a5b:	e8 28 fb ff ff       	call   11588 <klog>
-   11a60:	83 c4 10             	add    $0x10,%esp
-        sem_notify(&sem_test);
-   11a63:	83 ec 0c             	sub    $0xc,%esp
-   11a66:	68 a0 8e 20 00       	push   $0x208ea0
-   11a6b:	e8 85 fc ff ff       	call   116f5 <sem_notify>
-   11a70:	83 c4 10             	add    $0x10,%esp
+   11c05:	8b 45 f4             	mov    -0xc(%ebp),%eax
+   11c08:	8d 50 ff             	lea    -0x1(%eax),%edx
+   11c0b:	89 55 f4             	mov    %edx,-0xc(%ebp)
+   11c0e:	83 ec 08             	sub    $0x8,%esp
+   11c11:	50                   	push   %eax
+   11c12:	68 74 22 01 00       	push   $0x12274
+   11c17:	e8 94 f9 ff ff       	call   115b0 <klog>
+   11c1c:	83 c4 10             	add    $0x10,%esp
         sys_sleep(1000);
-   11a73:	83 ec 0c             	sub    $0xc,%esp
-   11a76:	68 e8 03 00 00       	push   $0x3e8
-   11a7b:	e8 f3 02 00 00       	call   11d73 <sys_sleep>
-   11a80:	83 c4 10             	add    $0x10,%esp
+   11c1f:	83 ec 0c             	sub    $0xc,%esp
+   11c22:	68 e8 03 00 00       	push   $0x3e8
+   11c27:	e8 03 03 00 00       	call   11f2f <sys_sleep>
+   11c2c:	83 c4 10             	add    $0x10,%esp
+        sem_notify(&sem_test);
+   11c2f:	83 ec 0c             	sub    $0xc,%esp
+   11c32:	68 c0 8e 20 00       	push   $0x208ec0
+   11c37:	e8 75 fc ff ff       	call   118b1 <sem_notify>
+   11c3c:	83 c4 10             	add    $0x10,%esp
         klog("-------------------------11111-----------------: %d", count--);
-   11a83:	eb c4                	jmp    11a49 <task1_func+0xd>
+   11c3f:	eb c4                	jmp    11c05 <task1_func+0xd>
 
-00011a85 <task3_func>:
+00011c41 <task3_func>:
     }
 }
 
 
 void task3_func() {
-   11a85:	55                   	push   %ebp
-   11a86:	89 e5                	mov    %esp,%ebp
-   11a88:	83 ec 18             	sub    $0x18,%esp
+   11c41:	55                   	push   %ebp
+   11c42:	89 e5                	mov    %esp,%ebp
+   11c44:	83 ec 18             	sub    $0x18,%esp
     int count = 0;
-   11a8b:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+   11c47:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
     for(;;) {
         sem_wait(&sem_test);
-   11a92:	83 ec 0c             	sub    $0xc,%esp
-   11a95:	68 a0 8e 20 00       	push   $0x208ea0
-   11a9a:	e8 eb fb ff ff       	call   1168a <sem_wait>
-   11a9f:	83 c4 10             	add    $0x10,%esp
+   11c4e:	83 ec 0c             	sub    $0xc,%esp
+   11c51:	68 c0 8e 20 00       	push   $0x208ec0
+   11c56:	e8 eb fb ff ff       	call   11846 <sem_wait>
+   11c5b:	83 c4 10             	add    $0x10,%esp
         klog("-------------------------33333-----------------: %d", count++);
-   11aa2:	8b 45 f4             	mov    -0xc(%ebp),%eax
-   11aa5:	8d 50 01             	lea    0x1(%eax),%edx
-   11aa8:	89 55 f4             	mov    %edx,-0xc(%ebp)
-   11aab:	83 ec 08             	sub    $0x8,%esp
-   11aae:	50                   	push   %eax
-   11aaf:	68 ec 20 01 00       	push   $0x120ec
-   11ab4:	e8 cf fa ff ff       	call   11588 <klog>
-   11ab9:	83 c4 10             	add    $0x10,%esp
+   11c5e:	8b 45 f4             	mov    -0xc(%ebp),%eax
+   11c61:	8d 50 01             	lea    0x1(%eax),%edx
+   11c64:	89 55 f4             	mov    %edx,-0xc(%ebp)
+   11c67:	83 ec 08             	sub    $0x8,%esp
+   11c6a:	50                   	push   %eax
+   11c6b:	68 a8 22 01 00       	push   $0x122a8
+   11c70:	e8 3b f9 ff ff       	call   115b0 <klog>
+   11c75:	83 c4 10             	add    $0x10,%esp
         sem_wait(&sem_test);
-   11abc:	eb d4                	jmp    11a92 <task3_func+0xd>
+   11c78:	eb d4                	jmp    11c4e <task3_func+0xd>
 
-00011abe <task1_func_init>:
+00011c7a <task1_func_init>:
     }
 }
 
 
 void task1_func_init() {
-   11abe:	55                   	push   %ebp
-   11abf:	89 e5                	mov    %esp,%ebp
-   11ac1:	83 ec 08             	sub    $0x8,%esp
+   11c7a:	55                   	push   %ebp
+   11c7b:	89 e5                	mov    %esp,%ebp
+   11c7d:	83 ec 08             	sub    $0x8,%esp
     task_init(&task_manager.first_task, "first task", 
-   11ac4:	ba e0 2d 20 00       	mov    $0x202de0,%edx
-   11ac9:	b8 3c 1a 01 00       	mov    $0x11a3c,%eax
-   11ace:	52                   	push   %edx
-   11acf:	50                   	push   %eax
-   11ad0:	68 20 21 01 00       	push   $0x12120
-   11ad5:	68 68 0c 20 00       	push   $0x200c68
-   11ada:	e8 f7 fd ff ff       	call   118d6 <task_init>
-   11adf:	83 c4 10             	add    $0x10,%esp
+   11c80:	ba 00 2e 20 00       	mov    $0x202e00,%edx
+   11c85:	b8 f8 1b 01 00       	mov    $0x11bf8,%eax
+   11c8a:	52                   	push   %edx
+   11c8b:	50                   	push   %eax
+   11c8c:	68 dc 22 01 00       	push   $0x122dc
+   11c91:	68 88 0c 20 00       	push   $0x200c88
+   11c96:	e8 f7 fd ff ff       	call   11a92 <task_init>
+   11c9b:	83 c4 10             	add    $0x10,%esp
         (uint32_t)task1_func, (uint32_t)&task1_stack[2048]);
     task_init(&task_manager.idle_task,  "idle  task", 
-   11ae2:	ba e0 4d 20 00       	mov    $0x204de0,%edx
-   11ae7:	b8 e2 17 01 00       	mov    $0x117e2,%eax
-   11aec:	52                   	push   %edx
-   11aed:	50                   	push   %eax
-   11aee:	68 2b 21 01 00       	push   $0x1212b
-   11af3:	68 20 0d 20 00       	push   $0x200d20
-   11af8:	e8 d9 fd ff ff       	call   118d6 <task_init>
-   11afd:	83 c4 10             	add    $0x10,%esp
+   11c9e:	ba 00 4e 20 00       	mov    $0x204e00,%edx
+   11ca3:	b8 9e 19 01 00       	mov    $0x1199e,%eax
+   11ca8:	52                   	push   %edx
+   11ca9:	50                   	push   %eax
+   11caa:	68 e7 22 01 00       	push   $0x122e7
+   11caf:	68 40 0d 20 00       	push   $0x200d40
+   11cb4:	e8 d9 fd ff ff       	call   11a92 <task_init>
+   11cb9:	83 c4 10             	add    $0x10,%esp
         (uint32_t)idle_task_func, (uint32_t)&idle_task_stack[2048]);
     task_init(&task3,                   "test  task", 
-   11b00:	ba e0 6d 20 00       	mov    $0x206de0,%edx
-   11b05:	b8 85 1a 01 00       	mov    $0x11a85,%eax
-   11b0a:	52                   	push   %edx
-   11b0b:	50                   	push   %eax
-   11b0c:	68 36 21 01 00       	push   $0x12136
-   11b11:	68 e0 6d 20 00       	push   $0x206de0
-   11b16:	e8 bb fd ff ff       	call   118d6 <task_init>
-   11b1b:	83 c4 10             	add    $0x10,%esp
+   11cbc:	ba 00 6e 20 00       	mov    $0x206e00,%edx
+   11cc1:	b8 41 1c 01 00       	mov    $0x11c41,%eax
+   11cc6:	52                   	push   %edx
+   11cc7:	50                   	push   %eax
+   11cc8:	68 f2 22 01 00       	push   $0x122f2
+   11ccd:	68 00 6e 20 00       	push   $0x206e00
+   11cd2:	e8 bb fd ff ff       	call   11a92 <task_init>
+   11cd7:	83 c4 10             	add    $0x10,%esp
         (uint32_t)task3_func, (uint32_t)&task3_stack[2048]);
 
 }
-   11b1e:	90                   	nop
-   11b1f:	c9                   	leave  
-   11b20:	c3                   	ret    
+   11cda:	90                   	nop
+   11cdb:	c9                   	leave  
+   11cdc:	c3                   	ret    
 
-00011b21 <get_first_task>:
+00011cdd <get_first_task>:
 
 
 task_t* get_first_task() {
-   11b21:	55                   	push   %ebp
-   11b22:	89 e5                	mov    %esp,%ebp
+   11cdd:	55                   	push   %ebp
+   11cde:	89 e5                	mov    %esp,%ebp
     return &task_manager.first_task;
-   11b24:	b8 68 0c 20 00       	mov    $0x200c68,%eax
+   11ce0:	b8 88 0c 20 00       	mov    $0x200c88,%eax
 }
-   11b29:	5d                   	pop    %ebp
-   11b2a:	c3                   	ret    
+   11ce5:	5d                   	pop    %ebp
+   11ce6:	c3                   	ret    
 
-00011b2b <task_current>:
+00011ce7 <task_current>:
 
 task_t* task_current() {
-   11b2b:	55                   	push   %ebp
-   11b2c:	89 e5                	mov    %esp,%ebp
+   11ce7:	55                   	push   %ebp
+   11ce8:	89 e5                	mov    %esp,%ebp
     return task_manager.curr_task;
-   11b2e:	a1 40 0c 20 00       	mov    0x200c40,%eax
+   11cea:	a1 60 0c 20 00       	mov    0x200c60,%eax
 }
-   11b33:	5d                   	pop    %ebp
-   11b34:	c3                   	ret    
+   11cef:	5d                   	pop    %ebp
+   11cf0:	c3                   	ret    
 
-00011b35 <task_set_ready>:
+00011cf1 <task_set_ready>:
 
 
 // 将任务添加到就绪队列 尾部 设置状态为 ready
 void task_set_ready(task_t* task) {
-   11b35:	55                   	push   %ebp
-   11b36:	89 e5                	mov    %esp,%ebp
-   11b38:	83 ec 08             	sub    $0x8,%esp
+   11cf1:	55                   	push   %ebp
+   11cf2:	89 e5                	mov    %esp,%ebp
+   11cf4:	83 ec 08             	sub    $0x8,%esp
     if (task == &task_manager.idle_task) {  // 空进程不应该加入就绪队列
-   11b3b:	81 7d 08 20 0d 20 00 	cmpl   $0x200d20,0x8(%ebp)
-   11b42:	74 23                	je     11b67 <task_set_ready+0x32>
+   11cf7:	81 7d 08 40 0d 20 00 	cmpl   $0x200d40,0x8(%ebp)
+   11cfe:	74 23                	je     11d23 <task_set_ready+0x32>
         return;
     }
 
     list_insert_last(&task_manager.ready_list, &task->run_node);
-   11b44:	8b 45 08             	mov    0x8(%ebp),%eax
-   11b47:	83 c0 34             	add    $0x34,%eax
-   11b4a:	83 ec 08             	sub    $0x8,%esp
-   11b4d:	50                   	push   %eax
-   11b4e:	68 44 0c 20 00       	push   $0x200c44
-   11b53:	e8 1d f8 ff ff       	call   11375 <list_insert_last>
-   11b58:	83 c4 10             	add    $0x10,%esp
+   11d00:	8b 45 08             	mov    0x8(%ebp),%eax
+   11d03:	83 c0 34             	add    $0x34,%eax
+   11d06:	83 ec 08             	sub    $0x8,%esp
+   11d09:	50                   	push   %eax
+   11d0a:	68 64 0c 20 00       	push   $0x200c64
+   11d0f:	e8 61 f6 ff ff       	call   11375 <list_insert_last>
+   11d14:	83 c4 10             	add    $0x10,%esp
     task->state = TASK_READY;
-   11b5b:	8b 45 08             	mov    0x8(%ebp),%eax
-   11b5e:	c7 40 04 03 00 00 00 	movl   $0x3,0x4(%eax)
-   11b65:	eb 01                	jmp    11b68 <task_set_ready+0x33>
+   11d17:	8b 45 08             	mov    0x8(%ebp),%eax
+   11d1a:	c7 40 04 03 00 00 00 	movl   $0x3,0x4(%eax)
+   11d21:	eb 01                	jmp    11d24 <task_set_ready+0x33>
         return;
-   11b67:	90                   	nop
+   11d23:	90                   	nop
 }
-   11b68:	c9                   	leave  
-   11b69:	c3                   	ret    
+   11d24:	c9                   	leave  
+   11d25:	c3                   	ret    
 
-00011b6a <task_set_block>:
+00011d26 <task_set_block>:
 
 // 将 特定 任务从就绪队列删除
 void task_set_block(task_t* task) {
-   11b6a:	55                   	push   %ebp
-   11b6b:	89 e5                	mov    %esp,%ebp
-   11b6d:	83 ec 08             	sub    $0x8,%esp
+   11d26:	55                   	push   %ebp
+   11d27:	89 e5                	mov    %esp,%ebp
+   11d29:	83 ec 08             	sub    $0x8,%esp
     if (task == &task_manager.idle_task) {  // 空进程不应该删除
-   11b70:	81 7d 08 20 0d 20 00 	cmpl   $0x200d20,0x8(%ebp)
-   11b77:	74 19                	je     11b92 <task_set_block+0x28>
+   11d2c:	81 7d 08 40 0d 20 00 	cmpl   $0x200d40,0x8(%ebp)
+   11d33:	74 19                	je     11d4e <task_set_block+0x28>
         return;
     }
     list_delete(&task_manager.ready_list, &task->run_node);
-   11b79:	8b 45 08             	mov    0x8(%ebp),%eax
-   11b7c:	83 c0 34             	add    $0x34,%eax
-   11b7f:	83 ec 08             	sub    $0x8,%esp
-   11b82:	50                   	push   %eax
-   11b83:	68 44 0c 20 00       	push   $0x200c44
-   11b88:	e8 c5 f8 ff ff       	call   11452 <list_delete>
-   11b8d:	83 c4 10             	add    $0x10,%esp
-   11b90:	eb 01                	jmp    11b93 <task_set_block+0x29>
+   11d35:	8b 45 08             	mov    0x8(%ebp),%eax
+   11d38:	83 c0 34             	add    $0x34,%eax
+   11d3b:	83 ec 08             	sub    $0x8,%esp
+   11d3e:	50                   	push   %eax
+   11d3f:	68 64 0c 20 00       	push   $0x200c64
+   11d44:	e8 09 f7 ff ff       	call   11452 <list_delete>
+   11d49:	83 c4 10             	add    $0x10,%esp
+   11d4c:	eb 01                	jmp    11d4f <task_set_block+0x29>
         return;
-   11b92:	90                   	nop
+   11d4e:	90                   	nop
     // list_delete_first(&task_manager.ready_list);
 }
-   11b93:	c9                   	leave  
-   11b94:	c3                   	ret    
+   11d4f:	c9                   	leave  
+   11d50:	c3                   	ret    
 
-00011b95 <sys_sched_yield>:
+00011d51 <sys_sched_yield>:
 
 // 主动放弃cpu执行
 int  sys_sched_yield() {
-   11b95:	55                   	push   %ebp
-   11b96:	89 e5                	mov    %esp,%ebp
-   11b98:	83 ec 18             	sub    $0x18,%esp
+   11d51:	55                   	push   %ebp
+   11d52:	89 e5                	mov    %esp,%ebp
+   11d54:	83 ec 18             	sub    $0x18,%esp
 
 irq_state_t state = irq_enter_proection();   //--enter protection
-   11b9b:	e8 91 f2 ff ff       	call   10e31 <irq_enter_proection>
-   11ba0:	89 45 f4             	mov    %eax,-0xc(%ebp)
+   11d57:	e8 d5 f0 ff ff       	call   10e31 <irq_enter_proection>
+   11d5c:	89 45 f4             	mov    %eax,-0xc(%ebp)
     if(list_count(&task_manager.ready_list) > 1) {
-   11ba3:	83 ec 0c             	sub    $0xc,%esp
-   11ba6:	68 44 0c 20 00       	push   $0x200c44
-   11bab:	e8 1d fc ff ff       	call   117cd <list_count>
-   11bb0:	83 c4 10             	add    $0x10,%esp
-   11bb3:	83 f8 01             	cmp    $0x1,%eax
-   11bb6:	7e 29                	jle    11be1 <sys_sched_yield+0x4c>
+   11d5f:	83 ec 0c             	sub    $0xc,%esp
+   11d62:	68 64 0c 20 00       	push   $0x200c64
+   11d67:	e8 16 fc ff ff       	call   11982 <list_count>
+   11d6c:	83 c4 10             	add    $0x10,%esp
+   11d6f:	83 f8 01             	cmp    $0x1,%eax
+   11d72:	7e 29                	jle    11d9d <sys_sched_yield+0x4c>
         task_t* curr = task_current();
-   11bb8:	e8 6e ff ff ff       	call   11b2b <task_current>
-   11bbd:	89 45 f0             	mov    %eax,-0x10(%ebp)
+   11d74:	e8 6e ff ff ff       	call   11ce7 <task_current>
+   11d79:	89 45 f0             	mov    %eax,-0x10(%ebp)
         task_set_block(curr);
-   11bc0:	83 ec 0c             	sub    $0xc,%esp
-   11bc3:	ff 75 f0             	pushl  -0x10(%ebp)
-   11bc6:	e8 9f ff ff ff       	call   11b6a <task_set_block>
-   11bcb:	83 c4 10             	add    $0x10,%esp
+   11d7c:	83 ec 0c             	sub    $0xc,%esp
+   11d7f:	ff 75 f0             	pushl  -0x10(%ebp)
+   11d82:	e8 9f ff ff ff       	call   11d26 <task_set_block>
+   11d87:	83 c4 10             	add    $0x10,%esp
         task_set_ready(curr);
-   11bce:	83 ec 0c             	sub    $0xc,%esp
-   11bd1:	ff 75 f0             	pushl  -0x10(%ebp)
-   11bd4:	e8 5c ff ff ff       	call   11b35 <task_set_ready>
-   11bd9:	83 c4 10             	add    $0x10,%esp
+   11d8a:	83 ec 0c             	sub    $0xc,%esp
+   11d8d:	ff 75 f0             	pushl  -0x10(%ebp)
+   11d90:	e8 5c ff ff ff       	call   11cf1 <task_set_ready>
+   11d95:	83 c4 10             	add    $0x10,%esp
 
         task_dispatch();
-   11bdc:	e8 58 00 00 00       	call   11c39 <task_dispatch>
+   11d98:	e8 58 00 00 00       	call   11df5 <task_dispatch>
     }
 irq_leave_proection(state);  //--leave protection
-   11be1:	83 ec 0c             	sub    $0xc,%esp
-   11be4:	ff 75 f4             	pushl  -0xc(%ebp)
-   11be7:	e8 5d f2 ff ff       	call   10e49 <irq_leave_proection>
-   11bec:	83 c4 10             	add    $0x10,%esp
+   11d9d:	83 ec 0c             	sub    $0xc,%esp
+   11da0:	ff 75 f4             	pushl  -0xc(%ebp)
+   11da3:	e8 a1 f0 ff ff       	call   10e49 <irq_leave_proection>
+   11da8:	83 c4 10             	add    $0x10,%esp
 
     return 0;
-   11bef:	b8 00 00 00 00       	mov    $0x0,%eax
+   11dab:	b8 00 00 00 00       	mov    $0x0,%eax
 }
-   11bf4:	c9                   	leave  
-   11bf5:	c3                   	ret    
+   11db0:	c9                   	leave  
+   11db1:	c3                   	ret    
 
-00011bf6 <task_next_run>:
+00011db2 <task_next_run>:
 
 // 从就绪队列中找到一第一个任务
 task_t * task_next_run() {
-   11bf6:	55                   	push   %ebp
-   11bf7:	89 e5                	mov    %esp,%ebp
-   11bf9:	83 ec 10             	sub    $0x10,%esp
+   11db2:	55                   	push   %ebp
+   11db3:	89 e5                	mov    %esp,%ebp
+   11db5:	83 ec 10             	sub    $0x10,%esp
     if (list_count(&task_manager.ready_list) == 0) {
-   11bfc:	68 44 0c 20 00       	push   $0x200c44
-   11c01:	e8 c7 fb ff ff       	call   117cd <list_count>
-   11c06:	83 c4 04             	add    $0x4,%esp
-   11c09:	85 c0                	test   %eax,%eax
-   11c0b:	75 07                	jne    11c14 <task_next_run+0x1e>
+   11db8:	68 64 0c 20 00       	push   $0x200c64
+   11dbd:	e8 c0 fb ff ff       	call   11982 <list_count>
+   11dc2:	83 c4 04             	add    $0x4,%esp
+   11dc5:	85 c0                	test   %eax,%eax
+   11dc7:	75 07                	jne    11dd0 <task_next_run+0x1e>
         return &task_manager.idle_task;
-   11c0d:	b8 20 0d 20 00       	mov    $0x200d20,%eax
-   11c12:	eb 23                	jmp    11c37 <task_next_run+0x41>
+   11dc9:	b8 40 0d 20 00       	mov    $0x200d40,%eax
+   11dce:	eb 23                	jmp    11df3 <task_next_run+0x41>
     }
 
     list_node_t * task_node = list_first(&task_manager.ready_list);
-   11c14:	68 44 0c 20 00       	push   $0x200c44
-   11c19:	e8 ba fb ff ff       	call   117d8 <list_first>
-   11c1e:	83 c4 04             	add    $0x4,%esp
-   11c21:	89 45 fc             	mov    %eax,-0x4(%ebp)
+   11dd0:	68 64 0c 20 00       	push   $0x200c64
+   11dd5:	e8 b3 fb ff ff       	call   1198d <list_first>
+   11dda:	83 c4 04             	add    $0x4,%esp
+   11ddd:	89 45 fc             	mov    %eax,-0x4(%ebp)
     return list_node_parent(task_node, task_t, run_node);
-   11c24:	83 7d fc 00          	cmpl   $0x0,-0x4(%ebp)
-   11c28:	74 08                	je     11c32 <task_next_run+0x3c>
-   11c2a:	8b 45 fc             	mov    -0x4(%ebp),%eax
-   11c2d:	83 e8 34             	sub    $0x34,%eax
-   11c30:	eb 05                	jmp    11c37 <task_next_run+0x41>
-   11c32:	b8 00 00 00 00       	mov    $0x0,%eax
+   11de0:	83 7d fc 00          	cmpl   $0x0,-0x4(%ebp)
+   11de4:	74 08                	je     11dee <task_next_run+0x3c>
+   11de6:	8b 45 fc             	mov    -0x4(%ebp),%eax
+   11de9:	83 e8 34             	sub    $0x34,%eax
+   11dec:	eb 05                	jmp    11df3 <task_next_run+0x41>
+   11dee:	b8 00 00 00 00       	mov    $0x0,%eax
 }
-   11c37:	c9                   	leave  
-   11c38:	c3                   	ret    
+   11df3:	c9                   	leave  
+   11df4:	c3                   	ret    
 
-00011c39 <task_dispatch>:
+00011df5 <task_dispatch>:
 
 // 分配一个任务并从当前任务切换过去
 void task_dispatch() {
-   11c39:	55                   	push   %ebp
-   11c3a:	89 e5                	mov    %esp,%ebp
-   11c3c:	83 ec 18             	sub    $0x18,%esp
+   11df5:	55                   	push   %ebp
+   11df6:	89 e5                	mov    %esp,%ebp
+   11df8:	83 ec 18             	sub    $0x18,%esp
 
     irq_state_t state = irq_enter_proection();   //--enter protection
-   11c3f:	e8 ed f1 ff ff       	call   10e31 <irq_enter_proection>
-   11c44:	89 45 f4             	mov    %eax,-0xc(%ebp)
+   11dfb:	e8 31 f0 ff ff       	call   10e31 <irq_enter_proection>
+   11e00:	89 45 f4             	mov    %eax,-0xc(%ebp)
     task_t * to = task_next_run();
-   11c47:	e8 aa ff ff ff       	call   11bf6 <task_next_run>
-   11c4c:	89 45 f0             	mov    %eax,-0x10(%ebp)
+   11e03:	e8 aa ff ff ff       	call   11db2 <task_next_run>
+   11e08:	89 45 f0             	mov    %eax,-0x10(%ebp)
     if (to != task_manager.curr_task) {
-   11c4f:	a1 40 0c 20 00       	mov    0x200c40,%eax
-   11c54:	39 45 f0             	cmp    %eax,-0x10(%ebp)
-   11c57:	74 2b                	je     11c84 <task_dispatch+0x4b>
+   11e0b:	a1 60 0c 20 00       	mov    0x200c60,%eax
+   11e10:	39 45 f0             	cmp    %eax,-0x10(%ebp)
+   11e13:	74 2b                	je     11e40 <task_dispatch+0x4b>
         task_t * from = task_current();
-   11c59:	e8 cd fe ff ff       	call   11b2b <task_current>
-   11c5e:	89 45 ec             	mov    %eax,-0x14(%ebp)
+   11e15:	e8 cd fe ff ff       	call   11ce7 <task_current>
+   11e1a:	89 45 ec             	mov    %eax,-0x14(%ebp)
 
         task_manager.curr_task = to;   // 设置将要切换的任务为“当前任务”
-   11c61:	8b 45 f0             	mov    -0x10(%ebp),%eax
-   11c64:	a3 40 0c 20 00       	mov    %eax,0x200c40
+   11e1d:	8b 45 f0             	mov    -0x10(%ebp),%eax
+   11e20:	a3 60 0c 20 00       	mov    %eax,0x200c60
         to->state = TASK_RUNNING;      // 设置 task running
-   11c69:	8b 45 f0             	mov    -0x10(%ebp),%eax
-   11c6c:	c7 40 04 01 00 00 00 	movl   $0x1,0x4(%eax)
+   11e25:	8b 45 f0             	mov    -0x10(%ebp),%eax
+   11e28:	c7 40 04 01 00 00 00 	movl   $0x1,0x4(%eax)
 
         task_switch_from_to(from, to);
-   11c73:	83 ec 08             	sub    $0x8,%esp
-   11c76:	ff 75 f0             	pushl  -0x10(%ebp)
-   11c79:	ff 75 ec             	pushl  -0x14(%ebp)
-   11c7c:	e8 6b fb ff ff       	call   117ec <task_switch_from_to>
-   11c81:	83 c4 10             	add    $0x10,%esp
+   11e2f:	83 ec 08             	sub    $0x8,%esp
+   11e32:	ff 75 f0             	pushl  -0x10(%ebp)
+   11e35:	ff 75 ec             	pushl  -0x14(%ebp)
+   11e38:	e8 6b fb ff ff       	call   119a8 <task_switch_from_to>
+   11e3d:	83 c4 10             	add    $0x10,%esp
     }
     irq_leave_proection(state);  //--leave protection
-   11c84:	83 ec 0c             	sub    $0xc,%esp
-   11c87:	ff 75 f4             	pushl  -0xc(%ebp)
-   11c8a:	e8 ba f1 ff ff       	call   10e49 <irq_leave_proection>
-   11c8f:	83 c4 10             	add    $0x10,%esp
+   11e40:	83 ec 0c             	sub    $0xc,%esp
+   11e43:	ff 75 f4             	pushl  -0xc(%ebp)
+   11e46:	e8 fe ef ff ff       	call   10e49 <irq_leave_proection>
+   11e4b:	83 c4 10             	add    $0x10,%esp
    
 }
-   11c92:	90                   	nop
-   11c93:	c9                   	leave  
-   11c94:	c3                   	ret    
+   11e4e:	90                   	nop
+   11e4f:	c9                   	leave  
+   11e50:	c3                   	ret    
 
-00011c95 <task_time_tick>:
+00011e51 <task_time_tick>:
 
 // 检查当前任务的时间片是否用完，若用完强制切换到下一任务
 void task_time_tick() {
-   11c95:	55                   	push   %ebp
-   11c96:	89 e5                	mov    %esp,%ebp
-   11c98:	83 ec 28             	sub    $0x28,%esp
+   11e51:	55                   	push   %ebp
+   11e52:	89 e5                	mov    %esp,%ebp
+   11e54:	83 ec 28             	sub    $0x28,%esp
     task_t* curr = task_current();
-   11c9b:	e8 8b fe ff ff       	call   11b2b <task_current>
-   11ca0:	89 45 f0             	mov    %eax,-0x10(%ebp)
+   11e57:	e8 8b fe ff ff       	call   11ce7 <task_current>
+   11e5c:	89 45 f0             	mov    %eax,-0x10(%ebp)
 
     int slice = --curr->slice_ticks;
-   11ca3:	8b 45 f0             	mov    -0x10(%ebp),%eax
-   11ca6:	8b 40 28             	mov    0x28(%eax),%eax
-   11ca9:	8d 50 ff             	lea    -0x1(%eax),%edx
-   11cac:	8b 45 f0             	mov    -0x10(%ebp),%eax
-   11caf:	89 50 28             	mov    %edx,0x28(%eax)
-   11cb2:	8b 45 f0             	mov    -0x10(%ebp),%eax
-   11cb5:	8b 40 28             	mov    0x28(%eax),%eax
-   11cb8:	89 45 ec             	mov    %eax,-0x14(%ebp)
+   11e5f:	8b 45 f0             	mov    -0x10(%ebp),%eax
+   11e62:	8b 40 28             	mov    0x28(%eax),%eax
+   11e65:	8d 50 ff             	lea    -0x1(%eax),%edx
+   11e68:	8b 45 f0             	mov    -0x10(%ebp),%eax
+   11e6b:	89 50 28             	mov    %edx,0x28(%eax)
+   11e6e:	8b 45 f0             	mov    -0x10(%ebp),%eax
+   11e71:	8b 40 28             	mov    0x28(%eax),%eax
+   11e74:	89 45 ec             	mov    %eax,-0x14(%ebp)
     if( slice == 0 && &task_manager.ready_list.count > 0) {
-   11cbb:	83 7d ec 00          	cmpl   $0x0,-0x14(%ebp)
-   11cbf:	75 2d                	jne    11cee <task_time_tick+0x59>
+   11e77:	83 7d ec 00          	cmpl   $0x0,-0x14(%ebp)
+   11e7b:	75 2d                	jne    11eaa <task_time_tick+0x59>
         curr->slice_ticks = curr->time_ticks;
-   11cc1:	8b 45 f0             	mov    -0x10(%ebp),%eax
-   11cc4:	8b 50 2c             	mov    0x2c(%eax),%edx
-   11cc7:	8b 45 f0             	mov    -0x10(%ebp),%eax
-   11cca:	89 50 28             	mov    %edx,0x28(%eax)
+   11e7d:	8b 45 f0             	mov    -0x10(%ebp),%eax
+   11e80:	8b 50 2c             	mov    0x2c(%eax),%edx
+   11e83:	8b 45 f0             	mov    -0x10(%ebp),%eax
+   11e86:	89 50 28             	mov    %edx,0x28(%eax)
 
         task_set_block(curr);
-   11ccd:	83 ec 0c             	sub    $0xc,%esp
-   11cd0:	ff 75 f0             	pushl  -0x10(%ebp)
-   11cd3:	e8 92 fe ff ff       	call   11b6a <task_set_block>
-   11cd8:	83 c4 10             	add    $0x10,%esp
+   11e89:	83 ec 0c             	sub    $0xc,%esp
+   11e8c:	ff 75 f0             	pushl  -0x10(%ebp)
+   11e8f:	e8 92 fe ff ff       	call   11d26 <task_set_block>
+   11e94:	83 c4 10             	add    $0x10,%esp
         task_set_ready(curr);
-   11cdb:	83 ec 0c             	sub    $0xc,%esp
-   11cde:	ff 75 f0             	pushl  -0x10(%ebp)
-   11ce1:	e8 4f fe ff ff       	call   11b35 <task_set_ready>
-   11ce6:	83 c4 10             	add    $0x10,%esp
+   11e97:	83 ec 0c             	sub    $0xc,%esp
+   11e9a:	ff 75 f0             	pushl  -0x10(%ebp)
+   11e9d:	e8 4f fe ff ff       	call   11cf1 <task_set_ready>
+   11ea2:	83 c4 10             	add    $0x10,%esp
 
         task_dispatch();
-   11ce9:	e8 4b ff ff ff       	call   11c39 <task_dispatch>
+   11ea5:	e8 4b ff ff ff       	call   11df5 <task_dispatch>
     }
 
     list_node_t* sleep_lists_curr = list_first(&task_manager.sleep_list);
-   11cee:	83 ec 0c             	sub    $0xc,%esp
-   11cf1:	68 50 0c 20 00       	push   $0x200c50
-   11cf6:	e8 dd fa ff ff       	call   117d8 <list_first>
-   11cfb:	83 c4 10             	add    $0x10,%esp
-   11cfe:	89 45 f4             	mov    %eax,-0xc(%ebp)
+   11eaa:	83 ec 0c             	sub    $0xc,%esp
+   11ead:	68 70 0c 20 00       	push   $0x200c70
+   11eb2:	e8 d6 fa ff ff       	call   1198d <list_first>
+   11eb7:	83 c4 10             	add    $0x10,%esp
+   11eba:	89 45 f4             	mov    %eax,-0xc(%ebp)
     while (sleep_lists_curr) {
-   11d01:	eb 62                	jmp    11d65 <task_time_tick+0xd0>
+   11ebd:	eb 62                	jmp    11f21 <task_time_tick+0xd0>
         list_node_t * next = list_node_next(sleep_lists_curr);
-   11d03:	83 ec 0c             	sub    $0xc,%esp
-   11d06:	ff 75 f4             	pushl  -0xc(%ebp)
-   11d09:	e8 b4 fa ff ff       	call   117c2 <list_node_next>
-   11d0e:	83 c4 10             	add    $0x10,%esp
-   11d11:	89 45 e8             	mov    %eax,-0x18(%ebp)
+   11ebf:	83 ec 0c             	sub    $0xc,%esp
+   11ec2:	ff 75 f4             	pushl  -0xc(%ebp)
+   11ec5:	e8 ad fa ff ff       	call   11977 <list_node_next>
+   11eca:	83 c4 10             	add    $0x10,%esp
+   11ecd:	89 45 e8             	mov    %eax,-0x18(%ebp)
         task_t* task = list_node_parent(sleep_lists_curr, task_t, run_node);
-   11d14:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
-   11d18:	74 08                	je     11d22 <task_time_tick+0x8d>
-   11d1a:	8b 45 f4             	mov    -0xc(%ebp),%eax
-   11d1d:	83 e8 34             	sub    $0x34,%eax
-   11d20:	eb 05                	jmp    11d27 <task_time_tick+0x92>
-   11d22:	b8 00 00 00 00       	mov    $0x0,%eax
-   11d27:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+   11ed0:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
+   11ed4:	74 08                	je     11ede <task_time_tick+0x8d>
+   11ed6:	8b 45 f4             	mov    -0xc(%ebp),%eax
+   11ed9:	83 e8 34             	sub    $0x34,%eax
+   11edc:	eb 05                	jmp    11ee3 <task_time_tick+0x92>
+   11ede:	b8 00 00 00 00       	mov    $0x0,%eax
+   11ee3:	89 45 e4             	mov    %eax,-0x1c(%ebp)
         
         if(--task->sleep_ticks == 0) {
-   11d2a:	8b 45 e4             	mov    -0x1c(%ebp),%eax
-   11d2d:	8b 40 30             	mov    0x30(%eax),%eax
-   11d30:	8d 50 ff             	lea    -0x1(%eax),%edx
-   11d33:	8b 45 e4             	mov    -0x1c(%ebp),%eax
-   11d36:	89 50 30             	mov    %edx,0x30(%eax)
-   11d39:	8b 45 e4             	mov    -0x1c(%ebp),%eax
-   11d3c:	8b 40 30             	mov    0x30(%eax),%eax
-   11d3f:	85 c0                	test   %eax,%eax
-   11d41:	75 1c                	jne    11d5f <task_time_tick+0xca>
+   11ee6:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+   11ee9:	8b 40 30             	mov    0x30(%eax),%eax
+   11eec:	8d 50 ff             	lea    -0x1(%eax),%edx
+   11eef:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+   11ef2:	89 50 30             	mov    %edx,0x30(%eax)
+   11ef5:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+   11ef8:	8b 40 30             	mov    0x30(%eax),%eax
+   11efb:	85 c0                	test   %eax,%eax
+   11efd:	75 1c                	jne    11f1b <task_time_tick+0xca>
             task_set_wakeup(task);
-   11d43:	83 ec 0c             	sub    $0xc,%esp
-   11d46:	ff 75 e4             	pushl  -0x1c(%ebp)
-   11d49:	e8 b8 00 00 00       	call   11e06 <task_set_wakeup>
-   11d4e:	83 c4 10             	add    $0x10,%esp
+   11eff:	83 ec 0c             	sub    $0xc,%esp
+   11f02:	ff 75 e4             	pushl  -0x1c(%ebp)
+   11f05:	e8 b8 00 00 00       	call   11fc2 <task_set_wakeup>
+   11f0a:	83 c4 10             	add    $0x10,%esp
             task_set_ready(task);
-   11d51:	83 ec 0c             	sub    $0xc,%esp
-   11d54:	ff 75 e4             	pushl  -0x1c(%ebp)
-   11d57:	e8 d9 fd ff ff       	call   11b35 <task_set_ready>
-   11d5c:	83 c4 10             	add    $0x10,%esp
+   11f0d:	83 ec 0c             	sub    $0xc,%esp
+   11f10:	ff 75 e4             	pushl  -0x1c(%ebp)
+   11f13:	e8 d9 fd ff ff       	call   11cf1 <task_set_ready>
+   11f18:	83 c4 10             	add    $0x10,%esp
         }
         sleep_lists_curr = next;
-   11d5f:	8b 45 e8             	mov    -0x18(%ebp),%eax
-   11d62:	89 45 f4             	mov    %eax,-0xc(%ebp)
+   11f1b:	8b 45 e8             	mov    -0x18(%ebp),%eax
+   11f1e:	89 45 f4             	mov    %eax,-0xc(%ebp)
     while (sleep_lists_curr) {
-   11d65:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
-   11d69:	75 98                	jne    11d03 <task_time_tick+0x6e>
+   11f21:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
+   11f25:	75 98                	jne    11ebf <task_time_tick+0x6e>
     }
 
     task_dispatch();
-   11d6b:	e8 c9 fe ff ff       	call   11c39 <task_dispatch>
+   11f27:	e8 c9 fe ff ff       	call   11df5 <task_dispatch>
 }
-   11d70:	90                   	nop
-   11d71:	c9                   	leave  
-   11d72:	c3                   	ret    
+   11f2c:	90                   	nop
+   11f2d:	c9                   	leave  
+   11f2e:	c3                   	ret    
 
-00011d73 <sys_sleep>:
+00011f2f <sys_sleep>:
 
 
 
 void sys_sleep(uint32_t ms) {
-   11d73:	55                   	push   %ebp
-   11d74:	89 e5                	mov    %esp,%ebp
-   11d76:	83 ec 18             	sub    $0x18,%esp
+   11f2f:	55                   	push   %ebp
+   11f30:	89 e5                	mov    %esp,%ebp
+   11f32:	83 ec 18             	sub    $0x18,%esp
     irq_state_t state = irq_enter_proection();
-   11d79:	e8 b3 f0 ff ff       	call   10e31 <irq_enter_proection>
-   11d7e:	89 45 f4             	mov    %eax,-0xc(%ebp)
+   11f35:	e8 f7 ee ff ff       	call   10e31 <irq_enter_proection>
+   11f3a:	89 45 f4             	mov    %eax,-0xc(%ebp)
 
     task_t* curr = task_current();
-   11d81:	e8 a5 fd ff ff       	call   11b2b <task_current>
-   11d86:	89 45 f0             	mov    %eax,-0x10(%ebp)
+   11f3d:	e8 a5 fd ff ff       	call   11ce7 <task_current>
+   11f42:	89 45 f0             	mov    %eax,-0x10(%ebp)
     task_set_block(curr);
-   11d89:	83 ec 0c             	sub    $0xc,%esp
-   11d8c:	ff 75 f0             	pushl  -0x10(%ebp)
-   11d8f:	e8 d6 fd ff ff       	call   11b6a <task_set_block>
-   11d94:	83 c4 10             	add    $0x10,%esp
+   11f45:	83 ec 0c             	sub    $0xc,%esp
+   11f48:	ff 75 f0             	pushl  -0x10(%ebp)
+   11f4b:	e8 d6 fd ff ff       	call   11d26 <task_set_block>
+   11f50:	83 c4 10             	add    $0x10,%esp
     task_set_sleep(curr, ms / OS_TICK_MS);
-   11d97:	8b 45 08             	mov    0x8(%ebp),%eax
-   11d9a:	ba cd cc cc cc       	mov    $0xcccccccd,%edx
-   11d9f:	f7 e2                	mul    %edx
-   11da1:	89 d0                	mov    %edx,%eax
-   11da3:	c1 e8 03             	shr    $0x3,%eax
-   11da6:	83 ec 08             	sub    $0x8,%esp
-   11da9:	50                   	push   %eax
-   11daa:	ff 75 f0             	pushl  -0x10(%ebp)
-   11dad:	e8 19 00 00 00       	call   11dcb <task_set_sleep>
-   11db2:	83 c4 10             	add    $0x10,%esp
+   11f53:	8b 45 08             	mov    0x8(%ebp),%eax
+   11f56:	ba cd cc cc cc       	mov    $0xcccccccd,%edx
+   11f5b:	f7 e2                	mul    %edx
+   11f5d:	89 d0                	mov    %edx,%eax
+   11f5f:	c1 e8 03             	shr    $0x3,%eax
+   11f62:	83 ec 08             	sub    $0x8,%esp
+   11f65:	50                   	push   %eax
+   11f66:	ff 75 f0             	pushl  -0x10(%ebp)
+   11f69:	e8 19 00 00 00       	call   11f87 <task_set_sleep>
+   11f6e:	83 c4 10             	add    $0x10,%esp
 
     task_dispatch();
-   11db5:	e8 7f fe ff ff       	call   11c39 <task_dispatch>
+   11f71:	e8 7f fe ff ff       	call   11df5 <task_dispatch>
 
     irq_leave_proection(state);
-   11dba:	83 ec 0c             	sub    $0xc,%esp
-   11dbd:	ff 75 f4             	pushl  -0xc(%ebp)
-   11dc0:	e8 84 f0 ff ff       	call   10e49 <irq_leave_proection>
-   11dc5:	83 c4 10             	add    $0x10,%esp
+   11f76:	83 ec 0c             	sub    $0xc,%esp
+   11f79:	ff 75 f4             	pushl  -0xc(%ebp)
+   11f7c:	e8 c8 ee ff ff       	call   10e49 <irq_leave_proection>
+   11f81:	83 c4 10             	add    $0x10,%esp
 }
-   11dc8:	90                   	nop
-   11dc9:	c9                   	leave  
-   11dca:	c3                   	ret    
+   11f84:	90                   	nop
+   11f85:	c9                   	leave  
+   11f86:	c3                   	ret    
 
-00011dcb <task_set_sleep>:
+00011f87 <task_set_sleep>:
 
 void task_set_sleep(task_t* task, uint32_t ticks) {
-   11dcb:	55                   	push   %ebp
-   11dcc:	89 e5                	mov    %esp,%ebp
-   11dce:	83 ec 08             	sub    $0x8,%esp
+   11f87:	55                   	push   %ebp
+   11f88:	89 e5                	mov    %esp,%ebp
+   11f8a:	83 ec 08             	sub    $0x8,%esp
     if(ticks <= 0) return;
-   11dd1:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
-   11dd5:	74 2c                	je     11e03 <task_set_sleep+0x38>
+   11f8d:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+   11f91:	74 2c                	je     11fbf <task_set_sleep+0x38>
     task->sleep_ticks = ticks;
-   11dd7:	8b 55 0c             	mov    0xc(%ebp),%edx
-   11dda:	8b 45 08             	mov    0x8(%ebp),%eax
-   11ddd:	89 50 30             	mov    %edx,0x30(%eax)
+   11f93:	8b 55 0c             	mov    0xc(%ebp),%edx
+   11f96:	8b 45 08             	mov    0x8(%ebp),%eax
+   11f99:	89 50 30             	mov    %edx,0x30(%eax)
     task->state = TASK_SLEEP;
-   11de0:	8b 45 08             	mov    0x8(%ebp),%eax
-   11de3:	c7 40 04 02 00 00 00 	movl   $0x2,0x4(%eax)
+   11f9c:	8b 45 08             	mov    0x8(%ebp),%eax
+   11f9f:	c7 40 04 02 00 00 00 	movl   $0x2,0x4(%eax)
     list_insert_last(&task_manager.sleep_list, 
-   11dea:	8b 45 08             	mov    0x8(%ebp),%eax
-   11ded:	83 c0 34             	add    $0x34,%eax
-   11df0:	83 ec 08             	sub    $0x8,%esp
-   11df3:	50                   	push   %eax
-   11df4:	68 50 0c 20 00       	push   $0x200c50
-   11df9:	e8 77 f5 ff ff       	call   11375 <list_insert_last>
-   11dfe:	83 c4 10             	add    $0x10,%esp
-   11e01:	eb 01                	jmp    11e04 <task_set_sleep+0x39>
+   11fa6:	8b 45 08             	mov    0x8(%ebp),%eax
+   11fa9:	83 c0 34             	add    $0x34,%eax
+   11fac:	83 ec 08             	sub    $0x8,%esp
+   11faf:	50                   	push   %eax
+   11fb0:	68 70 0c 20 00       	push   $0x200c70
+   11fb5:	e8 bb f3 ff ff       	call   11375 <list_insert_last>
+   11fba:	83 c4 10             	add    $0x10,%esp
+   11fbd:	eb 01                	jmp    11fc0 <task_set_sleep+0x39>
     if(ticks <= 0) return;
-   11e03:	90                   	nop
+   11fbf:	90                   	nop
         &task->run_node);
 }
-   11e04:	c9                   	leave  
-   11e05:	c3                   	ret    
+   11fc0:	c9                   	leave  
+   11fc1:	c3                   	ret    
 
-00011e06 <task_set_wakeup>:
+00011fc2 <task_set_wakeup>:
 
 void task_set_wakeup(task_t* task) {
-   11e06:	55                   	push   %ebp
-   11e07:	89 e5                	mov    %esp,%ebp
-   11e09:	83 ec 08             	sub    $0x8,%esp
+   11fc2:	55                   	push   %ebp
+   11fc3:	89 e5                	mov    %esp,%ebp
+   11fc5:	83 ec 08             	sub    $0x8,%esp
     list_delete(&task_manager.sleep_list, 
-   11e0c:	8b 45 08             	mov    0x8(%ebp),%eax
-   11e0f:	83 c0 34             	add    $0x34,%eax
-   11e12:	83 ec 08             	sub    $0x8,%esp
-   11e15:	50                   	push   %eax
-   11e16:	68 50 0c 20 00       	push   $0x200c50
-   11e1b:	e8 32 f6 ff ff       	call   11452 <list_delete>
-   11e20:	83 c4 10             	add    $0x10,%esp
+   11fc8:	8b 45 08             	mov    0x8(%ebp),%eax
+   11fcb:	83 c0 34             	add    $0x34,%eax
+   11fce:	83 ec 08             	sub    $0x8,%esp
+   11fd1:	50                   	push   %eax
+   11fd2:	68 70 0c 20 00       	push   $0x200c70
+   11fd7:	e8 76 f4 ff ff       	call   11452 <list_delete>
+   11fdc:	83 c4 10             	add    $0x10,%esp
         &task->run_node);
-   11e23:	90                   	nop
-   11e24:	c9                   	leave  
-   11e25:	c3                   	ret    
+   11fdf:	90                   	nop
+   11fe0:	c9                   	leave  
+   11fe1:	c3                   	ret    

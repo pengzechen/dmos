@@ -5,6 +5,7 @@
 #include <stdarg.h>
 #include <klib.h>
 #include <irq.h>
+#include <mux.h>
 
 void log_init();
 void klog(const char * fmt, ...);
