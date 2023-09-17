@@ -5,6 +5,8 @@
 #include <list.h>
 #include <cpu.h>
 
+#define USE_TSS
+
 #define TASK_NAME_SIZE           32
 #define TASK_TIME_SLICE_DEFAULT  10
 
@@ -28,9 +30,11 @@ typedef struct _task_s {
     list_node_t         all_node;
     list_node_t         wait_node;
 
-    // tss 模式
+#ifdef USE_TSS
     tss_t               tss;
     uint32_t            tss_sel;
+#endif
+
 } task_t;
 
 
@@ -47,7 +51,6 @@ typedef struct _task_manager_t {
 } task_manager_t;
 
 
-int  tss_init(task_t* task, uint32_t entry, uint32_t esp);
 int  task_init(task_t* task, const char* name, uint32_t entry, uint32_t esp);
 void task_switch_from_to(task_t* from, task_t* to);
 

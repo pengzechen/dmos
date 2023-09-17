@@ -1,12 +1,13 @@
 #include <comm/cpu_ins.h>
 #include <cpu.h>
+#include <mux.h>
 
 
-
-static segment_desc_t gdt_table2[GDT_TABLE_SIZE];
+static segment_desc_t g_gdt_table[GDT_TABLE_SIZE];
+static mutex_t g_mutex;
 
 void segment_desc_set(int selector, uint32_t base, uint32_t limit, uint16_t attr) {
-    segment_desc_t * desc = gdt_table2 + (selector >> 3);
+    segment_desc_t * desc = g_gdt_table + (selector >> 3);
 
 	if (limit > 0xfffff) {
 		attr |= 0x8000;
@@ -20,6 +21,8 @@ void segment_desc_set(int selector, uint32_t base, uint32_t limit, uint16_t attr
 }
 
 void gdt_init() {
+    mutex_init(&g_mutex);
+
     for (int i = 0; i < GDT_TABLE_SIZE; i++) {
         segment_desc_set(i * sizeof(segment_desc_t), 0, 0, 0);
     }
@@ -32,20 +35,28 @@ void gdt_init() {
         SEG_P_PRESENT | SEG_DPL0 | SEG_S_NORMAL | SEG_TYPE_CODE
         | SEG_TYPE_RW | SEG_D | SEG_G);
 
-    lgdt((uint32_t)gdt_table2, sizeof(gdt_table2));
+    lgdt((uint32_t)g_gdt_table, sizeof(g_gdt_table));
 
 }
 
 int  gdt_alloc_desc() {
+    mutex_lock(&g_mutex);
     int i = 1;
     for(; i < GDT_TABLE_SIZE; i++) {
-        segment_desc_t* desc = gdt_table2 + i;
+        segment_desc_t* desc = g_gdt_table + i;
         if(desc->attr == 0) {
+            mutex_unlock(&g_mutex);
             return ( i * sizeof(segment_desc_t) );
         }
     }
-
+    mutex_unlock(&g_mutex);
     return -1;
+}
+
+void gdt_free_sel(int sel) {
+    mutex_lock(&g_mutex);
+    g_gdt_table[sel/sizeof(segment_desc_t)].attr = 0;
+    mutex_unlock(&g_mutex);
 }
 
 

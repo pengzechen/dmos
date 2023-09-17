@@ -27,6 +27,8 @@
         "mtime.h": "c",
         "sem.h": "c",
         "mux.h": "c",
-        "stdarg.h": "c"
+        "stdarg.h": "c",
+        "mem.h": "c",
+        "mmu.h": "c"
     },
 }

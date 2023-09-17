@@ -2,8 +2,8 @@
 #include <log.h>
 #include <mmu.h>
 
-static addr_alloc_t paddr_alloc;
-static pde_t kernel_page_dir[PDE_CNT] __attribute__( (aligned(MEM_PAGE_SIZE)) );
+static addr_alloc_t g_paddr_alloc;
+static pde_t g_kernel_page_dir[PDE_CNT] __attribute__( (aligned(MEM_PAGE_SIZE)) );
 
 
 static void 
@@ -98,11 +98,11 @@ pte_t * find_pte (pde_t * page_dir, uint32_t vaddr, int alloc) {
         if (alloc == 0) {
             return (pte_t *)0;
         }
-        uint32_t pg_paddr = addr_alloc_page(&paddr_alloc, 1);
+        uint32_t pg_paddr = addr_alloc_page(&g_paddr_alloc, 1);
         if (pg_paddr == 0) {
             return (pte_t *)0;
         }
-        pde->v = pg_paddr | PTE_P;
+        pde->v = pg_paddr | PDE_P | PDE_W | PDE_U;
 
         page_table = (pte_t *)(pg_paddr);
         k_memset(page_table, 0, MEM_PAGE_SIZE);
@@ -138,9 +138,10 @@ void create_kernel_table (void) {
     extern uint8_t kernel_base[];
 
     static memory_map_t kernel_map[] = {
-        {kernel_base,   s_text,                         0,              0},      // 内核栈区
-        {s_text,        e_text,                         s_text,         0},      // 内核代码区
-        {s_data,        (void *)(MEM_EBDA_START),       s_data,         0},      // 内核数据区
+        {kernel_base,           s_text,                         0,                      PTE_W},      // 内核栈区
+        {s_text,                e_text,                         s_text,                 0    },      // 内核代码区
+        {s_data,                (void *)(MEM_EBDA_START),       s_data,                 PTE_W},      // 内核数据区
+        {(void*)MEM_EXT_START,  (void*)MEM_EXT_END,             (void*)MEM_EXT_START,   PTE_W},
     };
 
     for (int i = 0; i < sizeof(kernel_map) / sizeof(memory_map_t); i++) {
@@ -150,7 +151,7 @@ void create_kernel_table (void) {
         int vend   = up2  ((uint32_t)map->vend, MEM_PAGE_SIZE);
         int page_count = (vend - vstart) / MEM_PAGE_SIZE;
 
-        memory_create_map(kernel_page_dir, vstart, (uint32_t)map->pstart, page_count, map->perm);
+        memory_create_map(g_kernel_page_dir, vstart, (uint32_t)map->pstart, page_count, map->perm);
     }
 }
 
@@ -166,17 +167,33 @@ void memory_init (boot_info_t* boot_info) {
     mem_up1MB_free = down2(mem_up1MB_free, MEM_PAGE_SIZE);
 
     klog("free memory: 0x%x, size: 0x%x", MEM_EXT_START, mem_up1MB_free);
-    addr_alloc_init(&paddr_alloc, mem_free, MEM_EXT_START, mem_up1MB_free, MEM_PAGE_SIZE);
+    addr_alloc_init(&g_paddr_alloc, mem_free, MEM_EXT_START, mem_up1MB_free, MEM_PAGE_SIZE);
 
-    mem_free += bitmap_byte_count(paddr_alloc.size / MEM_PAGE_SIZE);
+    mem_free += bitmap_byte_count(g_paddr_alloc.size / MEM_PAGE_SIZE);
     if (mem_free < (uint8_t *)0x800000) {
         klog("simple test ok!");
     }
 
-    k_memset(kernel_page_dir, 0, sizeof(kernel_page_dir));  // 清空内核表
+    k_memset(g_kernel_page_dir, 0, sizeof(g_kernel_page_dir));  // 清空内核表
 
     create_kernel_table();
 
-    mmu_set_page_dir((uint32_t)kernel_page_dir);            // 重新设置页表
+    mmu_set_page_dir((uint32_t)g_kernel_page_dir);            // 重新设置页表
     
+}
+
+
+uint32_t memory_create_uvm() {
+    pde_t* page_dir = (pde_t*)addr_alloc_page(&g_paddr_alloc, 1);
+    if(page_dir == (pde_t*)0) {
+        return 0;  // error
+    }
+
+    k_memset((void*)page_dir, 0, MEM_PAGE_SIZE);
+    uint32_t user_pde_start = pde_index(MEMORY_TASK_BASE);
+    for(int i=0; i<user_pde_start; i++) {
+        page_dir[i].v = g_kernel_page_dir[i].v;
+    }
+
+    return (uint32_t)page_dir;
 }

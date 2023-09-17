@@ -55,5 +55,5 @@ typedef struct _segment_desc_t segment_desc_t;
 void segment_desc_set(int selector, uint32_t base, uint32_t limit, uint16_t attr);
 void gdt_init();
 int  gdt_alloc_desc();
-
+void gdt_free_sel(int sel);
 #endif

@@ -8,6 +8,10 @@
 #include <list.h>
 #include <mem.h>
 
+// void test_mem_page() {}
+    // *(uint8_t*)test_mem_page = 0x12;
+    // *(uint8_t*)test_mem_page = 0x34;
+
 void kernel_init (boot_info_t * boot_info) {
     log_init();
     gdt_init();
