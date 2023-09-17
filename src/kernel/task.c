@@ -68,6 +68,7 @@ int task_init(task_t* task, const char* name, uint32_t entry, uint32_t esp) {
         *(--pesp) = 0;
         task->stack = pesp;
     }
+    // 使用直接跳转机制
 
     k_strncpy(task->name, name, TASK_NAME_SIZE);        // 进程名
     task->state = TASK_CREATED;                         // 状态  created
@@ -119,8 +120,10 @@ void task3_func() {
 void task1_func_init() {
     task_init(&task_manager.first_task, "first task", 
         (uint32_t)task1_func, (uint32_t)&task1_stack[2048]);
+
     task_init(&task_manager.idle_task,  "idle  task", 
         (uint32_t)idle_task_func, (uint32_t)&idle_task_stack[2048]);
+
     task_init(&task3,                   "test  task", 
         (uint32_t)task3_func, (uint32_t)&task3_stack[2048]);
 
@@ -158,7 +161,8 @@ void task_set_block(task_t* task) {
 // 主动放弃cpu执行
 int  sys_sched_yield() {
 
-irq_state_t state = irq_enter_proection();   //--enter protection
+    irq_state_t state = irq_enter_proection();   //--enter protection
+    
     if(list_count(&task_manager.ready_list) > 1) {
         task_t* curr = task_current();
         task_set_block(curr);
@@ -166,7 +170,8 @@ irq_state_t state = irq_enter_proection();   //--enter protection
 
         task_dispatch();
     }
-irq_leave_proection(state);  //--leave protection
+    
+    irq_leave_proection(state);  //--leave protection
 
     return 0;
 }

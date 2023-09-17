@@ -6,10 +6,12 @@
 #include <log.h>
 #include <task.h>
 #include <list.h>
+#include <mem.h>
 
 void kernel_init (boot_info_t * boot_info) {
     log_init();
     gdt_init();
+    memory_init(boot_info);
     irq_init();
     time_init();
 }

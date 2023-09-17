@@ -63,14 +63,15 @@ static void die (int code) {
 }
 
 void enable_page_mode (void) {
+
     #define PDE_P			(1 << 0)
     #define PDE_PS			(1 << 7)
     #define PDE_W			(1 << 1)
     #define CR4_PSE		    (1 << 4)
     #define CR0_PG		    (1 << 31)
 
-    static uint32_t page_dir[1024] __attribute__((aligned(4096))) = {
-        [0] = PDE_P | PDE_PS | PDE_W,			// PDE_PS，开启4MB的页
+    static uint32_t page_dir[1024] __attribute__((aligned(4096))) = { 
+        [0] = PDE_P | PDE_PS | PDE_W | 0
     };
 
     uint32_t cr4 = read_cr4();
@@ -83,7 +84,6 @@ void enable_page_mode (void) {
 
 void load_kernel(void) {
 
-    // 将100扇区之后500扇区的数据 放在 1024 * 1024 处
     read_disk(100, 500, (uint8_t *)SYS_KERNEL_LOAD_ADDR);
 
     uint32_t kernel_entry = reload_elf_file((uint8_t *)SYS_KERNEL_LOAD_ADDR);

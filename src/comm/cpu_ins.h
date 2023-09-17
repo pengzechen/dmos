@@ -80,6 +80,8 @@ static inline uint32_t read_cr2() {
 	return cr2;
 }
 
+
+
 static inline void write_cr3(uint32_t v) {
     __asm__ __volatile__("mov %[v], %%cr3"::[v]"r"(v));
 }
@@ -99,6 +101,8 @@ static inline uint32_t read_cr4() {
 static inline void write_cr4(uint32_t v) {
     __asm__ __volatile__("mov %[v], %%cr4"::[v]"r"(v));
 }
+
+
 
 static inline void far_jump(uint32_t selector, uint32_t offset) {
 	volatile uint32_t addr[] = {offset, selector };

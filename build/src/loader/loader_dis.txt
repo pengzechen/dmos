@@ -29,7 +29,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 00000369  00000000  00000000  00004a1d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000002d8  00000000  00000000  00004d86  2**0
+  8 .debug_line   000002da  00000000  00000000  00004d86  2**0
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  00000308  00000000  00000000  00005060  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -250,10 +250,10 @@ static inline void write_cr0(uint32_t v) {
     80da:	66 c3                	retl   
 
 000080dc <far_jump>:
-
-static inline void write_cr4(uint32_t v) {
     __asm__ __volatile__("mov %[v], %%cr4"::[v]"r"(v));
 }
+
+
 
 static inline void far_jump(uint32_t selector, uint32_t offset) {
     80dc:	66 55                	push   %ebp
@@ -910,8 +910,8 @@ void enable_page_mode (void) {
     8610:	89 e5                	mov    %sp,%bp
     8612:	83 ec 10             	sub    $0x10,%sp
 
-    static uint32_t page_dir[1024] __attribute__((aligned(4096))) = {
-        [0] = PDE_P | PDE_PS | PDE_W,			// PDE_PS，开启4MB的页
+    static uint32_t page_dir[1024] __attribute__((aligned(4096))) = { 
+        [0] = PDE_P | PDE_PS | PDE_W | 0
     };
 
     uint32_t cr4 = read_cr4();
@@ -956,7 +956,6 @@ void load_kernel(void) {
     8651:	89 e5                	mov    %sp,%bp
     8653:	83 ec 18             	sub    $0x18,%sp
 
-    // 将100扇区之后500扇区的数据 放在 1024 * 1024 处
     read_disk(100, 500, (uint8_t *)SYS_KERNEL_LOAD_ADDR);
     8656:	68 00 00             	push   $0x0
     8659:	10 00                	adc    %al,(%bx,%si)
