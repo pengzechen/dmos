@@ -3,12 +3,26 @@
 
 
 int first_task_main() {
-    int xx = 10;
-    int pid = getpid();
+    int count = 1;
+    int pare_pid = getpid();
+
+    int pid = fork();
+    if(pid < 0) {
+        print_msg("fork failed %d", 0);
+
+    } else if (pid == 0) {
+        count += 20;
+        print_msg("create child:  id=%d", 0);
+
+    } else {
+        count += 1000;
+        print_msg("child task  :  id=%d", pid);
+        print_msg("parent      :  id=%d", pare_pid);
+    }
+
     for(;;) {
 
-        print_msg("task id=%d", pid);
+        print_msg("current id=%d", pid);
         msleep(1000);
-
     }
 }

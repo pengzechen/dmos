@@ -16,6 +16,9 @@
 #define PTE_U      (1 << 2)
 #define PDE_U      (1 << 2)
 
+
+#define PTE_CNT      1024
+
 #pragma pack(1)
 typedef union _pde_t
 {
@@ -77,6 +80,10 @@ static inline int pte_index (uint32_t vaddr) {
 
 static inline uint32_t pte_paddr (pte_t * pte) {
     return pte->phy_page_addr << 12;
+}
+
+static inline uint32_t get_pte_perm (pte_t * pte) {
+    return (pte->v & 0x1FF);                   
 }
 
 #endif

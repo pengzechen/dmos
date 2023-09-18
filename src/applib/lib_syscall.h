@@ -13,7 +13,8 @@ typedef struct _syscall_arg_t {
 
 
 
-static inline int sys_call (syscall_arg_t * args) {
+static inline int 
+sys_call (syscall_arg_t * args) {
     int ret;
 	volatile uint32_t addr[] = {0,  SELECTOR_SYSCALL | 0};
 	__asm__ __volatile__(
@@ -36,7 +37,8 @@ static inline int sys_call (syscall_arg_t * args) {
 }
 
 
-static inline void msleep(int ms) {
+static inline void 
+msleep(int ms) {
     if(ms <= 0) { return; }
     syscall_arg_t args;
     args.id = SYS_sleep;
@@ -44,13 +46,15 @@ static inline void msleep(int ms) {
     sys_call(&args);
 }
 
-static inline int getpid() {
+static inline int
+getpid() {
     syscall_arg_t args;
     args.id = SYS_getpid;
     return sys_call(&args);
 }
 
-static inline void print_msg (const char*fmt, int arg) {
+static inline void 
+print_msg (const char*fmt, int arg) {
     syscall_arg_t args;
     args.id = SYS_print_msg;
     args.arg0 = (int)fmt;
@@ -58,6 +62,11 @@ static inline void print_msg (const char*fmt, int arg) {
     sys_call(&args);
 }
 
-
+static inline int
+fork() {
+    syscall_arg_t args;
+    args.id = SYS_fork;
+    return sys_call(&args);
+}
 
 #endif  // LIB_SYSCALL_H

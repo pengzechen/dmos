@@ -49,5 +49,9 @@ uint32_t memory_alloc_page();
 
 void memory_free_page(uint32_t addr);
 
+uint32_t memory_copy_uvm(uint32_t page_dir);
+
+void memory_destory_uvm(uint32_t page_dir);
+
 #endif
 

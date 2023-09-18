@@ -12,7 +12,9 @@
 
 #define TASK_FLAGS_SYSTEM   (1 << 0)
 
-typedef struct _task_s {
+typedef struct _task_s task_t;
+
+struct _task_s {
     uint32_t    *       stack;
 
     enum {
@@ -25,6 +27,7 @@ typedef struct _task_s {
     char name[TASK_NAME_SIZE];
 
     int pid;
+    task_t * parent;
 
     int slice_ticks;
     int time_ticks;
@@ -39,7 +42,7 @@ typedef struct _task_s {
     uint32_t            tss_sel;
 #endif
 
-} task_t;
+} ;
 
 
 typedef struct _task_manager_t {
@@ -86,4 +89,8 @@ void        task_set_sleep(task_t* task, uint32_t ticks);
 void        task_set_wakeup(task_t* task);
 
 int         sys_getpid ();
+
+
+int         sys_fork();
+
 #endif

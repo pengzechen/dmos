@@ -8,10 +8,13 @@
 #include <log.h>
 #include <mem.h>
 #include <mmu.h>
+#include <syscall.h>
 
-static task_manager_t g_task_manager;
-static uint32_t idle_task_stack[2048];
 
+static task_manager_t   g_task_manager;
+static uint32_t         idle_task_stack[2048];
+static task_t           g_task_table[128];
+static mutex_t          task_table_mutex;
 
 static void idle_task_func() { for(;;) hlt(); }
 
@@ -82,8 +85,7 @@ tss_init_failed:
 #endif
 
 // 初始化一个任务
-int task_init(task_t* task, const char* name, int flag, 
-    uint32_t entry, uint32_t esp) {
+int task_init(task_t* task, const char* name, int flag, uint32_t entry, uint32_t esp) {
     
     #ifndef USE_TSS
     uint32_t* pesp = (uint32_t*)esp;
@@ -105,6 +107,7 @@ int task_init(task_t* task, const char* name, int flag,
     task->time_ticks = TASK_TIME_SLICE_DEFAULT;         //  最大时间片
     task->slice_ticks = TASK_TIME_SLICE_DEFAULT;        //  当前时间片
     task->sleep_ticks = 0;
+    task->parent = (task_t*)0;
     list_node_init(&task->all_node); 
     list_node_init(&task->run_node);
     list_node_init(&task->wait_node);
@@ -121,6 +124,10 @@ int task_init(task_t* task, const char* name, int flag,
 
 // 初始化任务管理
 void task_manager_init() {
+    k_memset(g_task_table, 0, sizeof(g_task_table));
+    mutex_init(&task_table_mutex);
+
+
     int seld = gdt_alloc_desc();
     segment_desc_set(seld, 0x00000000, 0xffffffff, 
         SEG_P_PRESENT | SEG_DPL3 | SEG_S_NORMAL | SEG_TYPE_DATA
@@ -173,8 +180,6 @@ void first_task_init() {
 
     write_tr((&g_task_manager)->first_task.tss_sel);
 }
-
-
 
 
 
@@ -308,7 +313,97 @@ void task_set_wakeup(task_t* task) {
 }
 
 int sys_getpid () {
+
     task_t* curr = task_current();
 
     return curr->pid;
 }
+
+
+static task_t* alloc_task() {
+    task_t* task = (task_t*)0;
+    mutex_lock(&task_table_mutex);
+    for(int i=0; i<128; i++) {
+        task_t* curr = g_task_table + i;
+        if(curr->name[0] == '\0') {
+            task = curr;
+            break;
+        }
+    }
+    mutex_unlock(&task_table_mutex);
+    return task;
+}
+
+static void free_task(task_t* task) {
+    mutex_lock(&task_table_mutex);
+    task->name[0] = '\0';
+    mutex_unlock(&task_table_mutex);
+}
+
+static void task_uninit(task_t* task) {
+    if(task->tss_sel) {
+        gdt_free_sel(task->tss_sel);
+    }
+    if(task->tss.esp0) {
+        memory_free_page(task->tss.esp - MEM_PAGE_SIZE);
+    }
+    if(task->tss.cr3) {
+        memory_destory_uvm(task->tss.cr3);
+    }
+
+    k_memset(task, 0, sizeof(task_t));
+}
+
+
+int sys_fork() {
+    task_t* parent_task = task_current();
+
+    task_t* child_task = alloc_task();
+    if (child_task == (task_t*)0) goto fork_failed;
+
+
+    syscall_frame_t* frame = (syscall_frame_t*)( parent_task->tss.esp0 
+        - sizeof(syscall_frame_t));
+
+
+    int err = task_init(child_task, parent_task->name, 0, frame->eip, 
+        frame->esp + sizeof(uint32_t) * SYSCALL_PARAM_COUNT );
+    if (err < 0) goto fork_failed;
+
+    tss_t* tss = &child_task->tss;
+    tss->eax = 0;                       // 子进程返回0
+    tss->ebx = frame->ebx;
+    tss->ecx = frame->ecx;
+    tss->edx = frame->edx;
+    tss->esi = frame->esi;
+    tss->edi = frame->edi;
+    tss->ebp = frame->ebp;
+
+    tss->cs  = frame->cs;
+    tss->ds  = frame->ds;
+    tss->es  = frame->es;
+    tss->fs  = frame->fs;
+    tss->gs  = frame->gs;
+    tss->eflags = frame->eflags;
+    
+
+    child_task->parent = parent_task;
+
+    if( (tss->cr3 = memory_copy_uvm(parent_task->tss.cr3) ) < 0) {
+        goto fork_failed;
+    }
+
+
+    // tss->cr3 = parent_task->tss.cr3;
+
+    return child_task->pid;
+
+
+fork_failed:
+    if(child_task) {
+        task_uninit(child_task);
+        free_task(child_task);
+    }
+    return -1;
+}
+
