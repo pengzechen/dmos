@@ -108,6 +108,8 @@ int task_init(task_t* task, const char* name, int flag,
     list_node_init(&task->all_node); 
     list_node_init(&task->run_node);
     list_node_init(&task->wait_node);
+    
+    task->pid = (uint32_t)task;
 
     irq_state_t state = irq_enter_proection();   //--enter protection
         task_set_ready(task);                                        // 加入到就绪队列
@@ -303,4 +305,10 @@ void task_set_sleep(task_t* task, uint32_t ticks) {
 void task_set_wakeup(task_t* task) {
     list_delete(&g_task_manager.sleep_list, 
         &task->run_node);
+}
+
+int sys_getpid () {
+    task_t* curr = task_current();
+
+    return curr->pid;
 }

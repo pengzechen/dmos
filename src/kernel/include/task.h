@@ -24,6 +24,8 @@ typedef struct _task_s {
     }state;
     char name[TASK_NAME_SIZE];
 
+    int pid;
+
     int slice_ticks;
     int time_ticks;
     int sleep_ticks;
@@ -82,4 +84,6 @@ void        task_time_tick();
 void        sys_sleep(uint32_t ms);
 void        task_set_sleep(task_t* task, uint32_t ticks);
 void        task_set_wakeup(task_t* task);
+
+int         sys_getpid ();
 #endif

@@ -1,4 +1,5 @@
 #include "os_cfg.h"
+
 .text
  	.global _start
 	.extern kernel_init
@@ -120,6 +121,27 @@ simple_switch:
 
 
     .global exception_handle_syscall
+    .extern do_handler_syscall
 exception_handle_syscall:
 
-    ret
+    pusha
+    push %ds
+    push %es
+    push %fs
+    push %gs
+    pushf
+
+    mov %esp, %eax
+    push %eax
+    call do_handler_syscall
+    add $4, %esp
+
+    popf
+    pop %gs
+    pop %fs
+    pop %es
+    pop %ds
+    popa
+
+
+    retf $( 5 * 4)         // SYSCALL_PARAM_COUNT

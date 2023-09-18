@@ -10,10 +10,9 @@
 #define GATE_P_PRESENT              (1 << 15)
 #define GATE_DPL0                   (0 << 13)
 #define GATE_DPL3                   (3 << 13)
+
 #define GATE_TYPE_IDT		        (0xE << 8)		// 中断32位门描述符
-
-
-#define SEG_TYPE_SYSCALL            (0xC << 8)
+#define GATE_TYPE_SYSCALL           (0xC << 8)
 
 #define IRQ0_DE             0
 #define IRQ1_DB             1
@@ -82,26 +81,26 @@ typedef struct _exception_frame_t {
 typedef void (*irq_handler_t) (exception_frame_t * frame);
 
 
-void exception_handler_unknown (void);
-void exception_handler_divider (void);
-void exception_handler_Debug (void);
-void exception_handler_NMI (void);
-void exception_handler_breakpoint (void);
-void exception_handler_overflow (void);
-void exception_handler_bound_range (void);
-void exception_handler_invalid_opcode (void);
-void exception_handler_device_unavailable (void);
-void exception_handler_double_fault (void);
-void exception_handler_invalid_tss (void);
-void exception_handler_segment_not_present (void);
-void exception_handler_stack_segment_fault (void);
-void exception_handler_general_protection (void);
-void exception_handler_page_fault (void);
-void exception_handler_fpu_error (void);
-void exception_handler_alignment_check (void);
-void exception_handler_machine_check (void);
-void exception_handler_smd_exception (void);
-void exception_handler_virtual_exception (void);
+void exception_handler_unknown ();
+void exception_handler_divider ();
+void exception_handler_Debug ();
+void exception_handler_NMI ();
+void exception_handler_breakpoint ();
+void exception_handler_overflow ();
+void exception_handler_bound_range ();
+void exception_handler_invalid_opcode ();
+void exception_handler_device_unavailable ();
+void exception_handler_double_fault ();
+void exception_handler_invalid_tss ();
+void exception_handler_segment_not_present ();
+void exception_handler_stack_segment_fault ();
+void exception_handler_general_protection ();
+void exception_handler_page_fault ();
+void exception_handler_fpu_error ();
+void exception_handler_alignment_check ();
+void exception_handler_machine_check ();
+void exception_handler_smd_exception ();
+void exception_handler_virtual_exception ();
 
 
 int  irq_install(int irq_num, uint32_t handler);
@@ -114,11 +113,13 @@ void irq_disable_global();
 void gate_desc_set(gate_desc_t * desc, uint16_t selector, uint32_t offset, uint16_t attr);
 
 void irq_init ();
+
 void pic_send_eoi(int irq_num);    // 中断处理完通知 8259
 
 typedef uint32_t irq_state_t;
 
 irq_state_t irq_enter_proection();
+
 void irq_leave_proection(irq_state_t state);
 
 #endif

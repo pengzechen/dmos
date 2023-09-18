@@ -37,9 +37,10 @@ void gdt_init() {
         SEG_P_PRESENT | SEG_DPL0 | SEG_S_NORMAL | SEG_TYPE_CODE
         | SEG_TYPE_RW | SEG_D | SEG_G);
 
-    gate_desc_set((gate_desc_t*)(g_gdt_table + (SELECTOR_SYSCALL << 3)),
-        KERNEL_SELECTOR_CS, (uint32_t)exception_handle_syscall, 
-        SEG_P_PRESENT | SEG_DPL3 | SEG_TYPE_SYSCALL | SYSCALL_PARAM_COUNT );
+    gate_desc_set((gate_desc_t *)(g_gdt_table + (SELECTOR_SYSCALL >> 3)),
+            KERNEL_SELECTOR_CS,
+            (uint32_t)exception_handle_syscall,
+            GATE_P_PRESENT | GATE_DPL3 | GATE_TYPE_SYSCALL | SYSCALL_PARAM_COUNT);
 
     lgdt((uint32_t)g_gdt_table, sizeof(g_gdt_table));
 
