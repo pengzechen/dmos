@@ -74,13 +74,24 @@ void offset_test() {
 }
 
 
+
 void move_to_first_task(void) {
     task_t * curr = task_current();
     tss_t * tss = &(curr->tss);
-
-    __asm__ __volatile__( "jmp *%[ip]"::[ip]"r"(tss->eip) );
+    __asm__ __volatile__( 
+        "push %[ss]\n\t"
+        "push %[esp]\n\t"
+        "push %[eflags]\n\t"
+        "push %[cs]\n\t"
+        "push %[eip]\n\t"
+        "iret"
+        ::[ss]"r"(tss->ss), 
+        [esp]"r"(tss->esp),
+        [eflags]"r"(tss->eflags),
+        [cs]"r"(tss->cs),
+        [eip]"r"(tss->eip)
+    );
 }
-
 
 void init_main() {
     klog("Kernal %s is running ... ", "1.0.0");

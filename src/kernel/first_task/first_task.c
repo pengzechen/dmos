@@ -2,8 +2,10 @@
 #include <log.h>
 
 int first_task_main() {
+    int xx = 10;
     for(;;) {
-        klog("first task");
-        sys_sleep(1000);
+        // klog("first task");
+        int y = 1000;
+        // sys_sleep(1000);
     }
 }

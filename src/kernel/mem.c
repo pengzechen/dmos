@@ -229,3 +229,26 @@ int memory_alloc_page_for(uint32_t addr, uint32_t size, int perm) {
     return memory_alloc_for_page_dir(cr3, addr, size, perm);
 }
 
+
+// 0x80000000 以下
+uint32_t memory_alloc_page() {
+    uint32_t addr = addr_alloc_page(&g_paddr_alloc, 1);
+    return addr;
+}
+
+static pde_t* curr_page_dir() {
+
+    return (pde_t*)( task_current()->tss.cr3 );
+}
+
+void memory_free_page(uint32_t addr) {
+    if( addr < MEMORY_TASK_BASE ) {
+        addr_free_page(&g_paddr_alloc, addr, 1);
+    } else {
+        pte_t* pte = find_pte(curr_page_dir(), addr, 0);
+        if(pte == 0 && !pte->present) klog("free err");
+
+        addr_free_page(&g_paddr_alloc, pte_paddr(pte), 1);
+        pte->v = 0;
+    }
+}
