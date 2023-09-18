@@ -117,3 +117,9 @@ simple_switch:
     
     sti
     ret
+
+
+    .global exception_handle_syscall
+exception_handle_syscall:
+
+    ret

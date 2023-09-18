@@ -31,9 +31,9 @@
 },
 {
   "directory": "D:/linux_kernel/dmos/build",
-  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -ID:/linux_kernel/dmos/loader -m32 -g -g -o src\\kernel\\CMakeFiles\\kernel.dir\\start.S.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\start.S",
-  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\start.S",
-  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\start.S.obj"
+  "command": "D:\\linux_kernel\\tool\\x86_64-elf-tools-windows\\bin\\x86_64-elf-gcc.exe -ID:/linux_kernel/dmos/src -ID:/linux_kernel/dmos/src/kernel/include -ID:/linux_kernel/dmos/loader -m32 -g -g -o src\\kernel\\CMakeFiles\\kernel.dir\\kernel.S.obj -c D:\\linux_kernel\\dmos\\src\\kernel\\kernel.S",
+  "file": "D:\\linux_kernel\\dmos\\src\\kernel\\kernel.S",
+  "output": "src\\kernel\\CMakeFiles\\kernel.dir\\kernel.S.obj"
 },
 {
   "directory": "D:/linux_kernel/dmos/build",

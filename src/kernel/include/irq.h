@@ -4,7 +4,7 @@
 #include <comm/cpu_ins.h>
 #include <comm/types.h>
 #include <os_cfg.h>
-
+#include <cpu.h>
 
 
 #define GATE_P_PRESENT              (1 << 15)
@@ -12,6 +12,8 @@
 #define GATE_DPL3                   (3 << 13)
 #define GATE_TYPE_IDT		        (0xE << 8)		// 中断32位门描述符
 
+
+#define SEG_TYPE_SYSCALL            (0xC << 8)
 
 #define IRQ0_DE             0
 #define IRQ1_DB             1
@@ -68,15 +70,6 @@
 #define ERR_EXT             (1 << 0)
 #define ERR_IDT             (1 << 1)
 
-#pragma pack(1)
-typedef struct _gate_desc_t {
-	uint16_t offset15_0;
-	uint16_t selector;
-	uint16_t attr;
-	uint16_t offset31_16;
-}gate_desc_t;
-#pragma pack()
-
 
 typedef struct _exception_frame_t {
     uint32_t gs, fs, es, ds;
@@ -119,6 +112,7 @@ void irq_disable_global();
 
 
 void gate_desc_set(gate_desc_t * desc, uint16_t selector, uint32_t offset, uint16_t attr);
+
 void irq_init ();
 void pic_send_eoi(int irq_num);    // 中断处理完通知 8259
 

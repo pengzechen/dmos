@@ -50,6 +50,15 @@ typedef struct _segment_desc_t segment_desc_t;
     }tss_t;
 #pragma pack()
 
+#pragma pack(1)
+typedef struct _gate_desc_t {
+	uint16_t offset15_0;
+	uint16_t selector;
+	uint16_t attr;
+	uint16_t offset31_16;
+}gate_desc_t;
+#pragma pack()
+
 
 
 void segment_desc_set(int selector, uint32_t base, uint32_t limit, uint16_t attr);
