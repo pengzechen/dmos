@@ -9,3 +9,9 @@ D:/linux_kernel/dmos/build/src/loader/CMakeFiles/rebuild_cache.dir
 D:/linux_kernel/dmos/build/src/kernel/CMakeFiles/kernel.dir
 D:/linux_kernel/dmos/build/src/kernel/CMakeFiles/edit_cache.dir
 D:/linux_kernel/dmos/build/src/kernel/CMakeFiles/rebuild_cache.dir
+D:/linux_kernel/dmos/build/src/applib/CMakeFiles/app.dir
+D:/linux_kernel/dmos/build/src/applib/CMakeFiles/edit_cache.dir
+D:/linux_kernel/dmos/build/src/applib/CMakeFiles/rebuild_cache.dir
+D:/linux_kernel/dmos/build/src/shell/CMakeFiles/shell.dir
+D:/linux_kernel/dmos/build/src/shell/CMakeFiles/edit_cache.dir
+D:/linux_kernel/dmos/build/src/shell/CMakeFiles/rebuild_cache.dir

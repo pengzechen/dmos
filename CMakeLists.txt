@@ -36,3 +36,7 @@ include_directories(
 add_subdirectory(./src/boot)
 add_subdirectory(./src/loader)
 add_subdirectory(./src/kernel)
+add_subdirectory(./src/applib)
+
+add_subdirectory(./src/shell)
+

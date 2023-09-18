@@ -42,6 +42,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("D:/linux_kernel/dmos/build/src/boot/cmake_install.cmake")
   include("D:/linux_kernel/dmos/build/src/loader/cmake_install.cmake")
   include("D:/linux_kernel/dmos/build/src/kernel/cmake_install.cmake")
+  include("D:/linux_kernel/dmos/build/src/applib/cmake_install.cmake")
+  include("D:/linux_kernel/dmos/build/src/shell/cmake_install.cmake")
 
 endif()
 

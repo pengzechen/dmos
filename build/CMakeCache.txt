@@ -230,6 +230,15 @@ CMAKE_STRIP:FILEPATH=D:/linux_kernel/tool/x86_64-elf-tools-windows/bin/x86_64-el
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //Value Computed by CMake
+app_BINARY_DIR:STATIC=D:/linux_kernel/dmos/build/src/applib
+
+//Value Computed by CMake
+app_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+app_SOURCE_DIR:STATIC=D:/linux_kernel/dmos/src/applib
+
+//Value Computed by CMake
 boot_BINARY_DIR:STATIC=D:/linux_kernel/dmos/build/src/boot
 
 //Value Computed by CMake
@@ -264,6 +273,15 @@ os_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 os_SOURCE_DIR:STATIC=D:/linux_kernel/dmos
+
+//Value Computed by CMake
+shell_BINARY_DIR:STATIC=D:/linux_kernel/dmos/build/src/shell
+
+//Value Computed by CMake
+shell_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+shell_SOURCE_DIR:STATIC=D:/linux_kernel/dmos/src/shell
 
 
 ########################
@@ -367,7 +385,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=4
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=6
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
