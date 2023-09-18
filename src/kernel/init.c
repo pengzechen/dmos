@@ -9,8 +9,8 @@
 #include <mem.h>
 
 // void test_mem_page() {}
-    // *(uint8_t*)test_mem_page = 0x12;
-    // *(uint8_t*)test_mem_page = 0x34;
+// *(uint8_t*)test_mem_page = 0x12;
+// *(uint8_t*)test_mem_page = 0x34;
 
 void kernel_init (boot_info_t * boot_info) {
     log_init();
@@ -74,12 +74,20 @@ void offset_test() {
 }
 
 
+void move_to_first_task(void) {
+    task_t * curr = task_current();
+    tss_t * tss = &(curr->tss);
+
+    __asm__ __volatile__( "jmp *%[ip]"::[ip]"r"(tss->eip) );
+}
+
+
 void init_main() {
     klog("Kernal %s is running ... ", "1.0.0");
 
     task_manager_init();
-    task1_func_init();
+    first_task_init();
     irq_enable_global();
     
-    task_switch_from_to(0, get_first_task());
+    move_to_first_task();
 }

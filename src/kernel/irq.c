@@ -1,5 +1,5 @@
 #include <irq.h>
-
+#include <log.h>
 
 //  -----------------------------------------   中断相关    -------------------------------------------
 #define IDT_TABLE_NR 128
@@ -55,7 +55,29 @@ void handle_general_protection(exception_frame_t * frame) {
 	default_handler(frame, "IRQ/Exception happend: General Protection.");
 }
 void handle_page_fault(exception_frame_t * frame) {
-	default_handler(frame, "IRQ/Exception happend: Page fault.");
+    klog("--------------------------------");
+    klog("IRQ/Exception happend: Page fault.");
+    if (frame->err_code & ERR_PAGE_P) {
+        klog("\tpage-level protection violation: 0x%x.", read_cr2());
+    } else {
+         klog("\tPage doesn't present 0x%x", read_cr2());
+   }
+    
+    if (frame->err_code & ERR_PAGE_WR) {
+        klog("\tThe access causing the fault was a read.");
+    } else {
+        klog("\tThe access causing the fault was a write.");
+    }
+    
+    if (frame->err_code & ERR_PAGE_US) {
+        klog("\tA supervisor-mode access caused the fault.");
+    } else {
+        klog("\tA user-mode access caused the fault.");
+    }
+
+    while(1){hlt();}
+
+	//default_handler(frame, "IRQ/Exception happend: Page fault.");
 }
 void handle_fpu_error(exception_frame_t * frame) {
 	default_handler(frame, "X87 FPU Floating Point Error.");

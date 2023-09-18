@@ -10,6 +10,7 @@
 #define MEM_EBDA_START              0x00080000
 #define MEM_EXT_START               (1024 * 1024)
 #define MEM_PAGE_SIZE               4096
+
 #define MEMORY_TASK_BASE            0x80000000
 #define MEM_EXT_END                 (128 * 1024 * 1024)
 
@@ -40,6 +41,10 @@ static inline uint32_t down2(uint32_t size, uint32_t bound) {
 static inline uint32_t up2(uint32_t size, uint32_t bound) {
     return (size + bound - 1) & ~ (bound - 1);
 }
+
+
+int memory_alloc_page_for(uint32_t addr, uint32_t size, int perm);
+
 
 #endif
 

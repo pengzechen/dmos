@@ -3,16 +3,16 @@ SECTIONS
 {
 	PROVIDE(kernel_base = 0x0);
 	
-	. = 0x10000;
+	. = 0x10000; /* 64 K */
 	PROVIDE( s_text = .);
 	.text : {
 		
-		*(.text)
+		*(EXCLUDE_FILE(*first_task*) .text)
 	}
 
 	.rodata : {
 
-		*(.rodata)
+		*(EXCLUDE_FILE(*first_task*) .rodata)
 	}
 	PROVIDE( e_text = .);
 
@@ -21,13 +21,25 @@ SECTIONS
 	PROVIDE( s_data = . );
 	.data : {
 
-		*(.data)
+		*(EXCLUDE_FILE(*first_task*) .data)
 	}
 
 	.bss : {
 
-		*(.bss)
+		*(EXCLUDE_FILE(*first_task*) .bss)
 	}
+	e_data = . ;
 
-	PROVIDE( mem_free_start = . );
+
+	. = 0x80000000;
+	
+	PROVIDE( s_first_task = LOADADDR(.first_task) );
+	.first_task : AT(e_data){
+		*first_task_entry*(.text .rodata .bss .data)
+		*first_task*(.text .rodata .bss .data)
+	}
+	PROVIDE( e_first_task = LOADADDR(.first_task) + SIZEOF(.first_task) );
+
+	PROVIDE( mem_free_start = e_first_task);
+
 }

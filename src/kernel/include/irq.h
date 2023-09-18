@@ -1,6 +1,6 @@
 #ifndef IRQ_H
 #define IRQ_H
-#include <log.h>
+
 #include <comm/cpu_ins.h>
 #include <comm/types.h>
 #include <os_cfg.h>
@@ -60,7 +60,13 @@
 #define IRQ0_TIMER          0x20
 
 
+// error
+#define ERR_PAGE_P          (1 << 0)
+#define ERR_PAGE_WR          (1 << 1)
+#define ERR_PAGE_US          (1 << 1)
 
+#define ERR_EXT             (1 << 0)
+#define ERR_IDT             (1 << 1)
 
 #pragma pack(1)
 typedef struct _gate_desc_t {

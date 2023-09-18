@@ -84,10 +84,6 @@ total_mem_size(boot_info_t* boot_info) {
 
 
 
-
-
-
-
 pte_t * find_pte (pde_t * page_dir, uint32_t vaddr, int alloc) {
     pte_t * page_table;
 
@@ -190,10 +186,46 @@ uint32_t memory_create_uvm() {
     }
 
     k_memset((void*)page_dir, 0, MEM_PAGE_SIZE);
-    uint32_t user_pde_start = pde_index(MEMORY_TASK_BASE);
+    uint32_t user_pde_start = pde_index( MEMORY_TASK_BASE );
+    
     for(int i=0; i<user_pde_start; i++) {
         page_dir[i].v = g_kernel_page_dir[i].v;
     }
 
     return (uint32_t)page_dir;
 }
+
+
+uint32_t memory_alloc_for_page_dir (uint32_t page_dir, uint32_t vaddr, uint32_t size, int perm) {
+    uint32_t curr_vaddr = vaddr;
+    int page_count = up2(size, MEM_PAGE_SIZE) / MEM_PAGE_SIZE;
+    vaddr = down2(vaddr, MEM_PAGE_SIZE);
+
+    for (int i = 0; i < page_count; i++) {
+        uint32_t paddr = addr_alloc_page(&g_paddr_alloc, 1);
+        if (paddr == 0) {
+            klog("mem alloc failed. no memory");
+            return 0;
+        }
+
+        int err = memory_create_map((pde_t *)page_dir, curr_vaddr, paddr, 1, perm);
+        if (err < 0) {
+            klog("create memory map failed. err = %d", err);
+            addr_free_page(&g_paddr_alloc, vaddr, i + 1);
+            return -1;
+        }
+
+        curr_vaddr += MEM_PAGE_SIZE;
+    }
+
+    return 0;
+}
+
+
+int memory_alloc_page_for(uint32_t addr, uint32_t size, int perm) {
+    
+    uint32_t cr3 = task_current()->tss.cr3;
+
+    return memory_alloc_for_page_dir(cr3, addr, size, perm);
+}
+

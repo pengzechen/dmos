@@ -50,15 +50,17 @@ int k_strlen(const char *str) {
 }
 
 void k_memcpy(void* dest, void* src, int size) {
-    if (!dest || !src || size) {
+    if (!dest || !src || !size) {
         return;
     }
-    uint8_t *s = (uint8_t*)src;
-    uint8_t *d = (uint8_t*)dest;
-    while(size--) {
+    uint8_t * s = (uint8_t *)src;
+    uint8_t * d = (uint8_t *)dest;
+    while (size--) {
         *d++ = *s++;
     }
 }
+
+
 void k_memset(void* dest, uint8_t v, int size) {
     if(!dest || !size) return;
 

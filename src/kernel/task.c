@@ -7,32 +7,31 @@
 #include <klib.h>
 #include <log.h>
 #include <mem.h>
+#include <mmu.h>
+
+static task_manager_t g_task_manager;
+static uint32_t idle_task_stack[2048];
+static uint32_t first_task_stack[2048];
+
 
 static void idle_task_func() { for(;;) hlt(); }
 
 void simple_switch(uint32_t **from, uint32_t* to);
 
 void task_switch_from_to(task_t* from, task_t* to) {
+
 #ifndef USE_TSS
     simple_switch(&from->stack, to->stack);  // 使用直接跳转机制
 #else
     far_jump(to->tss_sel, 0);             // 使用 tss 机制
 #endif
+
 }
 
 
-
-static task_manager_t g_task_manager;
-static uint32_t task1_stack[2048];
-static uint32_t idle_task_stack[2048];
-static uint32_t task3_stack[2048];
-static task_t   task3;
-static sem_t    sem_test;
-
 #ifdef USE_TSS
-static int tss_init(task_t* task, uint32_t entry, uint32_t esp) {
+static int tss_init(task_t* task, int flag, uint32_t entry, uint32_t esp) {
     int tss_sel = gdt_alloc_desc();
-
 
     segment_desc_set(tss_sel, (uint32_t)&task->tss, sizeof(tss_t), 
         SEG_P_PRESENT | SEG_DPL0 | SEG_TYPE_TSS
@@ -40,17 +39,27 @@ static int tss_init(task_t* task, uint32_t entry, uint32_t esp) {
 
     k_memset(&task->tss, 0, sizeof(tss_t));
 
+    int code_sel, data_sel;
+    if (flag & TASK_FLAGS_SYSTEM) {
+        code_sel = KERNEL_SELECTOR_CS;
+        data_sel = KERNEL_SELECTOR_DS;
+    } else {
+        code_sel = g_task_manager.app_code_sel | SEG_RPL3;
+        data_sel = g_task_manager.app_data_sel | SEG_RPL3;
+    }
+
+
     task->tss.eip  = entry;
     task->tss.esp  = esp;
     task->tss.esp0 = esp;
-
-    task->tss.ss  = KERNEL_SELECTOR_DS;
+    task->tss.ss  = data_sel;
     task->tss.ss0 = KERNEL_SELECTOR_DS;
-    task->tss.es  = KERNEL_SELECTOR_DS;
-    task->tss.ds  = KERNEL_SELECTOR_DS;
-    task->tss.fs  = KERNEL_SELECTOR_DS;
-    task->tss.gs  = KERNEL_SELECTOR_DS;
-    task->tss.cs  = KERNEL_SELECTOR_CS;
+    task->tss.es  = data_sel;
+    task->tss.ds  = data_sel;
+    task->tss.fs  = data_sel;
+    task->tss.gs  = data_sel;
+    task->tss.cs  = code_sel;
+    
     task->tss.eflags = EFLAGES_DEFAULT | EFLAGS_IF;
 
     uint32_t page_dir = memory_create_uvm();
@@ -64,7 +73,7 @@ static int tss_init(task_t* task, uint32_t entry, uint32_t esp) {
 #endif
 
 // 初始化一个任务
-int task_init(task_t* task, const char* name, uint32_t entry, uint32_t esp) {
+int task_init(task_t* task, const char* name, int flag, uint32_t entry, uint32_t esp) {
     
 #ifndef USE_TSS
     uint32_t* pesp = (uint32_t*)esp;
@@ -77,7 +86,7 @@ int task_init(task_t* task, const char* name, uint32_t entry, uint32_t esp) {
         task->stack = pesp;
     }
 #else
-    if (tss_init(task, entry, esp) == -1) return -1;  // 使用 tss 机制
+    if (tss_init(task, flag, entry, esp) == -1) return -1;  // 使用 tss 机制
 #endif
 
     k_strncpy(task->name, name, TASK_NAME_SIZE);        // 进程名
@@ -100,46 +109,64 @@ int task_init(task_t* task, const char* name, uint32_t entry, uint32_t esp) {
 
 // 初始化任务管理
 void task_manager_init() {
-    sem_init(&sem_test, 0);
+    int sel = gdt_alloc_desc();
+    segment_desc_set(sel, 0x00000000, 0xffffffff, 
+        SEG_P_PRESENT | SEG_DPL3 | SEG_S_NORMAL | SEG_TYPE_DATA | SEG_TYPE_RW | SEG_D
+    );
+    g_task_manager.app_data_sel = sel;
+
+    int selc = gdt_alloc_desc();
+    segment_desc_set(selc, 0x00000000, 0xffffffff, 
+        SEG_P_PRESENT | SEG_DPL3 | SEG_S_NORMAL | SEG_TYPE_CODE | SEG_TYPE_RW | SEG_D
+    );
+    g_task_manager.app_code_sel = selc;
+
     list_init(&g_task_manager.ready_list);
     list_init(&g_task_manager.task_list);
     list_init(&g_task_manager.sleep_list);
     g_task_manager.curr_task = get_first_task();
-}
-
-
-void task1_func() {
-    int count = 0;
-    for(;;) {
-        klog("-------------------------11111-----------------: %d", count--);
-        sys_sleep(1000);
-        // sem_notify(&sem_test);
-    }
-}
-
-
-void task3_func() {
-    int count = 0;
-    for(;;) {
-        // sem_wait(&sem_test);
-        klog("-------------------------33333-----------------: %d", count++);
-        sys_sleep(1000);
-
-    }
-}
-
-
-void task1_func_init() {
-    task_init(&g_task_manager.first_task, "first task", 
-        (uint32_t)task1_func, (uint32_t)&task1_stack[2048]);
-
-    task_init(&g_task_manager.idle_task,  "idle  task", 
-        (uint32_t)idle_task_func, (uint32_t)&idle_task_stack[2048]);
-
-    task_init(&task3,                   "test  task", 
-        (uint32_t)task3_func, (uint32_t)&task3_stack[2048]);
     
+    task_init(&g_task_manager.idle_task,  
+            "idle  task", 
+            TASK_FLAGS_SYSTEM,
+            (uint32_t)idle_task_func, 
+            (uint32_t)&idle_task_stack[2048]
+    );
 }
+
+
+void first_task_init() {
+
+    void first_task_entry();
+    extern uint8_t s_first_task[], e_first_task[];
+
+    uint32_t copy_size = (uint32_t)(e_first_task - s_first_task);
+    uint32_t alloc_size = 10 * MEM_PAGE_SIZE;
+
+    uint32_t first_start = (uint32_t)first_task_entry;
+
+    // first_start + alloc_size 栈顶
+    task_init(&g_task_manager.first_task, 
+        "first task", 0, 
+        first_start, first_start + alloc_size 
+    );
+    
+    mmu_set_page_dir((&g_task_manager)->first_task.tss.cr3);
+
+    memory_alloc_page_for(first_start, alloc_size, PTE_P | PTE_W);
+    k_memcpy( (void*)first_start, (void *)&s_first_task, copy_size );
+
+
+    write_tr((&g_task_manager)->first_task.tss_sel);
+}
+
+
+
+
+
+
+
+
 
 
 task_t* get_first_task() {
