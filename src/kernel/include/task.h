@@ -82,7 +82,7 @@ task_t   *  task_current();
 void        task_set_ready(task_t* task);
 void        task_set_block(task_t* task);
 
-int         sys_sched_yield();
+int         sys_yield();
 
 
 task_t   *  task_next_run();

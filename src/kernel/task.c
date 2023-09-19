@@ -116,12 +116,20 @@ int task_init(task_t* task, const char* name, int flag, uint32_t entry, uint32_t
     task->pid = (uint32_t)task;
 
     irq_state_t state = irq_enter_proection();   //--enter protection
-        task_set_ready(task);                                        // 加入到就绪队列
         list_insert_last(&g_task_manager.task_list, &task->all_node);  // 加入到所有队列
     irq_leave_proection(state);  //--leave protection
 
     return 0;
 }
+
+void task_start(task_t* task) {
+    irq_state_t state = irq_enter_proection();   //--enter protection
+    
+        task_set_ready(task);                                        // 加入到就绪队列
+    
+    irq_leave_proection(state);  //--leave protection
+}
+
 
 // 初始化任务管理
 void task_manager_init() {
@@ -154,6 +162,7 @@ void task_manager_init() {
             (uint32_t)idle_task_func, 
             (uint32_t)&idle_task_stack[2048]
     );
+    task_start(&g_task_manager.idle_task);
 }
 
 
@@ -180,6 +189,8 @@ void first_task_init() {
 
 
     write_tr((&g_task_manager)->first_task.tss_sel);
+
+    task_start(&g_task_manager.first_task);
 }
 
 
@@ -213,7 +224,7 @@ void task_set_block(task_t* task) {
 }
 
 // 主动放弃cpu执行
-int  sys_sched_yield() {
+int  sys_yield() {
 
     irq_state_t state = irq_enter_proection();   //--enter protection
     
@@ -394,6 +405,7 @@ int sys_fork() {
     }
 
     // tss->cr3 = parent_task->tss.cr3;
+    task_start(child_task);
     return child_task->pid;
 
 fork_failed:

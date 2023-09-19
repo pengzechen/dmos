@@ -6,8 +6,12 @@ int main(int argc, char **argv) {
         print_msg("arg: %s", (int)argv[i]);
     }
     
+    fork();
+    yield();
+
     for(;;) {
-        
+        print_msg("shell pid=%d", getpid());
+        msleep(1000);
     }
     return 0;
 }

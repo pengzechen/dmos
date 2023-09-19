@@ -10,7 +10,7 @@
 #define SYS_print_msg           2
 #define SYS_fork                3
 #define SYS_execve              4
-
+#define SYS_yield               5
 
 
 typedef struct _syscall_frame_t {

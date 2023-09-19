@@ -24,7 +24,7 @@ int first_task_main() {
 
     for(;;) {
 
-        print_msg("current id=%d", pid);
+        //print_msg("current id=%d", pid);
         msleep(1000);
     }
 }

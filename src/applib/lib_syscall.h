@@ -79,4 +79,11 @@ execve(const char* name, char* const* argv, char* const * env ) {
     return sys_call(&args);
 }
 
+static inline int
+yield() {
+    syscall_arg_t args;
+    args.id = SYS_yield;
+    return sys_call(&args);
+}
+
 #endif  // LIB_SYSCALL_H
