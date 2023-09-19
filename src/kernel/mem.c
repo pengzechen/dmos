@@ -43,7 +43,8 @@ addr_free_page(addr_alloc_t * alloc, uint32_t addr, int page_count) {
 }
 
 
-void some_test() {
+static void 
+some_test() {
     addr_alloc_t addr_alloc;
     uint8_t bits[8];
     addr_alloc_init(&addr_alloc, bits, 0x1000, 64*4096, 4096);
@@ -223,9 +224,7 @@ uint32_t memory_alloc_for_page_dir (uint32_t page_dir, uint32_t vaddr, uint32_t 
 
 
 int memory_alloc_page_for(uint32_t addr, uint32_t size, int perm) {
-    
     uint32_t cr3 = task_current()->tss.cr3;
-
     return memory_alloc_for_page_dir(cr3, addr, size, perm);
 }
 
@@ -236,10 +235,11 @@ uint32_t memory_alloc_page() {
     return addr;
 }
 
-static pde_t* curr_page_dir() {
 
+static pde_t* curr_page_dir() {
     return (pde_t*)( task_current()->tss.cr3 );
 }
+
 
 void memory_free_page(uint32_t addr) {
     if( addr < MEMORY_TASK_BASE ) {
@@ -253,6 +253,15 @@ void memory_free_page(uint32_t addr) {
     }
 }
 
+
+uint32_t memory_get_paddr (uint32_t page_dir, uint32_t vaddr) {
+    pte_t * pte = find_pte((pde_t *)page_dir, vaddr, 0);
+    if (pte == (pte_t *)0) {
+        return 0;
+    }
+
+    return pte_paddr(pte) + (vaddr & (MEM_PAGE_SIZE - 1));
+}
 
 
 void memory_destory_uvm (uint32_t page_dir) {
@@ -314,5 +323,28 @@ copy_uvm_failed:
         memory_destory_uvm(to_page_dir);
     }
     return -1;
+}
+
+
+int memory_copy_uvm_data(uint32_t to, uint32_t page_dir, uint32_t from, uint32_t size) {
+    char *buf, *pa0;
+
+    while(size > 0){
+        uint32_t to_paddr = memory_get_paddr(page_dir, to);
+        if (to_paddr == 0) {
+            return -1;
+        }
+        uint32_t offset_in_page = to_paddr & (MEM_PAGE_SIZE - 1);
+        uint32_t curr_size = MEM_PAGE_SIZE - offset_in_page;
+        if (curr_size > size) {
+            curr_size = size;       // 如果比较大，超过页边界，则只拷贝此页内的
+        }
+        k_memcpy((void *)to_paddr, (void *)from, curr_size);
+
+        size -= curr_size;
+        to += curr_size;
+        from += curr_size;
+  }
+  return 0;
 }
 

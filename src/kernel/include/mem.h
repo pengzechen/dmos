@@ -14,6 +14,10 @@
 #define MEMORY_TASK_BASE            0x80000000
 #define MEM_EXT_END                 (128 * 1024 * 1024)
 
+#define MEM_TASK_STACK_TOP          0xE0000000
+#define MEM_TASK_STACK_SIZE         (MEM_PAGE_SIZE * 500)
+#define MEM_TASK_ARG_SIZE           (MEM_PAGE_SIZE * 16)
+
 typedef struct _addr_alloc_t {
     mutex_t mutex;
     bitmap_t bitmap;
@@ -43,15 +47,25 @@ static inline uint32_t up2(uint32_t size, uint32_t bound) {
 }
 
 
+
+uint32_t memory_get_paddr (uint32_t page_dir, uint32_t vaddr);
+
+
+uint32_t memory_alloc_for_page_dir (uint32_t page_dir, uint32_t vaddr, uint32_t size, int perm);
+
 int memory_alloc_page_for(uint32_t addr, uint32_t size, int perm);
 
 uint32_t memory_alloc_page();
 
 void memory_free_page(uint32_t addr);
 
+
 uint32_t memory_copy_uvm(uint32_t page_dir);
+int memory_copy_uvm_data(uint32_t to, uint32_t page_dir, uint32_t from, uint32_t size);
+
 
 void memory_destory_uvm(uint32_t page_dir);
+
 
 #endif
 

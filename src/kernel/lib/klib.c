@@ -1,6 +1,31 @@
 #include <klib.h>
 
 
+int strings_count (char ** start) {
+    int count = 0;
+
+    if (start) {
+        while (*start++) {
+            count++;
+        }
+    }
+    return count;
+}
+
+
+char * get_file_name (char * name) {
+    char * s = name;
+
+    while (*s != '\0') {
+        s++;
+    }
+
+    while ((*s != '\\') && (*s != '/') && (s >= name)) {
+        s--;
+    }
+    return s + 1;
+}
+
 void k_strcpy(char * dest, const char * src) {
     if (!dest || !src) {
         return;

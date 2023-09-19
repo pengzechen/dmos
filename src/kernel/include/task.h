@@ -61,6 +61,13 @@ typedef struct _task_manager_t {
 } task_manager_t;
 
 
+typedef struct _task_args_t {
+	uint32_t ret_addr;		// 返回地址，无用
+	uint32_t argc;
+	char **argv;
+}task_args_t;
+
+
 int  task_init(task_t* task, const char* name, int flag, uint32_t entry, uint32_t esp);
 void task_switch_from_to(task_t* from, task_t* to);
 
@@ -92,5 +99,7 @@ int         sys_getpid ();
 
 
 int         sys_fork();
+
+int         sys_execve(char* name, char** argv, char** env);
 
 #endif

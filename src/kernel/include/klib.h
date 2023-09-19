@@ -14,4 +14,9 @@ void k_memset(void* dest, uint8_t v, int size);
 
 int  k_memcmp(void* d1, void* d2, int size);
 void k_vsprint(char *buf, const char *fmt, va_list args) ;
+
+int strings_count (char ** start);
+
+
+char * get_file_name (char * name);
 #endif

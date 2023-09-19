@@ -59,6 +59,11 @@
                     "text": "add-symbol-file ./build/src/loader/loader.elf 0x8000",
                     "ignoreFailures": false
                 },
+                {
+                    "description": "加载shell符号文件",
+                    "text": "add-symbol-file ./build/src/shell/shell.elf 0x81000000",
+                    "ignoreFailures": false
+                },
                 // {
                 //     "description": "加载boot符号文件",
                 //     "text": "add-symbol-file ./build/src/boot/boot.elf 0x7c00",

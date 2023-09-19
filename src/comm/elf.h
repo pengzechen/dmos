@@ -3,6 +3,10 @@
 
 #include "types.h"
 
+
+#define SECTOR_SIZE		            512			// 磁盘扇区大小
+
+
 // ELF相关数据类型
 typedef uint32_t Elf32_Addr;
 typedef uint16_t Elf32_Half;
