@@ -28,6 +28,8 @@ struct _task_s {
 
     int pid;
     task_t * parent;
+    uint32_t heap_start;
+    uint32_t heap_end;
 
     int slice_ticks;
     int time_ticks;

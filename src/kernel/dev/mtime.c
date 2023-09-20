@@ -4,13 +4,16 @@
 static uint32_t sys_tick;
 
 void exception_handler_time();
-void handle_time(exception_frame_t * frame) {
+
+void 
+handle_time(exception_frame_t * frame) {
     sys_tick++;
     pic_send_eoi(IRQ0_TIMER);
     task_time_tick();
 } 
 
-static void pit_init (void) {
+static void 
+pit_init (void) {
     uint32_t reload_count = PIT_OSC_FREQ / (1000.0 / OS_TICK_MS);
     outb(PIT_COMMAND_MODE_PORT, PIT_CHANNLE0 | PIT_LOAD_LOHI | PIT_MODE3);
     outb(PIT_CHANNEL0_DATA_PORT, reload_count & 0xFF);          // 加载低8位
@@ -19,7 +22,8 @@ static void pit_init (void) {
     irq_enable(IRQ0_TIMER);
 }
 
-void time_init() {
+void 
+time_init() {
     sys_tick = 0;
 
     pit_init();

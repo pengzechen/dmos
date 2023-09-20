@@ -12,6 +12,16 @@
 #define SYS_execve              4
 #define SYS_yield               5
 
+#define SYS_open                 50
+#define SYS_read                 51
+#define SYS_write                52
+#define SYS_close                53
+#define SYS_lseek                54
+#define SYS_isatty               55
+#define SYS_sbrk                 56
+#define SYS_fstat                57
+
+
 
 typedef struct _syscall_frame_t {
     int eflags;

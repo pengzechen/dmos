@@ -86,7 +86,8 @@ total_mem_size(boot_info_t* boot_info) {
 
 
 
-pte_t * find_pte (pde_t * page_dir, uint32_t vaddr, int alloc) {
+pte_t * 
+find_pte (pde_t * page_dir, uint32_t vaddr, int alloc) {
     pte_t * page_table;
 
     pde_t *pde = page_dir + pde_index(vaddr);
@@ -110,7 +111,8 @@ pte_t * find_pte (pde_t * page_dir, uint32_t vaddr, int alloc) {
 }
 
 // 创建映射
-int memory_create_map (pde_t * page_dir, uint32_t vaddr, uint32_t paddr, int count, uint32_t perm) {
+int 
+memory_create_map (pde_t * page_dir, uint32_t vaddr, uint32_t paddr, int count, uint32_t perm) {
     for (int i = 0; i < count; i++) {
         // klog("create map: v-0x%x p-0x%x, perm: 0x%x", vaddr, paddr, perm);
 
@@ -118,7 +120,7 @@ int memory_create_map (pde_t * page_dir, uint32_t vaddr, uint32_t paddr, int cou
         if (pte == (pte_t *)0) {
             return -1;
         }
-        if (pte->present != 0) klog("error");
+        if (pte->present != 0) klog("error111");
 
         // klog("pte addr: 0x%x", (uint32_t)pte);
 
@@ -131,7 +133,8 @@ int memory_create_map (pde_t * page_dir, uint32_t vaddr, uint32_t paddr, int cou
 }
 
 
-void create_kernel_table (void) {
+void 
+create_kernel_table (void) {
     extern uint8_t s_text[], e_text[], s_data[], e_data[];
     extern uint8_t kernel_base[];
 
@@ -155,7 +158,8 @@ void create_kernel_table (void) {
 }
 
 
-void memory_init (boot_info_t* boot_info) {
+void 
+memory_init (boot_info_t* boot_info) {
     extern uint8_t * mem_free_start;
     uint8_t * mem_free = (uint8_t*)&mem_free_start;
     klog("memory init");
@@ -182,7 +186,8 @@ void memory_init (boot_info_t* boot_info) {
 }
 
 
-uint32_t memory_create_uvm() {
+uint32_t 
+memory_create_uvm() {
     pde_t* page_dir = (pde_t*)addr_alloc_page(&g_paddr_alloc, 1);
     if(page_dir == (pde_t*)0) {
         return 0;  // error
@@ -199,7 +204,8 @@ uint32_t memory_create_uvm() {
 }
 
 
-uint32_t memory_alloc_for_page_dir (uint32_t page_dir, uint32_t vaddr, uint32_t size, int perm) {
+uint32_t 
+memory_alloc_for_page_dir (uint32_t page_dir, uint32_t vaddr, uint32_t size, int perm) {
     uint32_t curr_vaddr = vaddr;
     int page_count = up2(size, MEM_PAGE_SIZE) / MEM_PAGE_SIZE;
     vaddr = down2(vaddr, MEM_PAGE_SIZE);
@@ -225,25 +231,29 @@ uint32_t memory_alloc_for_page_dir (uint32_t page_dir, uint32_t vaddr, uint32_t 
 }
 
 
-int memory_alloc_page_for(uint32_t addr, uint32_t size, int perm) {
+int 
+memory_alloc_page_for(uint32_t addr, uint32_t size, int perm) {
     uint32_t cr3 = task_current()->tss.cr3;
     return memory_alloc_for_page_dir(cr3, addr, size, perm);
 }
 
 
 // 0x80000000 以下
-uint32_t memory_alloc_page() {
+uint32_t 
+memory_alloc_page() {
     uint32_t addr = addr_alloc_page(&g_paddr_alloc, 1);
     return addr;
 }
 
 
-static pde_t* curr_page_dir() {
+static pde_t* 
+curr_page_dir() {
     return (pde_t*)( task_current()->tss.cr3 );
 }
 
 
-void memory_free_page(uint32_t addr) {
+void 
+memory_free_page(uint32_t addr) {
     if( addr < MEMORY_TASK_BASE ) {
         addr_free_page(&g_paddr_alloc, addr, 1);
     } else {
@@ -256,7 +266,8 @@ void memory_free_page(uint32_t addr) {
 }
 
 
-uint32_t memory_get_paddr (uint32_t page_dir, uint32_t vaddr) {
+uint32_t 
+memory_get_paddr (uint32_t page_dir, uint32_t vaddr) {
     pte_t * pte = find_pte((pde_t *)page_dir, vaddr, 0);
     if (pte == (pte_t *)0) {
         return 0;
@@ -266,7 +277,8 @@ uint32_t memory_get_paddr (uint32_t page_dir, uint32_t vaddr) {
 }
 
 
-void memory_destory_uvm (uint32_t page_dir) {
+void 
+memory_destory_uvm (uint32_t page_dir) {
     uint32_t user_pde_start = pde_index(MEMORY_TASK_BASE);
     pde_t * pde = (pde_t *)page_dir + user_pde_start;
 
@@ -287,7 +299,8 @@ void memory_destory_uvm (uint32_t page_dir) {
 }
 
 
-uint32_t memory_copy_uvm (uint32_t page_dir) {
+uint32_t 
+memory_copy_uvm (uint32_t page_dir) {
     uint32_t to_page_dir = memory_create_uvm();
     if (to_page_dir == 0) {
         goto copy_uvm_failed;
@@ -328,7 +341,8 @@ copy_uvm_failed:
 }
 
 
-int memory_copy_uvm_data(uint32_t to, uint32_t page_dir, uint32_t from, uint32_t size) {
+int 
+memory_copy_uvm_data(uint32_t to, uint32_t page_dir, uint32_t from, uint32_t size) {
     char *buf, *pa0;
 
     while(size > 0){
@@ -350,3 +364,49 @@ int memory_copy_uvm_data(uint32_t to, uint32_t page_dir, uint32_t from, uint32_t
   return 0;
 }
 
+
+char * sys_sbrk(int incr) {
+    task_t * task = task_current();
+    char * pre_heap_end = (char * )task->heap_end;
+    int pre_incr = incr;
+
+    // ASSERT(incr >= 0);
+
+    // 如果地址为0，则返回有效的heap区域的顶端
+    if (incr == 0) {
+        klog("sbrk(0): end = 0x%x", pre_heap_end);
+        return pre_heap_end;
+    } 
+    
+    uint32_t start = task->heap_end;
+    uint32_t end = start + incr;
+
+    // 起始偏移非0
+    int start_offset = start % MEM_PAGE_SIZE;
+    if (start_offset) {
+        // 不超过1页，只调整
+        if (start_offset + incr <= MEM_PAGE_SIZE) {
+            task->heap_end = end;
+            return pre_heap_end;
+        } else {
+            // 超过1页，先只调本页的
+            uint32_t curr_size = MEM_PAGE_SIZE - start_offset;
+            start += curr_size;
+            incr -= curr_size;
+        }
+    }
+
+    // 处理其余的，起始对齐的页边界的
+    if (incr) {
+        uint32_t curr_size = end - start;
+        int err = memory_alloc_page_for(start, curr_size, PTE_P | PTE_U | PTE_W);
+        if (err < 0) {
+            klog("sbrk: alloc mem failed.");
+            return (char *)-1;
+        }
+    }
+
+    klog("sbrk(%d): end = 0x%x", pre_incr, end);
+    task->heap_end = end;
+    return (char * )pre_heap_end;        
+}

@@ -2,6 +2,8 @@
 #include <task.h>
 #include <log.h>
 #include <console.h>
+#include <fs.h>
+#include <mem.h>
 
 typedef int (*sys_handle_t)(uint32_t arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3);
 
@@ -19,6 +21,17 @@ static const sys_handle_t sys_table[] = {
     [SYS_fork] = (sys_handle_t)sys_fork,
     [SYS_execve] = (sys_handle_t)sys_execve,
     [SYS_yield] = (sys_handle_t)sys_yield,
+
+    [SYS_open] = (sys_handle_t)sys_open,
+    [SYS_read] = (sys_handle_t)sys_read,
+    [SYS_write] = (sys_handle_t)sys_write,
+    [SYS_close] = (sys_handle_t)sys_close,
+    [SYS_lseek] = (sys_handle_t)sys_lseek,
+
+    [SYS_isatty] = (sys_handle_t)sys_isatty,
+    [SYS_sbrk] = (sys_handle_t)sys_sbrk,
+    [SYS_fstat] = (sys_handle_t)sys_fstat,
+
 };
 
 

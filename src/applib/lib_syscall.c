@@ -71,3 +71,75 @@ yield() {
     args.id = SYS_yield;
     return sys_call(&args);
 }
+
+int 
+open(const char* name, int flags, ...){
+    syscall_arg_t args;
+    args.id = SYS_open;
+    args.arg0 = (int)name;
+    args.arg1 = (int)flags;
+    return sys_call(&args);
+}
+
+int 
+read(int file, char* ptr, int len) {
+    syscall_arg_t args;
+    args.id = SYS_read;
+    args.arg0 = (int)file;
+    args.arg1 = (int)ptr;
+    args.arg2 = (int)len;
+    return sys_call(&args);
+}
+
+int 
+write(int file, char* ptr, int len) {
+    syscall_arg_t args;
+    args.id = SYS_write;
+    args.arg0 = (int)file;
+    args.arg1 = (int)ptr;
+    args.arg2 = (int)len;
+    return sys_call(&args);
+}
+
+int 
+close(int file) {
+    syscall_arg_t args;
+    args.id = SYS_close;
+    args.arg0 = (int)file;
+    return sys_call(&args);
+}
+
+int 
+lseek(int file, int ptr, int dir) {
+    syscall_arg_t args;
+    args.id = SYS_lseek;
+    args.arg0 = (int)file;
+    args.arg1 = (int)ptr;
+    args.arg2 = (int)dir;
+    return sys_call(&args);
+}
+
+int 
+isatty(int file) {
+    syscall_arg_t args;
+    args.id = SYS_isatty;
+    args.arg0 = (int)file;
+    return sys_call(&args);
+}
+
+int 
+fstat(int file, struct stat* st) {
+    syscall_arg_t args;
+    args.id = SYS_fstat;
+    args.arg0 = (int)file;
+    args.arg1 = (int)st;
+    return sys_call(&args);
+}
+
+void * 
+sbrk(ptrdiff_t incr) {
+    syscall_arg_t args;
+    args.id = SYS_sbrk;
+    args.arg0 = (int)incr;
+    return (void*)sys_call(&args);
+}

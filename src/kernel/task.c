@@ -21,7 +21,8 @@ static void idle_task_func() { for(;;) hlt(); }
 
 void simple_switch(uint32_t **from, uint32_t* to);
 
-void task_switch_from_to(task_t* from, task_t* to) {
+void 
+task_switch_from_to(task_t* from, task_t* to) {
     #ifndef USE_TSS
     simple_switch(&from->stack, to->stack);  // 使用直接跳转机制
     #else
@@ -31,7 +32,8 @@ void task_switch_from_to(task_t* from, task_t* to) {
 
 
 #ifdef USE_TSS
-static int tss_init(task_t* task, int flag, uint32_t entry, uint32_t esp) {
+static int 
+tss_init(task_t* task, int flag, uint32_t entry, uint32_t esp) {
     int tss_sel = gdt_alloc_desc();
 
     segment_desc_set(tss_sel, (uint32_t)&task->tss, sizeof(tss_t), 
@@ -86,7 +88,8 @@ tss_init_failed:
 #endif
 
 // 初始化一个任务
-int task_init(task_t* task, const char* name, int flag, uint32_t entry, uint32_t esp) {
+int 
+task_init(task_t* task, const char* name, int flag, uint32_t entry, uint32_t esp) {
     
     #ifndef USE_TSS
     uint32_t* pesp = (uint32_t*)esp;
@@ -109,6 +112,8 @@ int task_init(task_t* task, const char* name, int flag, uint32_t entry, uint32_t
     task->slice_ticks = TASK_TIME_SLICE_DEFAULT;        //  当前时间片
     task->sleep_ticks = 0;
     task->parent = (task_t*)0;
+    task->heap_start = 0;
+    task->heap_end = 0;
     list_node_init(&task->all_node); 
     list_node_init(&task->run_node);
     list_node_init(&task->wait_node);
@@ -122,7 +127,8 @@ int task_init(task_t* task, const char* name, int flag, uint32_t entry, uint32_t
     return 0;
 }
 
-void task_start(task_t* task) {
+void 
+task_start(task_t* task) {
     irq_state_t state = irq_enter_proection();   //--enter protection
     
         task_set_ready(task);                                        // 加入到就绪队列
@@ -132,7 +138,8 @@ void task_start(task_t* task) {
 
 
 // 初始化任务管理
-void task_manager_init() {
+void 
+task_manager_init() {
     k_memset(g_task_table, 0, sizeof(g_task_table));
     mutex_init(&task_table_mutex);
 
@@ -182,6 +189,9 @@ void first_task_init() {
             first_start, 
             first_start + alloc_size );
     
+    g_task_manager.first_task.heap_start = (uint32_t)e_first_task;
+    g_task_manager.first_task.heap_end = (uint32_t)e_first_task;
+    
     mmu_set_page_dir((&g_task_manager)->first_task.tss.cr3);
 
     memory_alloc_page_for(first_start, alloc_size, PTE_P | PTE_W | PTE_U);
@@ -194,18 +204,21 @@ void first_task_init() {
 }
 
 
-
-task_t* get_first_task() {
+task_t* 
+get_first_task() {
     return &g_task_manager.first_task;
 }
 
-task_t* task_current() {
+
+task_t* 
+task_current() {
     return g_task_manager.curr_task;
 }
 
 
 // 将任务添加到就绪队列 尾部 设置状态为 ready
-void task_set_ready(task_t* task) {
+void 
+task_set_ready(task_t* task) {
     if (task == &g_task_manager.idle_task) {  // 空进程不应该加入就绪队列
         return;
     }
@@ -215,7 +228,8 @@ void task_set_ready(task_t* task) {
 }
 
 // 将 特定 任务从就绪队列删除
-void task_set_block(task_t* task) {
+void 
+task_set_block(task_t* task) {
     if (task == &g_task_manager.idle_task) {  // 空进程不应该删除
         return;
     }
@@ -224,7 +238,8 @@ void task_set_block(task_t* task) {
 }
 
 // 主动放弃cpu执行
-int  sys_yield() {
+int  
+sys_yield() {
 
     irq_state_t state = irq_enter_proection();   //--enter protection
     
@@ -242,7 +257,8 @@ int  sys_yield() {
 }
 
 // 从就绪队列中找到一第一个任务
-task_t * task_next_run() {
+task_t * 
+task_next_run() {
     if (list_count(&g_task_manager.ready_list) == 0) {
         return &g_task_manager.idle_task;
     }
@@ -252,7 +268,8 @@ task_t * task_next_run() {
 }
 
 // 分配一个任务并从当前任务切换过去
-void task_dispatch() {
+void
+task_dispatch() {
 
     irq_state_t state = irq_enter_proection();   //--enter protection
     task_t * to = task_next_run();
@@ -269,7 +286,8 @@ void task_dispatch() {
 }
 
 // 检查当前任务的时间片是否用完，若用完强制切换到下一任务
-void task_time_tick() {
+void 
+task_time_tick() {
     task_t* curr = task_current();
 
     int slice = --curr->slice_ticks;
@@ -299,7 +317,8 @@ void task_time_tick() {
 
 
 
-void sys_sleep(uint32_t ms) {
+void 
+sys_sleep(uint32_t ms) {
     irq_state_t state = irq_enter_proection();
 
     task_t* curr = task_current();
@@ -311,7 +330,8 @@ void sys_sleep(uint32_t ms) {
     irq_leave_proection(state);
 }
 
-void task_set_sleep(task_t* task, uint32_t ticks) {
+void 
+task_set_sleep(task_t* task, uint32_t ticks) {
     if(ticks <= 0) return;
     task->sleep_ticks = ticks;
     task->state = TASK_SLEEP;
@@ -319,12 +339,14 @@ void task_set_sleep(task_t* task, uint32_t ticks) {
         &task->run_node);
 }
 
-void task_set_wakeup(task_t* task) {
+void 
+task_set_wakeup(task_t* task) {
     list_delete(&g_task_manager.sleep_list, 
         &task->run_node);
 }
 
-int sys_getpid () {
+int 
+sys_getpid () {
 
     task_t* curr = task_current();
 
@@ -332,7 +354,8 @@ int sys_getpid () {
 }
 
 
-static task_t* alloc_task() {
+static task_t* 
+alloc_task() {
     task_t* task = (task_t*)0;
     mutex_lock(&task_table_mutex);
     for(int i=0; i<128; i++) {
@@ -346,13 +369,15 @@ static task_t* alloc_task() {
     return task;
 }
 
-static void free_task(task_t* task) {
+static void 
+free_task(task_t* task) {
     mutex_lock(&task_table_mutex);
     task->name[0] = '\0';
     mutex_unlock(&task_table_mutex);
 }
 
-static void task_uninit(task_t* task) {
+static void 
+task_uninit(task_t* task) {
     if(task->tss_sel) {
         gdt_free_sel(task->tss_sel);
     }
@@ -367,7 +392,8 @@ static void task_uninit(task_t* task) {
 }
 
 
-int sys_fork() {
+int 
+sys_fork() {
     task_t* parent_task = task_current();
 
     task_t* child_task = alloc_task();
@@ -418,7 +444,8 @@ fork_failed:
 
 
 
-static int load_phdr(int file, Elf32_Phdr * phdr, uint32_t page_dir) {
+static int 
+load_phdr(int file, Elf32_Phdr * phdr, uint32_t page_dir) {
 
     int err = memory_alloc_for_page_dir(page_dir, phdr->p_vaddr, phdr->p_memsz, PTE_P | PTE_U | PTE_W);
     if (err < 0) {
@@ -450,7 +477,8 @@ static int load_phdr(int file, Elf32_Phdr * phdr, uint32_t page_dir) {
     return 0;
 }
 
-static uint32_t load_elf_file(task_t* task, const char* name, uint32_t page_dir) {
+static uint32_t 
+load_elf_file(task_t* task, const char* name, uint32_t page_dir) {
     Elf32_Ehdr elf_hdr;
 
     Elf32_Phdr elf_phdr;
@@ -494,8 +522,8 @@ static uint32_t load_elf_file(task_t* task, const char* name, uint32_t page_dir)
             goto load_failed;
         }
 
-        //task->heap_start = elf_phdr.p_vaddr + elf_phdr.p_memsz;
-        //task->heap_end = task->heap_start;
+        task->heap_start = elf_phdr.p_vaddr + elf_phdr.p_memsz;
+        task->heap_end = task->heap_start;
 
     }
 
@@ -510,7 +538,8 @@ return 0;
 }
 
 
-static int copy_args (char * to, uint32_t page_dir, int argc, char **argv) {
+static int 
+copy_args (char * to, uint32_t page_dir, int argc, char **argv) {
     task_args_t task_args;
     task_args.argc = argc;
     task_args.argv = (char **)(to + sizeof(task_args_t));
@@ -535,8 +564,9 @@ static int copy_args (char * to, uint32_t page_dir, int argc, char **argv) {
     return memory_copy_uvm_data((uint32_t)to, page_dir, (uint32_t)&task_args, sizeof(task_args_t));
 }
 
-// 用当前进程运行新的代码
-int sys_execve(char* name, char** argv, char** env) {
+
+int         // 用当前进程运行新的代码
+sys_execve(char* name, char** argv, char** env) {
     task_t* curr_task = task_current();
 
     k_strncpy(curr_task->name, get_file_name(name), TASK_NAME_SIZE);
