@@ -7,6 +7,7 @@
 #include <task.h>
 #include <list.h>
 #include <mem.h>
+#include <console.h>
 
 // void test_mem_page() {}
 // *(uint8_t*)test_mem_page = 0x12;
@@ -15,6 +16,7 @@
 void kernel_init (boot_info_t * boot_info) {
     log_init();
     gdt_init();
+    console_init();
     memory_init(boot_info);
     irq_init();
     time_init();

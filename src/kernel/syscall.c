@@ -1,12 +1,14 @@
 #include <syscall.h>
 #include <task.h>
 #include <log.h>
+#include <console.h>
 
 typedef int (*sys_handle_t)(uint32_t arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3);
 
 // 临时使用
 void sys_print_msg(const char* fmt, int arg) {
     klog(fmt, arg);
+    // console_write(fmt);
 }
 
 

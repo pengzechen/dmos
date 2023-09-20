@@ -29,6 +29,7 @@ enable_language(ASM)
 include_directories(
     ${PROJECT_SOURCE_DIR}/src
     ${PROJECT_SOURCE_DIR}/src/kernel/include
+    ${PROJECT_SOURCE_DIR}/newlib/i686-elf/include
     ${PROJECT_SOURCE_DIR}/loader
 )
 
@@ -37,6 +38,7 @@ add_subdirectory(./src/boot)
 add_subdirectory(./src/loader)
 add_subdirectory(./src/kernel)
 add_subdirectory(./src/applib)
-
 add_subdirectory(./src/shell)
 
+add_dependencies(shell app)
+add_dependencies(kernel app)

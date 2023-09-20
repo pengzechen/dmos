@@ -1,6 +1,7 @@
 #include <mem.h>
 #include <log.h>
 #include <mmu.h>
+#include <console.h>
 
 static addr_alloc_t g_paddr_alloc;
 static pde_t g_kernel_page_dir[PDE_CNT] __attribute__( (aligned(MEM_PAGE_SIZE)) );
@@ -135,10 +136,11 @@ void create_kernel_table (void) {
     extern uint8_t kernel_base[];
 
     static memory_map_t kernel_map[] = {
-        {kernel_base,           s_text,                         0,                      PTE_W},      // 内核栈区
-        {s_text,                e_text,                         s_text,                 0    },      // 内核代码区
-        {s_data,                (void *)(MEM_EBDA_START),       s_data,                 PTE_W},      // 内核数据区
-        {(void*)MEM_EXT_START,  (void*)MEM_EXT_END,             (void*)MEM_EXT_START,   PTE_W},
+        {kernel_base,           s_text,                         0,                        PTE_W},      // 内核栈区
+        {s_text,                e_text,                         s_text,                   0    },      // 内核代码区
+        {s_data,                (void *)(MEM_EBDA_START),       s_data,                   PTE_W},      // 内核数据区
+    {(void*)CONSOLE_DISP_ADDR, (void*)CONSOLE_DISP_END,     (void*)CONSOLE_DISP_ADDR, PTE_W },
+        {(void*)MEM_EXT_START,  (void*)MEM_EXT_END,             (void*)MEM_EXT_START,     PTE_W},
     };
 
     for (int i = 0; i < sizeof(kernel_map) / sizeof(memory_map_t); i++) {

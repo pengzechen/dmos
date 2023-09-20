@@ -1,8 +1,8 @@
 
 project(shell LANGUAGES C)  
-
+# -L ${CMAKE_BINARY_DIR}/../newlib/i686-elf/lib -lm -lc
 set(LIBS_FLAGS 
-"-L ${CMAKE_BINARY_DIR}/src/applib/ -lapp ")
+"-L ${CMAKE_BINARY_DIR}/src/applib/ -lapp -L ${CMAKE_BINARY_DIR}/../newlib/i686-elf/lib -lm -lc")
 
 set(CMAKE_EXE_LINKER_FLAGS 
 "-m elf_i386 -T ${PROJECT_SOURCE_DIR}/link.lds ${LIBS_FLAGS}")
