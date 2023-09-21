@@ -30,6 +30,7 @@
         "stdarg.h": "c",
         "mem.h": "c",
         "mmu.h": "c",
-        "elf.h": "c"
+        "elf.h": "c",
+        "stdio.h": "c"
     },
 }

@@ -3,6 +3,8 @@
 #include <klib.h>
 #include <comm/cpu_ins.h>
 #include <comm/elf.h>
+#include <log.h>
+#include <console.h>
 
 static uint8_t TEMP_ADDR[100*1024];
 static uint8_t * temp_pos;
@@ -50,11 +52,18 @@ sys_read(int file, char* ptr, int len) {
         k_memcpy(ptr, temp_pos, len);
         temp_pos += len;
         return len;
+    } else if (file == 0) {
+        
     }
 }
 
 int 
 sys_write(int file, char* ptr, int len) {
+    if (file == 1) {
+        // ptr[len] = '\0';
+        console_write(0, ptr, len);
+        // klog("%s", ptr);
+    }
     return -1;
 }
 

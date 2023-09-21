@@ -9,6 +9,10 @@
 #define CONSOLE_COL_MAX     80
 
 
+#define ASCII_ESC       0X1B // \033
+#define ESC_PARAM_MAX   10
+
+
 typedef enum _color_t {
     COLOR_Black			= 0,
     COLOR_Blue			= 1,
@@ -39,11 +43,24 @@ typedef union _disp_char_t {
 
 }disp_char_t;
 
+// ESC 7,8
+// ESC [xx,xxm
 typedef struct _console_t {
+    enum {
+        CONSOLE_WRITE_NOMAL,
+        CONSOLE_WRITE_ESC,
+        CONSOLE_WRITE_SQUARE,
+    }write_state;
+    
     disp_char_t * disp_base;
     int display_rows, display_cols;
     int cursor_row, cursor_col;
     color_t foreground, background;
+
+    int old_cursor_col, old_cursor_row;
+    
+    int esc_param[ESC_PARAM_MAX];
+    int curr_param_index;
 }console_t;
 
 int  console_init();
