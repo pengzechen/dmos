@@ -44,6 +44,9 @@ addr_free_page(addr_alloc_t * alloc, uint32_t addr, int page_count) {
 }
 
 
+
+// _________________________________________
+//       测试
 static void 
 some_test() {
     addr_alloc_t addr_alloc;
@@ -60,8 +63,6 @@ some_test() {
         klog("free addr: 0x%x", addr);
     }
 }
-
-
 static void        
 show_mem_info(boot_info_t* boot_info) {
     klog("mem region");
@@ -72,8 +73,6 @@ show_mem_info(boot_info_t* boot_info) {
     }
     klog("");
 }
-
-
 static uint32_t 
 total_mem_size(boot_info_t* boot_info) {
     uint32_t mem_size = 0;
@@ -83,7 +82,7 @@ total_mem_size(boot_info_t* boot_info) {
     return mem_size;
 }
 
-
+//___________________________________________
 
 
 pte_t * 
@@ -110,8 +109,8 @@ find_pte (pde_t * page_dir, uint32_t vaddr, int alloc) {
     return page_table + pte_index(vaddr);
 }
 
-// 创建映射
-int 
+
+int // 创建映射
 memory_create_map (pde_t * page_dir, uint32_t vaddr, uint32_t paddr, int count, uint32_t perm) {
     for (int i = 0; i < count; i++) {
         // klog("create map: v-0x%x p-0x%x, perm: 0x%x", vaddr, paddr, perm);
@@ -139,11 +138,11 @@ create_kernel_table (void) {
     extern uint8_t kernel_base[];
 
     static memory_map_t kernel_map[] = {
-        {kernel_base,           s_text,                         0,                        PTE_W},      // 内核栈区
-        {s_text,                e_text,                         s_text,                   0    },      // 内核代码区
-        {s_data,                (void *)(MEM_EBDA_START),       s_data,                   PTE_W},      // 内核数据区
-    {(void*)CONSOLE_DISP_ADDR, (void*)CONSOLE_DISP_END,     (void*)CONSOLE_DISP_ADDR, PTE_W },
-        {(void*)MEM_EXT_START,  (void*)MEM_EXT_END,             (void*)MEM_EXT_START,     PTE_W},
+        {kernel_base,              s_text,                         0,                           PTE_W},      // 内核栈区
+        {s_text,                   e_text,                         s_text,                      0    },      // 内核代码区
+        {s_data,                   (void *)(MEM_EBDA_START),       s_data,                      PTE_W},      // 内核数据区
+        {(void*)CONSOLE_DISP_ADDR, (void*)CONSOLE_DISP_END,        (void*)CONSOLE_DISP_ADDR,    PTE_W},      // 显存区域
+        {(void*)MEM_EXT_START,     (void*)MEM_EXT_END,             (void*)MEM_EXT_START,        PTE_W},      // 剩余所有区域
     };
 
     for (int i = 0; i < sizeof(kernel_map) / sizeof(memory_map_t); i++) {
@@ -177,11 +176,13 @@ memory_init (boot_info_t* boot_info) {
         klog("simple test ok!");
     }
 
-    k_memset(g_kernel_page_dir, 0, sizeof(g_kernel_page_dir));  // 清空内核表
+    k_memset(g_kernel_page_dir, 0, sizeof(g_kernel_page_dir));  // 清空内核页表目录
 
     create_kernel_table();
 
-    mmu_set_page_dir((uint32_t)g_kernel_page_dir);            // 重新设置页表
+
+    // 在 cr3 寄存器中写入页表目录  // 重新设置页表目录
+    mmu_set_page_dir((uint32_t)g_kernel_page_dir);              
     
 }
 
