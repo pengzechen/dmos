@@ -2,12 +2,14 @@
 #include <comm/cpu_ins.h>
 #include <cpu.h>
 #include <irq.h>
-#include <mtime.h>
 #include <log.h>
 #include <task.h>
 #include <list.h>
 #include <mem.h>
+
+#include <mtime.h>
 #include <console.h>
+#include <kbd.h>
 
 // void test_mem_page() {}
 // *(uint8_t*)test_mem_page = 0x12;
@@ -20,6 +22,7 @@ void kernel_init (boot_info_t * boot_info) {
     console_init();
     memory_init(boot_info);
     time_init();
+    kbd_init();
 }
 
 

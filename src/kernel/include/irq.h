@@ -34,6 +34,7 @@
 #define IRQ19_XM            19
 #define IRQ20_VE            20
 #define IRQ_TIMER           0x20
+#define IRQ_KEYBOARD        0X21
 
 // 8259 芯片相关
 // PIC控制器相关的寄存器及位配置
