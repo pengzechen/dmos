@@ -1,7 +1,10 @@
 #include <lib_syscall.h>
 #include <stdio.h>
 
+char cmd_buf[256];
+
 int main(int argc, char **argv) {
+#if 0
     // printf("abef\b\b\b\bcd\n");     // 光标左移    cdef
     // printf("abcd\x7f;fg\n");       // 左删一个字符 abc;ef 
     // printf("\0337Hello, world!\0338\n");  // 123lo, world
@@ -14,15 +17,26 @@ int main(int argc, char **argv) {
     // printf("\033[31;42mHello, world!\033[39;49m123\n");
     
     for(int i=0; i<argc; i++) {
-        printf("arg: %s\n", (int)argv[i]);
+        print_msg("arg: %s\n", (int)argv[i]);
     }
     
     fork();
     yield();
+#endif
+
+    int fd = open("tty:0", 0);    // fd = 0
+    dup(fd);
+    dup(fd);
+
+    printf("abcdefg\n");     // 光标左移    cdef
+    fprintf(stderr, "there is error occur\n");
 
     for(int i=0; ;i++) {
-        printf("shell pid=%d says: %d\n", getpid(), i);
-        msleep(1000);
+        gets(cmd_buf);
+        puts(cmd_buf);
+
+        // printf("shell pid=%d\n", getpid());
+        // msleep(1000);
     }
     return 0;
 }

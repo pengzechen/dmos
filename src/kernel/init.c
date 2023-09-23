@@ -8,21 +8,23 @@
 #include <mem.h>
 
 #include <mtime.h>
-#include <console.h>
-#include <kbd.h>
+#include <tty/console.h>
+#include <tty/kbd.h>
+#include <fs.h>
 
 // void test_mem_page() {}
 // *(uint8_t*)test_mem_page = 0x12;
 // *(uint8_t*)test_mem_page = 0x34;
 
 void kernel_init (boot_info_t * boot_info) {
-    log_init();
     gdt_init();
     irq_init();
-    console_init();
+    log_init();
+    
     memory_init(boot_info);
+    fs_init();
     time_init();
-    kbd_init();
+    task_manager_init();
 }
 
 
@@ -101,7 +103,6 @@ void move_to_first_task(void) {
 void init_main() {
     klog("Kernal %s is running ... ", "1.0.0");
 
-    task_manager_init();
     first_task_init();
     irq_enable_global();
     

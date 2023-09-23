@@ -31,6 +31,8 @@
         "mem.h": "c",
         "mmu.h": "c",
         "elf.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "kbd.h": "c",
+        "tty.h": "c"
     },
 }

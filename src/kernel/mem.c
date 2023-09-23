@@ -1,7 +1,7 @@
 #include <mem.h>
 #include <log.h>
 #include <mmu.h>
-#include <console.h>
+#include <tty/console.h>
 
 static addr_alloc_t g_paddr_alloc;
 static pde_t g_kernel_page_dir[PDE_CNT] __attribute__( (aligned(MEM_PAGE_SIZE)) );
