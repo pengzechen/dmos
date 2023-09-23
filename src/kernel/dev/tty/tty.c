@@ -6,6 +6,7 @@
 #include <irq.h>
 
 static tty_t tty_devs[8];
+static int curr_tty = 0;
 
 static tty_t* get_tty(device_t* dev) {
     int tty = dev->minor;
@@ -162,8 +163,8 @@ int tty_close (device_t* dec) {
 
 }
 
-void tty_in(int idx, char ch) {
-    tty_t* tty = tty_devs + idx;
+void tty_in(char ch) {
+    tty_t* tty = tty_devs + curr_tty;
 
     if (sem_count(&tty->isem) >= TTY_IBUF_SIZE) {
         return;
@@ -172,6 +173,14 @@ void tty_in(int idx, char ch) {
     tty_fifo_put(&tty->ififo, ch);
     sem_notify(&tty->isem);
 }
+
+void tty_select(int tty) {
+    if (tty != curr_tty) {
+        console_select(tty);
+        curr_tty = tty;
+    }
+}
+
 
 dev_desc_t dev_tty_desc = {
     .name = "tty",

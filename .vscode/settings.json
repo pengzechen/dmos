@@ -33,6 +33,7 @@
         "elf.h": "c",
         "stdio.h": "c",
         "kbd.h": "c",
-        "tty.h": "c"
+        "tty.h": "c",
+        "dev.h": "c"
     },
 }
