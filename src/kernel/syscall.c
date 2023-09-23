@@ -1,7 +1,7 @@
 #include <syscall.h>
 #include <task.h>
 #include <log.h>
-#include <console.h>
+#include <tty/console.h>
 #include <fs.h>
 #include <mem.h>
 
@@ -31,7 +31,7 @@ static const sys_handle_t sys_table[] = {
     [SYS_isatty] = (sys_handle_t)sys_isatty,
     [SYS_sbrk] = (sys_handle_t)sys_sbrk,
     [SYS_fstat] = (sys_handle_t)sys_fstat,
-
+    [SYS_dup] = (sys_handle_t)sys_dup,
 };
 
 
