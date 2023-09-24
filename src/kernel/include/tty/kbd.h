@@ -13,15 +13,15 @@
 // https://wiki.osdev.org/PS/2_Keyboard
 #define KBD_CMD_RW_LED			0xED   // 写按键
 
-#define KEY_RSHIFT		0x36
-#define KEY_LSHIFT 		0x2A
+#define KEY_RSHIFT		        0x36
+#define KEY_LSHIFT 		        0x2A
 
-#define KEY_CAPS			0x3A
+#define KEY_CAPS			    0x3A
 
-#define KEY_E0			0xE0	// E0编码
-#define KEY_E1			0xE1	// E1编码
+#define KEY_E0			        0xE0	// E0编码
+#define KEY_E1			        0xE1	// E1编码
 // #define	ASCII_ESC		0x1b
-#define	ASCII_DEL		0x7F
+#define	ASCII_DEL		        0x7F
 
 /**
  * 特殊功能键
@@ -68,13 +68,13 @@ typedef struct _key_map_t {
 
 
 typedef struct _kbd_state_t {
-    int caps_lock : 1;			// 大写状态
-    int lshift_press : 1;       // 左shift按下
-    int rshift_press : 1;       // 右shift按下
-    int ralt_press : 1;          // alt按下
-    int lalt_press : 1;          // alt按下
-    int lctrl_press : 1;         // ctrl键按下
-    int rctrl_press : 1;         // ctrl键按下
+    int caps_lock    :1;			// 大写状态
+    int lshift_press :1;       // 左shift按下
+    int rshift_press :1;       // 右shift按下
+    int ralt_press   :1;          // alt按下
+    int lalt_press   :1;          // alt按下
+    int lctrl_press  :1;         // ctrl键按下
+    int rctrl_press  :1;         // ctrl键按下
 }kbd_state_t;
 
 void kbd_init();
