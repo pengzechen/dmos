@@ -8,7 +8,8 @@
 static tty_t tty_devs[8];
 static int curr_tty = 0;
 
-static tty_t* get_tty(device_t* dev) {
+static tty_t* 
+get_tty(device_t* dev) {
     int tty = dev->minor;
     if ((tty < 0) || (tty >= 8) || (!dev->open_count)) {
         klog("tty is not opened");
@@ -18,14 +19,16 @@ static tty_t* get_tty(device_t* dev) {
     return tty_devs + tty;
 }
 
-void tty_fifo_init(tty_fifo_t* fifo, char* buf, int size) {
+void 
+tty_fifo_init(tty_fifo_t* fifo, char* buf, int size) {
     fifo->buf = buf;
     fifo->count = 0;
     fifo->size = size;
     fifo->read = fifo->write = 0;
 }
 
-int tty_fifo_get (tty_fifo_t * fifo, char * c) {
+int 
+tty_fifo_get (tty_fifo_t * fifo, char * c) {
 	if (fifo->count <= 0) {
 		return -1;
 	}
@@ -40,7 +43,8 @@ int tty_fifo_get (tty_fifo_t * fifo, char * c) {
 	return 0;
 }
 
-int tty_fifo_put (tty_fifo_t * fifo, char c) {
+int 
+tty_fifo_put (tty_fifo_t * fifo, char c) {
 	if (fifo->count >= fifo->size) {
 		return -1;
 	}
@@ -78,7 +82,8 @@ int tty_open (device_t* dev) {
     return 0;
 }
 
-int tty_write (device_t* dev, int addr, char * buf, int size) {
+int 
+tty_write (device_t* dev, int addr, char * buf, int size) {
     if (size < 0) {
         return -1;
     }
@@ -115,7 +120,8 @@ int tty_write (device_t* dev, int addr, char * buf, int size) {
     return len;
 }
 
-int tty_read (device_t* dev, int addr, char * buf, int size) {
+int 
+tty_read (device_t* dev, int addr, char * buf, int size) {
     if (size < 0) {
         return -1;
     }
@@ -155,15 +161,18 @@ int tty_read (device_t* dev, int addr, char * buf, int size) {
     return len;
 }
 
-int tty_control(device_t* dev, int cmd, int arg0, int arg1) {
+int 
+tty_control(device_t* dev, int cmd, int arg0, int arg1) {
     return 0;
 }
 
-int tty_close (device_t* dec) {
+int 
+tty_close (device_t* dec) {
 
 }
 
-void tty_in(char ch) {
+void 
+tty_in(char ch) {
     tty_t* tty = tty_devs + curr_tty;
 
     if (sem_count(&tty->isem) >= TTY_IBUF_SIZE) {
@@ -174,7 +183,8 @@ void tty_in(char ch) {
     sem_notify(&tty->isem);
 }
 
-void tty_select(int tty) {
+void 
+tty_select(int tty) {
     if (tty != curr_tty) {
         console_select(tty);
         curr_tty = tty;

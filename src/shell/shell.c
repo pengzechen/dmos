@@ -28,8 +28,8 @@ int main(int argc, char **argv) {
     dup(fd);
     dup(fd);
 
-    //printf("abcdefg\n");     // 光标左移    cdef
-    //fprintf(stderr, "there is error occur\n");
+    printf("abcdefg\n");     // 光标左移    cdef
+    fprintf(stderr, "there is error occur\n");
 
     for(int i=0; ;i++) {
 

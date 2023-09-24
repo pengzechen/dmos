@@ -624,7 +624,10 @@ return -1;
 }
 
 
-int 
+
+// 进程文件相关
+
+int         // 为当前任务分配一个空闲的 fd
 task_alloc_fd (file_t* file) {
     task_t* task = task_current();
     for (int i=0; i < TASK_OFILE_NR; i++) {
@@ -638,14 +641,14 @@ task_alloc_fd (file_t* file) {
     return -1;
 }
 
-void 
+void       // 删除当前任务的指定文件
 task_remove_fd (int fd) {
     if ((fd >= 0) && (fd < TASK_OFILE_NR)) {
         task_current()->file_table[fd] = (file_t*)0;
     }
 }
 
-file_t* 
+file_t*    // 通过fd找到当前进程的打开的文件
 task_file (int fd) {
     if ((fd >= 0) && (fd < TASK_OFILE_NR)) {
         file_t* file = task_current()->file_table[fd];

@@ -4,7 +4,7 @@
 #define LOG_USE_COM         0
 
 
-#define COM1_PORT       0x3f8
+#define COM1_PORT           0x3f8
 
 static mutex_t mutex;
 static int log_dev_id;

@@ -12,7 +12,8 @@ static dev_desc_t* dev_desc_tb[] = {
 
 static device_t dev_tb[DEV_TABLE_SIZE];
 
-static int is_devid_bad (int dev_id) {
+static int 
+is_devid_bad (int dev_id) {
     if ((dev_id < 0) || (dev_id >=  sizeof(dev_tb) / sizeof(dev_tb[0]))) {
         return 1;
     }
@@ -24,7 +25,8 @@ static int is_devid_bad (int dev_id) {
     return 0;
 }
 
-int dev_open (int major, int minor, void * data) {
+int 
+dev_open (int major, int minor, void * data) {
     irq_state_t state = irq_enter_proection();
 
     device_t * free_dev = (device_t *)0;
@@ -65,7 +67,8 @@ int dev_open (int major, int minor, void * data) {
     return -1;
 }
 
-int dev_read(int dev_id, int addr, char* buf, int size) {
+int 
+dev_read(int dev_id, int addr, char* buf, int size) {
     if (is_devid_bad(dev_id)) {
         return -1;
     }
@@ -73,7 +76,8 @@ int dev_read(int dev_id, int addr, char* buf, int size) {
     return dev->desc->read(dev, addr, buf, size);
 }
 
-int dev_write(int dev_id, int addr, char* buf, int size) {
+int 
+dev_write(int dev_id, int addr, char* buf, int size) {
     if (is_devid_bad(dev_id)) {
         return -1;
     }
@@ -81,7 +85,8 @@ int dev_write(int dev_id, int addr, char* buf, int size) {
     return dev->desc->write(dev, addr, buf, size);
 }
 
-int dev_control(int dev_id, int cmd, char* buf, int arg0, int arg1) {
+int 
+dev_control(int dev_id, int cmd, char* buf, int arg0, int arg1) {
     if (is_devid_bad(dev_id)) {
         return -1;
     }
@@ -89,7 +94,8 @@ int dev_control(int dev_id, int cmd, char* buf, int arg0, int arg1) {
     return dev->desc->control(dev, cmd, arg0, arg1);
 }
 
-void dev_close(int dev_id) {
+void 
+dev_close(int dev_id) {
     if (is_devid_bad(dev_id)) {
         return;
     }
