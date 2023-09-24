@@ -403,7 +403,7 @@ char * sys_sbrk(int incr) {
         }
     }
 
-    klog("sbrk(%d): end = 0x%x", pre_incr, end);
+    // klog("sbrk(%d): end = 0x%x", pre_incr, end);
     task->heap_end = end;
     return (char * )pre_heap_end;        
 }

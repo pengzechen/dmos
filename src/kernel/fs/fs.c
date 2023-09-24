@@ -98,7 +98,7 @@ sys_open_failed:
     } else if (name[0] == '/') {
         irq_state_t state = irq_enter_proection();
 
-        read_disk(5000, 80, (uint8_t* )TEMP_ADDR);
+        read_disk(5000, 100, (uint8_t* )TEMP_ADDR);
 
         irq_leave_proection(state);
         temp_pos = (uint8_t *)TEMP_ADDR;

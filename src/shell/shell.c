@@ -1,7 +1,33 @@
 #include <lib_syscall.h>
 #include <stdio.h>
+#include "shell.h"
+#include <string.h>
 
-char cmd_buf[512];
+static cli_t cli;
+static const char* promot = "sh >>";
+static int do_help(int argc, char ** argv) {
+    return 0;
+}
+
+static cli_cmd_t cmd_list[] = {
+    {
+        .name = "help",
+        .usage = "help -- list support command",
+        .do_func = do_help,
+    },
+};
+
+static void cli_init(const char* promot, cli_cmd_t* cmd_list, int size) {
+    cli.promot = promot;
+    memset(cli.curr_input, 0, CLI_INPUT_SIZE);
+    cli.cmd_start = cmd_list;
+    cli.cmd_end = cmd_list + size;
+}
+
+void show_promot() {
+    printf("%s", cli.promot);
+    fflush(stdout);
+}
 
 int main(int argc, char **argv) {
 #if 0
@@ -28,16 +54,11 @@ int main(int argc, char **argv) {
     dup(fd);
     dup(fd);
 
-    printf("abcdefg\n");     // 光标左移    cdef
-    fprintf(stderr, "there is error occur\n");
-
+    cli_init(promot, cmd_list, sizeof(cmd_list) / sizeof(cmd_list[0]));
+    
     for(int i=0; ;i++) {
-
-        gets(cmd_buf);
-        puts(cmd_buf);
-
-        // printf("shell pid=%d\n", getpid());
-        // msleep(1000);
+        show_promot();
+        gets(cli.curr_input);
     }
     return 0;
 }
