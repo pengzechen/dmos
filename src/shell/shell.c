@@ -1,7 +1,7 @@
 #include <lib_syscall.h>
 #include <stdio.h>
 
-char cmd_buf[256];
+char cmd_buf[5555];
 
 int main(int argc, char **argv) {
 #if 0
@@ -24,14 +24,15 @@ int main(int argc, char **argv) {
     yield();
 #endif
 
-    int fd = open("tty:0", 0);    // fd = 0
+    int fd = open(argv[0], 0);    // fd = 0
     dup(fd);
     dup(fd);
 
-    printf("abcdefg\n");     // 光标左移    cdef
-    fprintf(stderr, "there is error occur\n");
+    //printf("abcdefg\n");     // 光标左移    cdef
+    //fprintf(stderr, "there is error occur\n");
 
     for(int i=0; ;i++) {
+        printf("ok------------");
         gets(cmd_buf);
         puts(cmd_buf);
 

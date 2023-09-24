@@ -382,22 +382,18 @@ char * sys_sbrk(int incr) {
     uint32_t start = task->heap_end;
     uint32_t end = start + incr;
 
-    // 起始偏移非0
     int start_offset = start % MEM_PAGE_SIZE;
     if (start_offset) {
-        // 不超过1页，只调整
         if (start_offset + incr <= MEM_PAGE_SIZE) {
             task->heap_end = end;
             return pre_heap_end;
         } else {
-            // 超过1页，先只调本页的
             uint32_t curr_size = MEM_PAGE_SIZE - start_offset;
             start += curr_size;
             incr -= curr_size;
         }
     }
 
-    // 处理其余的，起始对齐的页边界的
     if (incr) {
         uint32_t curr_size = end - start;
         int err = memory_alloc_page_for(start, curr_size, PTE_P | PTE_U | PTE_W);

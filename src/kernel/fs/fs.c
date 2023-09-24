@@ -9,6 +9,7 @@
 #include <dev.h>
 #include <task.h>
 #include <tty/tty.h>
+#include <irq.h>
 
 
 static uint8_t TEMP_ADDR[100*1024];
@@ -95,7 +96,11 @@ sys_open_failed:
     return -1;
 
     } else if (name[0] == '/') {
+        irq_state_t state = irq_enter_proection();
+
         read_disk(5000, 80, (uint8_t* )TEMP_ADDR);
+
+        irq_leave_proection(state);
         temp_pos = (uint8_t *)TEMP_ADDR;
         return TEMP_FILE_ID;
     }

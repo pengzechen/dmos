@@ -156,6 +156,7 @@ console_init(int idx) {
     console->old_cursor_row = console->cursor_row;
 
     console->write_state = CONSOLE_WRITE_NOMAL;
+    mutex_init(&console->mutex);
     return 0;
 }
 
@@ -348,6 +349,8 @@ int
 console_write(tty_t *tty) {
 
     console_t* curr_c = console_buf + tty->console_idx;
+
+    mutex_lock(&curr_c->mutex);
     int len = 0;
 
     do {
@@ -377,6 +380,9 @@ console_write(tty_t *tty) {
         len++;
     } while(1);
 
+    mutex_unlock(&curr_c->mutex);
+
+
     update_cursor_pos(curr_c);
     return len;
 }
@@ -401,6 +407,6 @@ console_select(int idx) {
 
     // 更新光标到当前屏幕
     update_cursor_pos(console);
-    char num = idx + '0';
-    show_char(console, num);
+    // char num = idx + '0';
+    // show_char(console, num);
 }
