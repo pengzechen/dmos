@@ -32,6 +32,7 @@ static const sys_handle_t sys_table[] = {
     [SYS_sbrk] = (sys_handle_t)sys_sbrk,
     [SYS_fstat] = (sys_handle_t)sys_fstat,
     [SYS_dup] = (sys_handle_t)sys_dup,
+    [SYS_exit] = (sys_handle_t)sys_exit,
 };
 
 

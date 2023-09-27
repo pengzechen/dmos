@@ -151,3 +151,10 @@ dup(int fd) {
     args.arg0 = fd;
     return sys_call(&args);
 }
+
+void _exit(int status) {
+    syscall_arg_t args;
+    args.id = SYS_exit;
+    args.arg0 = status;
+    sys_call(&args);
+}

@@ -114,6 +114,7 @@ task_init(task_t* task, const char* name, int flag, uint32_t entry, uint32_t esp
     task->parent = (task_t*)0;
     task->heap_start = 0;
     task->heap_end = 0;
+    task->status = 0;
     list_node_init(&task->all_node); 
     list_node_init(&task->run_node);
     list_node_init(&task->wait_node);
@@ -655,4 +656,24 @@ task_file (int fd) {
         return file;
     }
     return (file_t*)0;
+}
+
+
+void sys_exit(int status) {
+    task_t* curr_task = task_current();
+
+    for (int fd = 0; fd < TASK_OFILE_NR; fd++) {
+        file_t* file = curr_task->file_table[fd];
+        if (file) {
+            sys_close(fd);
+            curr_task->file_table[fd] = (file_t*)0;
+        }
+    }
+
+    irq_state_t state = irq_enter_proection();
+    curr_task->status = status;
+    curr_task->state = TASK_ZOMBIE;
+    task_set_block(curr_task);
+    task_dispatch();
+    irq_leave_proection(state);
 }

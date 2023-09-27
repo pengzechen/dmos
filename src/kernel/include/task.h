@@ -25,6 +25,7 @@ struct _task_s {
         TASK_SLEEP,
         TASK_READY,
         TASK_WAITING,
+        TASK_ZOMBIE,
     }state;
     char name[TASK_NAME_SIZE];
 
@@ -36,6 +37,7 @@ struct _task_s {
     int slice_ticks;
     int time_ticks;
     int sleep_ticks;
+    int status;
 
     file_t* file_table[TASK_OFILE_NR];
 
@@ -107,6 +109,8 @@ int         sys_getpid ();
 int         sys_fork();
 
 int         sys_execve(char* name, char** argv, char** env);
+
+void        sys_exit(int status);
 
 
 int         task_alloc_fd (file_t* file) ;

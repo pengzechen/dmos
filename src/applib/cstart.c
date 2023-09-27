@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdlib.h>
 
 int main(int argc, char** argv);
 
@@ -11,5 +12,5 @@ void cstart (int argc, char** argv) {
         *start++;
     }
 
-    main(argc, argv);
+    exit( main(argc, argv) );
 }
